@@ -1,0 +1,45 @@
+{
+  "name": "ngx-localstorage",
+  "version": "0.1.0",
+  "description": "An Angular wrapper for local storage access.",
+  "scripts": {
+    "cleanup": "rimraf bundles",
+    "bundling": "rollup -c",
+    "minify": "uglifyjs bundles/ngx-localstorage.umd.js --screw-ie8 --compress --mangle --comments --output bundles/ngx-localstorage.umd.min.js",
+    "build": "npm run cleanup && ngc && npm run bundling && npm run minify",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bohoffi/ngx-localstorage.git"
+  },
+  "keywords": [
+    "angular",
+    "local",
+    "storage",
+    "wrapper"
+  ],
+  "author": "bohoffi (bo.hoffi@gmail.com)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/bohoffi/ngx-localstorage/issues"
+  },
+  "homepage": "https://github.com/bohoffi/ngx-localstorage#readme",
+  "module": "index.js",
+  "main": "bundles/ngx-localstorage.umd.js",
+  "typings": "index.d.ts",
+  "dependencies": {},
+  "devDependencies": {
+    "@angular/common": "^4.0.1",
+    "@angular/core": "^4.0.1",
+    "rimraf": "^2.6.1",
+    "rollup": "^0.41.6",
+    "rxjs": "^5.0.1",
+    "uglify-js": "^2.8.21",
+    "zone.js": "^0.8.4"
+  },
+  "peerDependencies": {
+    "@angular/common": "^4.0.1",
+    "@angular/core": "^4.0.1"
+  }
+}
