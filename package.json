@@ -32,9 +32,12 @@
   "devDependencies": {
     "@angular/common": "^4.0.1",
     "@angular/core": "^4.0.1",
+    "@types/core-js": "^0.9.41",
     "rimraf": "^2.6.1",
     "rollup": "^0.41.6",
+    "rx-dom": "^7.0.3",
     "rxjs": "^5.0.1",
+    "typescript": "^2.2.2",
     "uglify-js": "^2.8.21",
     "zone.js": "^0.8.4"
   },

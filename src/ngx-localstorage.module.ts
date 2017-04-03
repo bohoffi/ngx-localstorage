@@ -1,14 +1,42 @@
 /**
  * Created by HOFFM59 on 03.04.2017.
  */
-import {ModuleWithProviders, NgModule} from "@angular/core";
+import {InjectionToken, ModuleWithProviders, NgModule, Optional, SkipSelf} from "@angular/core";
+import {ModuleConfig, LocalStorageDirective, LocalStorageService} from "./lib";
 
-@NgModule({})
-export class AngularLocalStorageModule {
+export const ModuleConfigToken = new InjectionToken<ModuleConfig>('ModuleConfigToken');
 
-    static forRoot(): ModuleWithProviders {
+@NgModule({
+    imports: [],
+    declarations: [
+        LocalStorageDirective
+    ],
+    exports: [
+        LocalStorageDirective
+    ],
+    providers: [
+        LocalStorageService
+    ]
+})
+export class NgxLocalStorageModule {
+
+    constructor(@Optional() @SkipSelf() parentModule: NgxLocalStorageModule) {
+        if (parentModule) {
+            throw new Error('NgxLocalStorageModule is already loaded. Import it in the AppModule only');
+        }
+    }
+
+    static forRoot(config: ModuleConfig): ModuleWithProviders {
         return {
-            ngModule: AngularLocalStorageModule
+            ngModule: NgxLocalStorageModule,
+            providers: [
+                {
+                    provide: ModuleConfigToken,
+                    useValue: config
+                }
+            ]
         }
     }
 }
+
+// export {LocalStorageService} from './lib';
