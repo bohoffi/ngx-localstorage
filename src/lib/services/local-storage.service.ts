@@ -7,7 +7,7 @@ import {ModuleConfig} from "../interfaces";
 @Injectable()
 export class LocalStorageService {
 
-    private _prefix: string = 'ngx_local_storage';
+    private _prefix = 'ngx_local_storage';
 
     constructor(@Optional() config: ModuleConfig) {
         if (config) {
