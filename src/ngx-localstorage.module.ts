@@ -2,7 +2,9 @@
  * Created by bohoffi on 03.04.2017.
  */
 import {InjectionToken, ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
-import {LocalStorageDirective, LocalStorageService, ModuleConfig} from './lib';
+import {CommonModule} from '@angular/common';
+
+import {LocalStorageDirective, LocalStorageService, ModuleConfig} from './lib/index';
 
 export const ModuleConfigToken = new InjectionToken<ModuleConfig>('moduleConfig');
 
@@ -11,7 +13,9 @@ export function provideStorageService(moduleConfig: ModuleConfig): LocalStorageS
 }
 
 @NgModule({
-    imports: [],
+    imports: [
+        CommonModule
+    ],
     declarations: [
         LocalStorageDirective
     ],

@@ -8,7 +8,7 @@ import {Subscription} from 'rxjs/Subscription';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/debounceTime';
 
-import {LocalStorageService} from '../services';
+import {LocalStorageService} from '../services/index';
 import {getProperty, setProperty} from '../utils';
 
 @Directive({

@@ -1,8 +1,8 @@
 /**
  * Created by bohoffi on 03.04.2017.
  */
-import {Injectable, Optional} from "@angular/core";
-import {ModuleConfig} from "../interfaces";
+import {Injectable, Optional} from '@angular/core';
+import {ModuleConfig} from '../interfaces';
 
 @Injectable()
 export class LocalStorageService {

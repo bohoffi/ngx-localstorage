@@ -1,4 +1,4 @@
-# ngx-localstorage
+# ngx-localstorage [![npm version](https://img.shields.io/npm/v/ngx-localstorage.svg)](https://www.npmjs.com/package/ngx-localstorage)
 
 An Angular wrapper for local storage access.
 
