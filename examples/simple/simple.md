@@ -1,2 +1,0 @@
-- importing the NgxLocalStorageModule
-- using the LocalStorageService
