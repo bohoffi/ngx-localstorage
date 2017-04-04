@@ -50,3 +50,5 @@ export class NgxLocalStorageModule {
         }
     }
 }
+
+export {LocalStorageService} from './lib/index';

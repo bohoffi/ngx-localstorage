@@ -18,4 +18,4 @@ index.js
 
 // IDEs
 .vscode
-.idea
+.idea/*
