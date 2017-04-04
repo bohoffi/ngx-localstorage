@@ -1,6 +1,6 @@
 /**
- * Created by HOFFM59 on 03.04.2017.
+ * Created by bohoffi on 03.04.2017.
  */
 export * from './interfaces';
-export * from './services/local-storage.service';
-export * from './directives/local-storage.directive';
+export * from './services';
+export * from './directives';

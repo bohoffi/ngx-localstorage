@@ -1,7 +1,7 @@
 {
   "name": "ngx-localstorage",
-  "version": "0.1.0",
-  "description": "An Angular wrapper for local storage access.",
+  "version": "1.0.0",
+  "description": "An Angular (>=2.0.0) wrapper for local storage access.",
   "scripts": {
     "cleanup": "rimraf bundles",
     "bundling": "rollup -c",
@@ -15,9 +15,9 @@
   },
   "keywords": [
     "angular",
-    "local",
-    "storage",
-    "wrapper"
+    "local storage",
+    "wrapper",
+    "directive"
   ],
   "author": "bohoffi (bo.hoffi@gmail.com)",
   "license": "Apache-2.0",
@@ -31,6 +31,8 @@
   "dependencies": {},
   "devDependencies": {
     "@angular/common": "^4.0.1",
+    "@angular/compiler": "^4.0.1",
+    "@angular/compiler-cli": "^4.0.1",
     "@angular/core": "^4.0.1",
     "@types/core-js": "^0.9.41",
     "rimraf": "^2.6.1",
@@ -41,7 +43,7 @@
     "zone.js": "^0.8.4"
   },
   "peerDependencies": {
-    "@angular/common": "^4.0.1",
-    "@angular/core": "^4.0.1"
+    "@angular/common": ">=2.0.0",
+    "@angular/core": ">=2.0.0"
   }
 }

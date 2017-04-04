@@ -1,6 +1,13 @@
 /**
- * Created by HOFFM59 on 03.04.2017.
+ * Created by bohoffi on 03.04.2017.
  */
 export interface ModuleConfig {
-    prefix: string;
+    /**
+     * Determines the key prefix. (Default: 'ngx_local_storage')
+     */
+    prefix?: string;
+    /**
+     * Determines if null | 'null' values should be stored. (Default: true)
+     */
+    allowNull?: boolean;
 }
