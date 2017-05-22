@@ -66,30 +66,30 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
             this._eventSubscription = Observable.fromEvent(this._element.nativeElement, this.lsEvent)
                 .debounceTime(this.lsDebounce)
                 .subscribe(() => {
-                    this._service.set(this.lsKey,
+                    this._service.asPromisable().set(this.lsKey,
                         getProperty(this._valuePath.length ? this._valuePath : ['value'], this._element.nativeElement),
                         this.lsPrefix)
                         .then(() => {
-                            this._service.get(this.lsKey, this.lsPrefix)
-                                .then(value => {
+                            this._service.asPromisable().get(this.lsKey, this.lsPrefix)
+                                .then((value: any) => {
                                     this.lsStoredValue.emit(value);
                                 })
-                                .catch(err => console.error(err));
+                                .catch((err: Error) => console.error(err));
                         })
-                        .catch(err => console.error(err));
+                        .catch((err: Error) => console.error(err));
                 });
         }
     }
 
     private _initFromStorage(): void {
         if (this.lsInitFromStorage) {
-            this._service.get(this.lsKey, this.lsPrefix)
-                .then(storedValue => {
+            this._service.asPromisable().get(this.lsKey, this.lsPrefix)
+                .then((storedValue: any) => {
                     if (!!storedValue && typeof storedValue === 'string' && storedValue !== 'null') {
                         setProperty(this._valuePath.length ? this._valuePath : ['value'], storedValue, this._element.nativeElement);
                     }
                 })
-                .catch(err => console.error(err));
+                .catch((err: Error) => console.error(err));
         }
     }
 

@@ -11,3 +11,8 @@ export interface ModuleConfig {
      */
     allowNull?: boolean;
 }
+
+export interface DecoratorOpts {
+    key?: string;
+    prefix?: string;
+}

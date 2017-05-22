@@ -3,32 +3,42 @@
  */
 import {Injectable, Optional} from '@angular/core';
 import {ModuleConfig} from '../interfaces';
+import {PromisableService} from './promisable.service';
+import {defaultConfig} from '../utils';
 
 @Injectable()
 export class LocalStorageService {
 
-    private _prefix = 'ngx_local_storage';
-    private _allowNull = true;
+    private _prefix: string;
+    private _allowNull: boolean;
 
-    constructor(@Optional() config: ModuleConfig) {
+    private _promisable: PromisableService;
+
+    constructor(@Optional() config?: ModuleConfig) {
         if (config) {
-            this._prefix = config.prefix || this._prefix;
-            this._allowNull = config.allowNull || this._allowNull;
+            this._prefix = config.prefix || defaultConfig.prefix;
+            this._allowNull = config.allowNull || defaultConfig.allowNull;
         }
+        this._promisable = new PromisableService({
+            allowNull: this._allowNull,
+            prefix: this._prefix
+        });
+    }
+
+    asPromisable(): PromisableService {
+        return this._promisable;
     }
 
     /**
      * Gets the number of entries in the applications local storage.
      * @returns {Promise<number>}
      */
-    count(): Promise<number> {
-        return new Promise((resolve, reject) => {
-            try {
-                resolve(localStorage.length);
-            } catch (error) {
-                reject(error);
-            }
-        });
+    count(): number | undefined {
+        try {
+            return localStorage.length;
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     /**
@@ -37,17 +47,15 @@ export class LocalStorageService {
      * @param index   An integer representing the number of the key you want to get the name of. This is a zero-based index.
      * @returns {Promise<string | null>}
      */
-    getKey(index: number): Promise<string | null> {
-        return new Promise<string | null>((resolve, reject) => {
-            if (index < 0) {
-                reject(new Error('index has to be 0 or greater'));
-            }
-            try {
-                resolve(localStorage.key(index));
-            } catch (error) {
-                reject(error);
-            }
-        });
+    getKey(index: number): string | null | undefined {
+        if (index < 0) {
+            console.error(new Error('index has to be 0 or greater'));
+        }
+        try {
+            return localStorage.key(index);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     /**
@@ -57,20 +65,13 @@ export class LocalStorageService {
      * @param prefix  Optional prefix to overwrite the configured one.
      * @returns {Promise<boolean>}
      */
-    set(key: string, value: string, prefix?: string): Promise<boolean> {
-        return new Promise((resolve, reject) => {
-            try {
-                if (this._allowNull
-                    || (!this._allowNull && value !== 'null' && value !== null && value !== undefined)) {
-                    localStorage.setItem(`${prefix || this._prefix}_${key}`, value);
-                } else {
-                    return this.remove(key, prefix);
-                }
-                resolve(true);
-            } catch (error) {
-                reject(error);
-            }
-        });
+    set(key: string, value: string, prefix?: string): void {
+        if (this._allowNull
+            || (!this._allowNull && value !== 'null' && value !== null && value !== undefined)) {
+            localStorage.setItem(`${prefix || this._prefix}_${key}`, value);
+        } else {
+            this.remove(key, prefix);
+        }
     }
 
     /**
@@ -79,14 +80,12 @@ export class LocalStorageService {
      * @param prefix  Optional prefix to overwrite the configured one.
      * @returns {Promise<string | null>}
      */
-    get(key: string, prefix?: string): Promise<string | null> {
-        return new Promise<string | null>((resolve, reject) => {
-            try {
-                resolve(localStorage.getItem(`${prefix || this._prefix}_${key}`));
-            } catch (error) {
-                reject(error);
-            }
-        });
+    get(key: string, prefix?: string): string | null | undefined {
+        try {
+            return localStorage.getItem(`${prefix || this._prefix}_${key}`);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     /**
@@ -95,29 +94,23 @@ export class LocalStorageService {
      * @param prefix  Optional prefix to overwrite the configured one.
      * @returns {Promise<boolean>}
      */
-    remove(key: string, prefix?: string): Promise<boolean> {
-        return new Promise((resolve, reject) => {
-            try {
-                localStorage.removeItem(`${prefix || this._prefix}_${key}`);
-                resolve(true);
-            } catch (error) {
-                reject(error);
-            }
-        });
+    remove(key: string, prefix?: string): void {
+        try {
+            localStorage.removeItem(`${prefix || this._prefix}_${key}`);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     /**
      * Clears all entries of the applications local storage.
      * @returns {Promise<boolean>}
      */
-    clear(): Promise<boolean> {
-        return new Promise((resolve, reject) => {
-            try {
-                localStorage.clear();
-                resolve(true);
-            } catch (error) {
-                reject(error);
-            }
-        });
+    clear(): void {
+        try {
+            localStorage.clear();
+        } catch (error) {
+            console.error(error);
+        }
     }
 }

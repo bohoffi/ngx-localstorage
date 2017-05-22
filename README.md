@@ -1,4 +1,5 @@
 # ngx-localstorage [![npm version](https://img.shields.io/npm/v/ngx-localstorage.svg)](https://www.npmjs.com/package/ngx-localstorage)
+[![devDependency Status](https://david-dm.org/bohoffi/ngx-localstorage/dev-status.svg?branch=master)](https://david-dm.org/bohoffi/ngx-localstorage)
 
 An Angular wrapper for local storage access.
 
@@ -48,6 +49,16 @@ export class AppModule { }
 
 #### Methods
 
+- `count(): number`: Gets the number of entries in the applications local storage.
+- `getKey(index: number): string | null`: Returns the nth (defined by the index parameter) key in the storage. The order of keys is user-agent defined, so you should not rely on it.
+- `set(key: string, value: string, prefix?: string): void`: Adds tha value with the given key or updates an existing entry.
+- `get(key: string, prefix?: string): string | null`: Gets the entry specified by the given key or null.
+- `remove(key: string, prefix?: string): void`: Removes the entry specified by the given key.
+- `clear(): void`: Clears all entries of the applications local storage.
+
+_Promise-based_
+
+- `asPromisable(): PromisableService`: provide the storage operations wrapped in a Promise
 - `count(): Promise<number>`: Gets the number of entries in the applications local storage.
 - `getKey(index: number): Promise<string | null>`: Returns the nth (defined by the index parameter) key in the storage. The order of keys is user-agent defined, so you should not rely on it.
 - `set(key: string, value: string, prefix?: string): Promise<boolean>`: Adds tha value with the given key or updates an existing entry.
@@ -58,6 +69,8 @@ export class AppModule { }
 ##### Example
 
 ```ts
+import {LocalStorageService} from 'ngx-localstorage';
+
 @Component({
   selector: 'app-storage-access',
   template: './storage-access.component.html'
@@ -68,7 +81,10 @@ export class StorageAccessComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this._storageService.count()
+    console.log('Entries count: ', this._storageService.count())
+  
+    // Pomise-based
+    this._storageService.asPromisable().count()
       .then(count => console.log('Entries count: ', count))
       .catch(error => console.error(error));
   }
@@ -107,4 +123,28 @@ Defining the `valuePath` for a checkbox input:
   <input type="checkbox" id="cbox1" ngxLocalStorage lsEvent="change" [valuePath]="['checked']">
   <label for="cbox1">Checkbox</label>
 </p>
+```
+
+### ngxLocalStorage (Property-Decorator)
+
+#### Parameters
+
+- `key?: string`: specify a key to store the value; if omitted the property name will be used
+- `prefix?: string`: specify a prefix to store the value; if omitted the modules default prefix will be used
+
+##### Example
+
+```ts
+import {ngxLocalStorage} from 'ngx-localstorage';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.less']
+})
+export class AppComponent implements AfterViewInit {
+
+  @ngxLocalStorage()
+  code: any;
+}
 ```

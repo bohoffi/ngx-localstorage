@@ -1,3 +1,4 @@
+import {ModuleConfig} from './interfaces';
 /**
  * Created by bohoffi on 04.04.2017.
  */
@@ -14,4 +15,9 @@ export const setProperty = (path: Array<string> | string, value: any, object: an
         object = object[key];
     }
     object[path[lastKeyIndex]] = value;
+};
+
+export const defaultConfig: any = {
+    allowNull: true,
+    prefix: 'ngx_local_storage'
 };

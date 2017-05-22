@@ -52,3 +52,4 @@ export class NgxLocalStorageModule {
 }
 
 export {LocalStorageService} from './lib/index';
+export {ngxLocalStorage} from './lib/decorators';
