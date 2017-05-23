@@ -3,6 +3,8 @@
 [![codebeat badge](https://codebeat.co/badges/cf801d03-660b-49cb-9fc6-402fcf2da174)](https://codebeat.co/projects/github-com-bohoffi-ngx-localstorage-master)
 # ngx-localstorage 
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/bohoffi/ngx-localstorage.svg)](https://greenkeeper.io/)
+
 An Angular wrapper for local storage access.
 
 * [Installation](#installation)
