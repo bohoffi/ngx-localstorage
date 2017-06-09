@@ -4,6 +4,14 @@ language: node_js
 node_js:
   - '6'
 
+before_install:
+  - npm install -g npm
+  - npm install -g greenkeeper-lockfile@1
+
+install: npm install
+
 before_script:
-- npm install
-- npm run build
+  - greenkeeper-lockfile-update
+  - npm run build
+
+after_script: greenkeeper-lockfile-upload
