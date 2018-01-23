@@ -6,7 +6,7 @@ export default {
     dest: 'bundles/ngx-localstorage.umd.js',
     sourceMap: false,
     format: 'umd',
-    moduleName: 'ng.localstorage',
+    moduleName: 'ngx.localstorage',
     globals: {
         '@angular/core': 'ng.core',
         '@angular/common': 'ng.common',
