@@ -6,10 +6,12 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod",
+    "build-demo": "ng build --prod -op docs --base-href ngx-localstorage",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "packagr": "ng-packagr -p ng-package.json"
+    "packagr": "ng-packagr -p ng-package.json",
+    "publish": "npm publish publish"
   },
   "repository": {
     "type": "git",
