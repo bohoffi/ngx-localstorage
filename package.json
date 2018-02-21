@@ -2,11 +2,6 @@
   "name": "ngx-localstorage",
   "version": "2.0.0",
   "description": "An Angular (>=5.0.0) wrapper for local storage access.",
-  "ngPackage": {
-    "lib": {
-      "entryFile": "public_api.ts"
-    }
-  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

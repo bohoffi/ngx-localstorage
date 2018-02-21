@@ -1,23 +1,23 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EventServiceComponent } from './event-service.component';
-import {NgxLocalStorageModule} from '../../ngx-localstorage/ngx-localstorage.module';
+import { StorageServiceComponent } from './storage-service.component';
 import {MatCardModule} from '@angular/material';
+import {NgxLocalStorageModule} from '../../ngx-localstorage/ngx-localstorage.module';
 
-describe('EventServiceComponent', () => {
-  let component: EventServiceComponent;
-  let fixture: ComponentFixture<EventServiceComponent>;
+describe('StorageServiceComponent', () => {
+  let component: StorageServiceComponent;
+  let fixture: ComponentFixture<StorageServiceComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EventServiceComponent ],
+      declarations: [ StorageServiceComponent ],
       imports: [MatCardModule, NgxLocalStorageModule.forRoot()]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EventServiceComponent);
+    fixture = TestBed.createComponent(StorageServiceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

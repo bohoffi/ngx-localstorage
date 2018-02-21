@@ -1,0 +1,22 @@
+<mat-card class="demo-card">
+  <mat-card-header class="mat-title">
+    LocalStorageService
+  </mat-card-header>
+  <mat-card-content class="demo-card__content">
+    <p class="mat-body-2">Code inside component:</p>
+    <code>
+      entryCount: number = 0;<br><br>
+      constructor(private lss: LocalStorageService) &#123; &#125;<br><br>
+      ngOnInit() &#123;<br>
+      this.entryCount = this.lss.count()<br>
+      &#125;
+    </code>
+    <p class="mat-body-2">Result:</p>
+    <code>
+      entryCount: {{entryCount}}
+    </code>
+    <p class="demo-card__content__description mat-subheading-2">
+      Using this property decorator will init the property value from the localstorage. The storage key is either resolved by the given key or using the propery name.
+    </p>
+  </mat-card-content>
+</mat-card>

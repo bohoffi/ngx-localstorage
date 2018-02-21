@@ -4,8 +4,6 @@
 [![codebeat badge](https://codebeat.co/badges/cf801d03-660b-49cb-9fc6-402fcf2da174)](https://codebeat.co/projects/github-com-bohoffi-ngx-localstorage-master)
 # ngx-localstorage 
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/bohoffi/ngx-localstorage.svg)](https://greenkeeper.io/)
-
 An Angular wrapper for local storage access.
 
 * [Installation](#installation)
@@ -95,6 +93,11 @@ export class StorageAccessComponent implements OnInit {
   }
 }
 ```
+### StorageEventService
+
+#### Properties
+
+- `stream(): Observable<StorageEvent>`: Gets a stream of StorageEvent.
 
 ### ngxLocalStorage (Directive)
 
@@ -106,6 +109,7 @@ export class StorageAccessComponent implements OnInit {
 - `lsDebounce` (`number`): Determines the 'delay' when processing the event.
 - `lsInitFromStorage` (`boolean`): Determines if the stored value (if there is one) should be set automatically on application load. __Default__: `false`
 - `lsValuePath` (`string[] | string`): Determines the path to access the value to store.
+- `lsFalsyTransformer` (`() => any`): Used to transform falsy values received from storage.
 
 #### Methods/Events
 
@@ -136,6 +140,7 @@ Defining the `valuePath` for a checkbox input:
 
 - `key?: string`: specify a key to store the value; if omitted the property name will be used
 - `prefix?: string`: specify a prefix to store the value; if omitted the modules default prefix will be used
+- `nullTransformer?: () => any`: Used to transform null values received from storage.
 
 ##### Example
 
