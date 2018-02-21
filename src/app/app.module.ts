@@ -1,9 +1,10 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
+import {MatToolbarModule} from '@angular/material';
 
-import { AppComponent } from './app.component';
-import {DemoModule} from "./modules/demo/demo.module";
+import {AppComponent} from './app.component';
+import {DemoModule} from './modules/demo/demo.module';
 
 @NgModule({
   declarations: [
@@ -12,9 +13,12 @@ import {DemoModule} from "./modules/demo/demo.module";
   imports: [
     BrowserModule,
 
+    MatToolbarModule,
+
     DemoModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

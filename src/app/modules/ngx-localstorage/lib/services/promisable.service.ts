@@ -1,5 +1,5 @@
 /**
- * Created by HOFFM59 on 22.05.2017.
+ * Created by bohoffi on 22.05.2017.
 */
 import {ModuleConfig} from '../interfaces';
 

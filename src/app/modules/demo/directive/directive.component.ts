@@ -1,15 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-directive',
   templateUrl: './directive.component.html',
-  styleUrls: ['./directive.component.less']
+  styleUrls: ['../base/base.scss']
 })
-export class DirectiveComponent implements OnInit {
+export class DirectiveComponent {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  defaultFalsyTransformer: () => any = () => false;
 }

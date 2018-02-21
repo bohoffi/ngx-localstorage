@@ -15,4 +15,5 @@ export interface ModuleConfig {
 export interface DecoratorOpts {
   key?: string;
   prefix?: string;
+  nullTransformer?: () => any;
 }

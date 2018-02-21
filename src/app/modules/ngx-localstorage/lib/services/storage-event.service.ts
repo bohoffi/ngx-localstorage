@@ -1,5 +1,5 @@
 /**
- * Created by HOFFM59 on 31.01.2018.
+ * Created by bohoffi on 31.01.2018.
  */
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';

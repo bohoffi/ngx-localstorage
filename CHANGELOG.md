@@ -1,3 +1,16 @@
+<a name="2.0.0">2.0.0</a>
+
+### Features
+
+* **StorageEventService**
+  * allows to hook onto the events from storage `Observable<StorageEvent>`
+
+### Bug fixes
+
+* **Reactivity**
+  * the Decorator and the directive are now reactive
+  * if you have storage changes in other tabs these changes are reflected to all instances
+
 <a name="1.2.0">1.2.0</a>
 
 ### Breaking changes

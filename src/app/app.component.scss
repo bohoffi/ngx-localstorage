@@ -1,0 +1,19 @@
+.app {
+  display: grid;
+  grid-template-areas: "toolbar" "content";
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+
+  &__toolbar {
+    grid-area: toolbar;
+  }
+
+  &__content {
+    grid-area: content;
+    padding: 0.5em;
+
+    /deep/ mat-card {
+      margin-bottom: 0.5em;
+    }
+  }
+}

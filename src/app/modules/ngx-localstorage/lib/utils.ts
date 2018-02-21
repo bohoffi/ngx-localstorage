@@ -3,10 +3,10 @@
  */
 import {ModuleConfig} from './interfaces';
 
-export const getProperty = (path: any, object: any) =>
-  path.reduce((xs: any, x: any) => (xs && xs[x]) ? xs[x] : null, object);
+export const getProperty = (path: string[], object: any) =>
+  path.reduce((obj: any, p: any) => (!!obj) ? obj[p] : null, object);
 
-export const setProperty = (path: Array<string> | string, value: any, object: any) => {
+export const setProperty = (path: string[] | string, value: any, object: any, falsyTransformer?: () => any) => {
   const lastKeyIndex = path.length - 1;
   for (let i = 0; i < lastKeyIndex; ++i) {
     const key = path[i];
@@ -15,7 +15,7 @@ export const setProperty = (path: Array<string> | string, value: any, object: an
     }
     object = object[key];
   }
-  object[path[lastKeyIndex]] = value;
+  object[path[lastKeyIndex]] = (!value || (typeof value === 'string' && value === 'false')) && !!falsyTransformer ? falsyTransformer() : value;
 };
 
 export const defaultConfig: ModuleConfig = {
