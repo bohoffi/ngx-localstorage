@@ -1,0 +1,22 @@
+<mat-card class="demo-card">
+  <mat-card-header class="mat-title">
+    EventServiceComponent
+  </mat-card-header>
+  <mat-card-content class="demo-card__content">
+    <p class="mat-body-2">Code inside component:</p>
+    <code class="demo-card__content__code-sample">
+      $events: StorageEvent[] = [];<br><br>
+      constructor(private es: StorageEventService) &#123;<br>
+        this.es.stream<br>
+      .subscribe(e => this.$events = [...this.$events, e]);<br>
+      &#125;
+    </code>
+    <p class="mat-body-2">Result (modify text or checkbox in another tab):</p>
+    <p *ngFor="let e of $events">
+      &#123; "key": "{{e.key}}"; "oldValue": "{{e.oldValue}}"; "newValue": "{{e.newValue}}" &#125;
+    </p>
+    <p class="demo-card__content__description mat-subheading-2">
+      Using the 'EventServiceComponent' to receive a stream of storage events.
+    </p>
+  </mat-card-content>
+</mat-card>

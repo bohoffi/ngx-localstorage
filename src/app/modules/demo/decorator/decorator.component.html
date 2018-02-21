@@ -1,0 +1,22 @@
+<mat-card class="demo-card">
+  <mat-card-header class="mat-title">
+    Decorator
+  </mat-card-header>
+  <mat-card-content class="demo-card__content">
+    <p class="mat-body-2">Code inside component:</p>
+    <code>
+      @ngxLocalStorage(&#123;key: 'cbox1', prefix: 'demo', nullTransformer: () => false&#125;)<br>
+      boundBoolean: boolean;<br><br>
+      @ngxLocalStorage(&#123;key: 'txt1', prefix: 'demo'&#125;)<br>
+      boundText: string;
+    </code>
+    <p class="mat-body-2">Result:</p>
+    <code>
+      boundBoolean: {{boundBoolean}}<br>
+      boundText: {{boundText}}
+    </code>
+    <p class="demo-card__content__description mat-subheading-2">
+      Using this property decorator will init the property value from the localstorage. The storage key is either resolved by the given key or using the propery name.
+    </p>
+  </mat-card-content>
+</mat-card>
