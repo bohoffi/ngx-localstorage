@@ -2,9 +2,9 @@
  * Created by bohoffi on 03.04.2017.
  */
 import {Injectable, Optional} from '@angular/core';
-import {ModuleConfig} from '../interfaces';
 import {PromisableService} from './promisable.service';
 import {defaultConfig} from '../utils';
+import {ModuleConfig} from '../interfaces';
 
 @Injectable()
 export class LocalStorageService {
