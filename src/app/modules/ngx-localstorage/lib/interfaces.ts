@@ -1,7 +1,7 @@
 /**
  * Created by bohoffi on 03.04.2017.
  */
-export interface ModuleConfig {
+export abstract class ModuleConfig {
   /**
    * Determines the key prefix. (Default: 'ngx_local_storage')
    */

@@ -24,7 +24,9 @@
     "angular",
     "local storage",
     "wrapper",
-    "directive"
+    "decorator",
+    "directive",
+    "reactive"
   ],
   "author": "bohoffi (bo.hoffi@gmail.com)",
   "license": "Apache-2.0",
