@@ -10,6 +10,8 @@ An Angular wrapper for local storage access.
 * [Usage](#usage)
 * [API](#api)
 
+Feel free to take a look at the [DEMO](https://bohoffi.github.io/ngx-localstorage/).
+
 ## Installation
 Install via npm:
 ```
