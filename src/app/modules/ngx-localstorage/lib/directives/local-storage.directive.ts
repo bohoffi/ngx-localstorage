@@ -9,7 +9,8 @@ import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/debounceTime';
 
 import {getProperty, setProperty} from '../utils';
-import {LocalStorageService, StorageEventService} from '../services';
+import {LocalStorageService} from '../services/local-storage.service';
+import {StorageEventService} from '../services/storage-event.service';
 
 @Directive({
   selector: '[ngxLocalStorage]'

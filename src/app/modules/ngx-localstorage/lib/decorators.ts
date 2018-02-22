@@ -2,7 +2,8 @@
  * Created by bohoffi on 22.05.2017.
  */
 import {DecoratorOpts} from './interfaces';
-import {LocalStorageService, StorageEventService} from './services';
+import {LocalStorageService} from './services/local-storage.service';
+import {StorageEventService} from './services/storage-event.service';
 
 export function ngxLocalStorage(options?: DecoratorOpts) {
   return function (target: Object, propertyDescription: string) {
