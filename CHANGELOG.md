@@ -1,8 +1,15 @@
-<a name="2.1.0"></a>
-# [2.1.0](https://github.com/bohoffi/ngx-localstorage/compare/2.0.1...2.1.0) (2018-06-XX)
+<a name="2.1.0">2.1.0</a>
+# [2.1.0](https://github.com/BalticCode/ngx-hotkeys/compare/2.0.1...2.1.0) (2018-08-12)
+
+### Bug fixes
+
+* **Angular 6 compatibility**
+  * fixed build errors ([#12](https://github.com/bohoffi/ngx-localstorage/issues/12))
+
 ### Features
-* updated to Angular 6
-* added Schematic `ng add` support
+
+* **Angular**
+  * Updated to Angular 6
 
 
 <a name="2.0.1"></a>

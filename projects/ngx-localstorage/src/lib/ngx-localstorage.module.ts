@@ -1,10 +1,11 @@
-import {InjectionToken, ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
-import {LocalStorageService} from './services/local-storage.service';
-import {ModuleConfig} from './interfaces';
-import {LocalStorageDirective} from './directives/local-storage.directive';
-import {StorageEventService} from './services/storage-event.service';
+import {CommonModule} from '@angular/common';
+import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
 
-export const ModuleConfigToken = new InjectionToken<ModuleConfig>('moduleConfig');
+import {ModuleConfig} from './interfaces';
+import {LocalStorageService} from './ngx-localstorage.service';
+import {StorageEventService} from './storage-event.service';
+import {LocalStorageDirective} from './directives/ngx-localstorage.directive';
+import {ModuleConfigToken} from './token';
 
 export function provideStorageService(moduleConfig: ModuleConfig): LocalStorageService {
   return new LocalStorageService(moduleConfig);

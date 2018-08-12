@@ -1,10 +1,11 @@
 /**
  * Created by bohoffi on 22.05.2017.
  */
-import {DecoratorOpts} from './interfaces';
-import {LocalStorageService} from './services/local-storage.service';
-import {StorageEventService} from './services/storage-event.service';
 import {filter} from 'rxjs/operators';
+
+import {DecoratorOpts} from './interfaces';
+import {LocalStorageService} from './ngx-localstorage.service';
+import {StorageEventService} from './storage-event.service';
 
 export function ngxLocalStorage(options?: DecoratorOpts) {
   return function (target: Object, propertyDescription: string) {
@@ -16,11 +17,10 @@ export function ngxLocalStorage(options?: DecoratorOpts) {
     const key = !!options && !!options.key ? options.key : propertyDescription;
 
     const eventService: StorageEventService = new StorageEventService();
-    eventService.stream
-      .pipe(
-        // TODO: filter should be more accurate
-        filter((ev: StorageEvent) => ev.key.indexOf(key) >= 0)
-      )
+    eventService.stream.pipe(
+      // TODO: filter should be more accurate
+      filter((ev: StorageEvent) => ev.key.indexOf(key) >= 0)
+    )
       .subscribe((ev: StorageEvent) => {
         if (!!ev.newValue && typeof ev.newValue === 'string') {
           if (ev.newValue !== 'null') {

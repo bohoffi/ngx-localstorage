@@ -3,11 +3,12 @@ import {CommonModule} from '@angular/common';
 
 import {MatCardModule} from '@angular/material';
 
+import {NgxLocalStorageModule} from 'ngx-localstorage';
+
 import {DecoratorComponent} from './decorator/decorator.component';
 import {DirectiveComponent} from './directive/directive.component';
 import {StorageServiceComponent} from './storage-service/storage-service.component';
 import {EventServiceComponent} from './event-service/event-service.component';
-import {NgxLocalStorageModule} from '../../../../../ngx-localstorage/src/public_api';
 
 @NgModule({
   imports: [

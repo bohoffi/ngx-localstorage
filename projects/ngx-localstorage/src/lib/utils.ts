@@ -15,7 +15,8 @@ export const setProperty = (path: string[] | string, value: any, object: any, fa
     }
     object = object[key];
   }
-  object[path[lastKeyIndex]] = (!value || (typeof value === 'string' && value === 'false')) && !!falsyTransformer ? falsyTransformer() : value;
+  object[path[lastKeyIndex]] = (!value || (typeof value === 'string' && value === 'false'))
+  && !!falsyTransformer ? falsyTransformer() : value;
 };
 
 export const defaultConfig: ModuleConfig = {

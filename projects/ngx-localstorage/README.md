@@ -1,7 +1,6 @@
 [![npm version](https://img.shields.io/npm/v/ngx-localstorage.svg)](https://www.npmjs.com/package/ngx-localstorage)
-[![Build Status](https://travis-ci.org/bohoffi/ngx-localstorage.svg?branch=master)](https://travis-ci.org/bohoffi/ngx-localstorage)
 [![devDependency Status](https://david-dm.org/bohoffi/ngx-localstorage/dev-status.svg?branch=master)](https://david-dm.org/bohoffi/ngx-localstorage)
-[![codebeat badge](https://codebeat.co/badges/cf801d03-660b-49cb-9fc6-402fcf2da174)](https://codebeat.co/projects/github-com-bohoffi-ngx-localstorage-master)
+[![Join the chat at https://gitter.im/bohoffi/ngx-localstorage](https://badges.gitter.im//bohoffi/ngx-localstorage.svg)](https://gitter.im//bohoffi/ngx-localstorage?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 # ngx-localstorage 
 
 An Angular wrapper for local storage access.

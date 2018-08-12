@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {LocalStorageService} from '../../../../../../ngx-localstorage/src/public_api';
+import { LocalStorageService } from 'ngx-localstorage';
 
 @Component({
   selector: 'app-storage-service',
