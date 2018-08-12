@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {LocalStorageService} from '../../ngx-localstorage/lib/services/local-storage.service';
+import { LocalStorageService } from 'ngx-localstorage';
 
 @Component({
   selector: 'app-storage-service',
@@ -8,11 +8,11 @@ import {LocalStorageService} from '../../ngx-localstorage/lib/services/local-sto
 })
 export class StorageServiceComponent implements OnInit {
 
-  entryCount: number = 0;
+  entryCount = 0;
 
   constructor(private lss: LocalStorageService) { }
 
   ngOnInit() {
-    this.entryCount = this.lss.count()
+    this.entryCount = this.lss.count();
   }
 }

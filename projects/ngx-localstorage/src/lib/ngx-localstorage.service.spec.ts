@@ -1,15 +1,16 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { NgxLocalstorageService } from './ngx-localstorage.service';
+import { LocalStorageService } from './ngx-localstorage.service';
 
-describe('NgxLocalstorageService', () => {
+describe('LocalStorageService', () => {
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [NgxLocalstorageService]
-    });
+    TestBed.configureTestingModule({ providers: [LocalStorageService] });
   });
 
-  it('should be created', inject([NgxLocalstorageService], (service: NgxLocalstorageService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should be created', inject(
+    [LocalStorageService],
+    (service: LocalStorageService) => {
+      expect(service).toBeTruthy();
+    }
+  ));
 });

@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 
 import {MatCardModule} from '@angular/material';
 
-import {NgxLocalStorageModule} from '../ngx-localstorage/ngx-localstorage.module';
+import {NgxLocalStorageModule} from 'ngx-localstorage';
 
 import {DecoratorComponent} from './decorator/decorator.component';
 import {DirectiveComponent} from './directive/directive.component';
