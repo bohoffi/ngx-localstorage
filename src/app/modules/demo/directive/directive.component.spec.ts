@@ -2,7 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {DirectiveComponent} from './directive.component';
 import {MatCardModule} from '@angular/material';
-import {NgxLocalStorageModule} from '../../ngx-localstorage/ngx-localstorage.module';
+import {NgxLocalStorageModule} from 'ngx-localstorage';
 
 describe('DirectiveComponent', () => {
   let component: DirectiveComponent;

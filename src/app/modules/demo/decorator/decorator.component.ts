@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ngxLocalStorage} from '../../ngx-localstorage/lib/decorators';
+import { ngxLocalStorage } from 'ngx-localstorage';
 
 @Component({
   selector: 'app-decorator',

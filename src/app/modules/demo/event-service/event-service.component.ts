@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
-import {StorageEventService} from '../../ngx-localstorage/lib/services/storage-event.service';
+import { StorageEventService } from 'ngx-localstorage';
 
 @Component({
   selector: 'app-event-service',
@@ -8,11 +8,12 @@ import {StorageEventService} from '../../ngx-localstorage/lib/services/storage-e
   styleUrls: ['../base/base.scss']
 })
 export class EventServiceComponent {
-
   $events: StorageEvent[] = [];
 
   constructor(private es: StorageEventService) {
-    this.es.stream
-      .subscribe(e => {this.$events = [...this.$events, e]; console.log('events: ', this.$events)});
+    this.es.stream.subscribe(e => {
+      this.$events = [...this.$events, e];
+      console.log('events: ', this.$events);
+    });
   }
 }
