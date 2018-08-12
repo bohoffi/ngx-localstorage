@@ -1,12 +1,12 @@
 /**
  * Created by bohoffi on 22.05.2017.
 */
-import {ModuleConfig} from '../interfaces';
+import {ModuleConfig} from './interfaces';
 
 export class PromisableService {
 
-  private _prefix = 'ngx_local_storage';
-  private _allowNull = true;
+  private readonly _prefix = 'ngx_local_storage';
+  private readonly _allowNull = true;
 
   constructor(config?: ModuleConfig) {
     if (config) {

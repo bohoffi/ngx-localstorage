@@ -2,15 +2,12 @@
  * Created by bohoffi on 03.04.2017.
  */
 import {AfterViewInit, Directive, ElementRef, EventEmitter, Input, OnDestroy, Output} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {Subscription} from 'rxjs/Subscription';
-
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/debounceTime';
+import {fromEvent as observableFromEvent, Subscription} from 'rxjs';
+import {debounceTime, filter} from 'rxjs/operators';
 
 import {getProperty, setProperty} from '../utils';
-import {LocalStorageService} from '../services/local-storage.service';
-import {StorageEventService} from '../services/storage-event.service';
+import {LocalStorageService} from '../ngx-localstorage.service';
+import {StorageEventService} from '../storage-event.service';
 
 @Directive({
   selector: '[ngxLocalStorage]'
@@ -40,9 +37,10 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
               private lss: LocalStorageService,
               private es: StorageEventService) {
 
-    this.es.stream
+    this.es.stream.pipe(
     // TODO: filter should be more accurate
-      .filter((ev: StorageEvent) => ev.key.indexOf(this.lsKey) >= 0)
+      filter((ev: StorageEvent) => ev.key.indexOf(this.lsKey) >= 0)
+    )
       .subscribe((ev: StorageEvent) => {
         setProperty(this._valuePath.length ? this._valuePath : ['value'], ev.newValue, this.er.nativeElement, this.lsFalsyTransformer);
       });
@@ -74,8 +72,8 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
 
   private _hookEvent(): void {
     if (this.lsEvent) {
-      this._eventSubscription = Observable.fromEvent(this.er.nativeElement, this.lsEvent)
-        .debounceTime(this.lsDebounce)
+      this._eventSubscription = observableFromEvent(this.er.nativeElement, this.lsEvent).pipe(
+        debounceTime(this.lsDebounce))
         .subscribe(() => {
           this.lss.asPromisable().set(this.lsKey,
             getProperty(this._valuePath.length ? this._valuePath : ['value'], this.er.nativeElement),

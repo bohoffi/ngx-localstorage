@@ -1,15 +1,11 @@
-/**
- * Created by bohoffi on 03.04.2017.
- */
-import {InjectionToken, ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
 
-import {ModuleConfig} from './lib/interfaces';
-import {LocalStorageService} from './lib/services/local-storage.service';
-import {StorageEventService} from './lib/services/storage-event.service';
-import {LocalStorageDirective} from './lib/directives/local-storage.directive';
-
-export const ModuleConfigToken = new InjectionToken<ModuleConfig>('moduleConfig');
+import {ModuleConfig} from './interfaces';
+import {LocalStorageService} from './ngx-localstorage.service';
+import {StorageEventService} from './storage-event.service';
+import {LocalStorageDirective} from './directives/ngx-localstorage.directive';
+import {ModuleConfigToken} from './token';
 
 export function provideStorageService(moduleConfig: ModuleConfig): LocalStorageService {
   return new LocalStorageService(moduleConfig);
@@ -54,7 +50,3 @@ export class NgxLocalStorageModule {
     }
   }
 }
-
-export {LocalStorageService} from './lib/services/local-storage.service';
-export {StorageEventService} from './lib/services/storage-event.service';
-export {ngxLocalStorage} from './lib/decorators';

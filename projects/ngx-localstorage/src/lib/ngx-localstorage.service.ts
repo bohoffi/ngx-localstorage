@@ -1,18 +1,15 @@
-/**
- * Created by bohoffi on 03.04.2017.
- */
 import {Injectable, Optional} from '@angular/core';
+
+import {ModuleConfig} from './interfaces';
 import {PromisableService} from './promisable.service';
-import {defaultConfig} from '../utils';
-import {ModuleConfig} from '../interfaces';
+import {defaultConfig} from './utils';
 
 @Injectable()
 export class LocalStorageService {
 
-  private _prefix: string;
-  private _allowNull: boolean;
-
-  private _promisable: PromisableService;
+  private readonly _prefix: string;
+  private readonly _allowNull: boolean;
+  private readonly _promisable: PromisableService;
 
   constructor(@Optional() config?: ModuleConfig) {
     if (config) {
