@@ -13,7 +13,6 @@ export function provideStorageService(moduleConfig: ModuleConfig): LocalStorageS
 
 @NgModule({
   imports: [
-    CommonModule
   ],
   declarations: [
     LocalStorageDirective
@@ -23,7 +22,6 @@ export function provideStorageService(moduleConfig: ModuleConfig): LocalStorageS
   ]
 })
 export class NgxLocalStorageModule {
-
   static forRoot(config?: ModuleConfig): ModuleWithProviders {
     return {
       ngModule: NgxLocalStorageModule,

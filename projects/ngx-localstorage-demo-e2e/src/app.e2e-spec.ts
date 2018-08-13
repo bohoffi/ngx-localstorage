@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('ngx-localstorage App', () => {
+describe('workspace-project App', () => {
   let page: AppPage;
 
   beforeEach(() => {
@@ -9,6 +9,6 @@ describe('ngx-localstorage App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
+    expect(page.getParagraphText()).toEqual('Welcome to ngx-localstorage-demo!');
   });
 });

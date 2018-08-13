@@ -13,24 +13,6 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bohoffi/ngx-localstorage.git"
-  },
-  "keywords": [
-    "angular",
-    "local storage",
-    "wrapper",
-    "decorator",
-    "directive",
-    "reactive"
-  ],
-  "author": "bohoffi (bo.hoffi@gmail.com)",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/bohoffi/ngx-localstorage/issues"
-  },
-  "homepage": "https://github.com/bohoffi/ngx-localstorage#readme",
   "dependencies": {
     "@angular/animations": "^6.1.2",
     "@angular/cdk": "^6.4.3",
