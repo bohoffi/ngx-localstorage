@@ -4,8 +4,8 @@
   "newProjectRoot": "projects",
   "projects": {
     "ngx-localstorage-demo": {
-      "root": "",
-      "sourceRoot": "src",
+      "root": "projects/ngx-localstorage-demo/",
+      "sourceRoot": "projects/ngx-localstorage-demo/src",
       "projectType": "application",
       "architect": {
         "build": {
@@ -96,8 +96,8 @@
       }
     },
     "ngx-localstorage-demo-e2e": {
-      "root": "",
-      "sourceRoot": "",
+      "root": "projects/ngx-localstorage-demo-e2e",
+      "sourceRoot": "projects/ngx-localstorage-demo-e2e",
       "projectType": "application",
       "architect": {
         "e2e": {
