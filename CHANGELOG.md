@@ -1,4 +1,3 @@
-<a name="2.2.1">2.2.1</a>
 # [2.2.1](https://github.com/BalticCode/ngx-hotkeys/compare/2.1.0...2.2.1) (2018-08-13)
 
 ### Features
@@ -6,7 +5,6 @@
 * **Angular**
   * Added schematics support ([#11](https://github.com/bohoffi/ngx-localstorage/issues/11))
 
-<a name="2.1.0">2.1.0</a>
 # [2.1.0](https://github.com/BalticCode/ngx-hotkeys/compare/2.0.1...2.1.0) (2018-08-12)
 
 ### Bug fixes
