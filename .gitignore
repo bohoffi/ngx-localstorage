@@ -20,3 +20,4 @@ index.js
 // IDEs
 .vscode
 .idea/*
+.angulardoc.json
