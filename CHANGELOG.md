@@ -1,3 +1,11 @@
+# [2.3.0](https://github.com/BalticCode/ngx-hotkeys/compare/2.2.1...2.3.0) (2018-11-XX)
+
+### Changes
+
+* **Angular**
+  * Removed schematics support
+  * updated compatibility to Angular >=4.0.0
+
 # [2.2.1](https://github.com/BalticCode/ngx-hotkeys/compare/2.1.0...2.2.1) (2018-08-13)
 
 ### Features

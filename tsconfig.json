@@ -1,8 +1,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
@@ -16,10 +14,15 @@
       "es2017",
       "dom"
     ],
+    "baseUrl": ".",
     "paths": {
       "ngx-localstorage": [
-        "dist/ngx-localstorage"
+        "libs/ngx-localstorage/src/index.ts"
       ]
     }
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

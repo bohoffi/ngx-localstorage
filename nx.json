@@ -1,0 +1,21 @@
+{
+  "npmScope": "ngx-localstorage",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": "*",
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "ngx-localstorage": {
+      "tags": []
+    },
+    "ngx-localstorage-demo": {
+      "tags": []
+    },
+    "ngx-localstorage-demo-e2e": {
+      "tags": []
+    }
+  }
+}
