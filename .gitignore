@@ -1,22 +1,41 @@
-publish/*
-node_modules/*
-npm-debug.log
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
-*.tgz
+# compiled output
+/dist
+/tmp
+/out-tsc
 
-// build files
-bundles
-*.d.ts
-*.js.map
-src/**/*.js
-src/**/*.js.map
-index.js
+# dependencies
+/node_modules
 
-// generated files from Angular Compiler
-*.ngsummary.json
-*.ngfactory.ts
-*.metadata.json
-
-// IDEs
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
 .vscode
-.idea/*
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db
+.angulardoc.json
