@@ -1,5 +1,4 @@
 [![npm version](https://img.shields.io/npm/v/ngx-localstorage.svg)](https://www.npmjs.com/package/ngx-localstorage)
-[![devDependency Status](https://david-dm.org/bohoffi/ngx-localstorage/dev-status.svg?branch=master)](https://david-dm.org/bohoffi/ngx-localstorage)
 [![Join the chat at https://gitter.im/bohoffi/ngx-localstorage](https://badges.gitter.im//bohoffi/ngx-localstorage.svg)](https://gitter.im//bohoffi/ngx-localstorage?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 # ngx-localstorage 
 

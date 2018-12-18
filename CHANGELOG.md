@@ -1,4 +1,4 @@
-# [2.3.0](https://github.com/BalticCode/ngx-hotkeys/compare/2.2.1...2.3.0) (2018-11-XX)
+# [2.3.0](https://github.com/BalticCode/ngx-hotkeys/compare/2.2.1...2.3.0) (2018-12-18)
 
 ### Changes
 
