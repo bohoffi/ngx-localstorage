@@ -67,7 +67,11 @@ export class LocalStorageService {
         value !== null &&
         value !== undefined)
     ) {
-      localStorage.setItem(`${prefix || this._prefix}_${key}`, value);
+      if (prefix || this._prefix) {
+        localStorage.setItem(`${prefix || this._prefix}_${key}`, value);
+      } else {
+        localStorage.setItem(key, value);
+      }
     } else {
       this.remove(key, prefix);
     }
@@ -80,7 +84,11 @@ export class LocalStorageService {
    */
   get(key: string, prefix?: string): string | null | undefined {
     try {
-      return localStorage.getItem(`${prefix || this._prefix}_${key}`);
+      if (prefix || this._prefix) {
+        return localStorage.getItem(`${prefix || this._prefix}_${key}`);
+      } else {
+        return localStorage.getItem(key);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -93,7 +101,11 @@ export class LocalStorageService {
    */
   remove(key: string, prefix?: string): void {
     try {
-      localStorage.removeItem(`${prefix || this._prefix}_${key}`);
+      if (prefix || this._prefix) {
+        localStorage.removeItem(`${prefix || this._prefix}_${key}`);
+      } else {
+        localStorage.removeItem(key);
+      }
     } catch (error) {
       console.error(error);
     }
