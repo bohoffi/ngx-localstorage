@@ -59,7 +59,7 @@ export class LocalStorageService {
    * @param value   Value to store.
    * @param prefix  Optional prefix to overwrite the configured one.
    */
-  set(key: string, value: string, setAsJson: boolean = true, prefix?: string): void {
+  set(key: string, value: string, setAsJson: boolean = false, prefix?: string): void {
     if (
       this._allowNull ||
       (!this._allowNull &&
@@ -84,7 +84,7 @@ export class LocalStorageService {
    * @param key     Key identifying the wanted entry.
    * @param prefix  Optional prefix to overwrite the configured one.
    */
-  get(key: string, getAsJson: boolean = true, prefix?: string): string | null | undefined {
+  get(key: string, getAsJson: boolean = false, prefix?: string): string | null | undefined {
     try {
 			if (getAsJson) {
 				return JSON.parse(localStorage.getItem(`${prefix || this._prefix}_${key}`));
