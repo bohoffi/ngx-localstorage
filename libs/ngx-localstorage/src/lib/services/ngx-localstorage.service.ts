@@ -59,7 +59,7 @@ export class LocalStorageService {
    * @param value   Value to store.
    * @param prefix  Optional prefix to overwrite the configured one.
    */
-  set(key: string, value: string, prefix?: string): void {
+  set(key: string, value: string, setAsJson: boolean = true, prefix?: string): void {
     if (
       this._allowNull ||
       (!this._allowNull &&
@@ -67,7 +67,13 @@ export class LocalStorageService {
         value !== null &&
         value !== undefined)
     ) {
-      localStorage.setItem(`${prefix || this._prefix}_${key}`, value);
+			let valueToStore: any;
+			if (setAsJson) {
+				valueToStore = JSON.stringify(value);
+			} else {
+				valueToStore = value;
+			}
+			localStorage.setItem(`${prefix || this._prefix}_${key}`, valueToStore);
     } else {
       this.remove(key, prefix);
     }
@@ -78,9 +84,13 @@ export class LocalStorageService {
    * @param key     Key identifying the wanted entry.
    * @param prefix  Optional prefix to overwrite the configured one.
    */
-  get(key: string, prefix?: string): string | null | undefined {
+  get(key: string, getAsJson: boolean = true, prefix?: string): string | null | undefined {
     try {
-      return localStorage.getItem(`${prefix || this._prefix}_${key}`);
+			if (getAsJson) {
+				return JSON.parse(localStorage.getItem(`${prefix || this._prefix}_${key}`));
+			} else {
+				return localStorage.getItem(`${prefix || this._prefix}_${key}`);
+			}
     } catch (error) {
       console.error(error);
     }
