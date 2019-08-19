@@ -129,6 +129,11 @@
           "options": {
             "tsConfig": "libs/ngx-localstorage/tsconfig.lib.json",
             "project": "libs/ngx-localstorage/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "libs/ngx-localstorage/ng-package.prod.json"
+            }
           }
         },
         "test": {
