@@ -6,20 +6,23 @@ import {filter} from 'rxjs/operators';
 import {DecoratorOpts} from './interfaces';
 import {LocalStorageService} from './services/ngx-localstorage.service';
 import {StorageEventService} from './services/storage-event.service';
+import { constructKey } from './utils';
 
 export function ngxLocalStorage(options?: DecoratorOpts) {
   return function (target: Object, propertyDescription: string) {
 
+    const key = !!options && !!options.key ? options.key : propertyDescription;
+    const prefix = !!options && !!options.prefix ? options.prefix : null;
+
     const service: LocalStorageService = new LocalStorageService({
-      prefix: !!options && !!options.prefix ? options.prefix : null
+      prefix: prefix
     });
 
-    const key = !!options && !!options.key ? options.key : propertyDescription;
 
     const eventService: StorageEventService = new StorageEventService();
     eventService.stream.pipe(
       // TODO: filter should be more accurate
-      filter((ev: StorageEvent) => ev.key.indexOf(key) >= 0)
+      filter((ev: StorageEvent) => ev.key.indexOf(constructKey(key, prefix)) >= 0)
     )
       .subscribe((ev: StorageEvent) => {
         if (!!ev.newValue && typeof ev.newValue === 'string') {
@@ -33,11 +36,11 @@ export function ngxLocalStorage(options?: DecoratorOpts) {
 
     Object.defineProperty(target, propertyDescription, {
       get: function () {
-        const storageValue = service.get(key);
+        const storageValue = service.get(key, prefix);
         return storageValue == null && !!options.nullTransformer ? options.nullTransformer() : storageValue;
       },
       set: function (value: any) {
-        service.set(key, value);
+        service.set(key, value, prefix);
       }
     });
   };
