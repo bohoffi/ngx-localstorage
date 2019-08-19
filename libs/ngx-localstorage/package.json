@@ -20,6 +20,7 @@
     "url": "https://github.com/bohoffi/ngx-localstorage/issues"
   },
   "homepage": "https://github.com/bohoffi/ngx-localstorage#readme",
+  "schematics": "./schematics/collection.json",
   "peerDependencies": {
     "@angular/common": ">=4.0.0",
     "@angular/core": ">=4.0.0"
