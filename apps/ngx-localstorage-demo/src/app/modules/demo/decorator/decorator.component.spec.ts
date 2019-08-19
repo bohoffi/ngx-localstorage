@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {DecoratorComponent} from './decorator.component';
-import {MatCardModule} from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
 
 describe('DecoratorComponent', () => {
   let component: DecoratorComponent;

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StorageServiceComponent } from './storage-service.component';
-import {MatCardModule} from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
 import {NgxLocalStorageModule} from 'ngx-localstorage';
 
 describe('StorageServiceComponent', () => {

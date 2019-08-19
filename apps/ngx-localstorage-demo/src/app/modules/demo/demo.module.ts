@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
-import {MatCardModule} from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
 
 import {NgxLocalStorageModule} from 'ngx-localstorage';
 
