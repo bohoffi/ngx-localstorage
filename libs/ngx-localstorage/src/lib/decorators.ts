@@ -22,7 +22,7 @@ export function ngxLocalStorage(options?: DecoratorOpts) {
     const eventService: StorageEventService = new StorageEventService();
     eventService.stream.pipe(
       // TODO: filter should be more accurate
-      filter((ev: StorageEvent) => ev.key.indexOf(constructKey(key, prefix)) >= 0)
+      filter((ev: StorageEvent) => ev.key && ev.key.indexOf(constructKey(key, prefix)) >= 0)
     )
       .subscribe((ev: StorageEvent) => {
         if (!!ev.newValue && typeof ev.newValue === 'string') {

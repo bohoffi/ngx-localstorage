@@ -1,7 +1,7 @@
 /**
  * Created by bohoffi on 03.04.2017.
  */
-export interface ModuleConfig {
+export interface NgxLocalstorageConfiguration {
   /**
    * Determines the key prefix. (Default: null)
    */

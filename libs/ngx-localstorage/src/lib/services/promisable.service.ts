@@ -1,7 +1,7 @@
 /**
  * Created by bohoffi on 22.05.2017.
 */
-import {ModuleConfig} from '../interfaces';
+import {NgxLocalstorageConfiguration} from '../interfaces';
 import { constructKey } from '../utils';
 
 export class PromisableService {
@@ -9,7 +9,7 @@ export class PromisableService {
   private readonly _prefix: string;
   private readonly _allowNull: boolean;
 
-  constructor(config?: ModuleConfig) {
+  constructor(config?: NgxLocalstorageConfiguration) {
     if (config) {
       this._prefix = config.prefix || this._prefix;
       this._allowNull = config.allowNull || this._allowNull;

@@ -39,7 +39,7 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
 
     this.es.stream.pipe(
     // TODO: filter should be more accurate
-      filter((ev: StorageEvent) => ev.key.indexOf(this.lsKey) >= 0)
+      filter((ev: StorageEvent) => ev.key && ev.key.indexOf(this.lsKey) >= 0)
     )
       .subscribe((ev: StorageEvent) => {
         setProperty(this._valuePath.length ? this._valuePath : ['value'], ev.newValue, this.er.nativeElement, this.lsFalsyTransformer);

@@ -1,9 +1,9 @@
 import { Injectable, Optional, Inject } from '@angular/core';
 
-import { ModuleConfig } from '../interfaces';
+import { NgxLocalstorageConfiguration } from '../interfaces';
 import { PromisableService } from './promisable.service';
 import { defaultConfig, constructKey } from '../utils';
-import { ModuleConfigToken } from '../token';
+import { NgxLocalstorageConfigurationToken } from '../token';
 
 @Injectable({ providedIn: 'root' })
 export class LocalStorageService {
@@ -11,7 +11,7 @@ export class LocalStorageService {
   private readonly _allowNull: boolean;
   private readonly _promisable: PromisableService;
 
-  constructor(@Inject(ModuleConfigToken) config?: ModuleConfig) {
+  constructor(@Inject(NgxLocalstorageConfigurationToken) config?: NgxLocalstorageConfiguration) {
     if (config) {
       this._prefix = config.prefix || defaultConfig.prefix;
       this._allowNull = config.allowNull || defaultConfig.allowNull;
