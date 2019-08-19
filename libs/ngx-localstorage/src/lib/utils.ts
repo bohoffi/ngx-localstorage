@@ -20,6 +20,12 @@ export const setProperty = (path: string[] | string, value: any, object: any, fa
 };
 
 export const defaultConfig: ModuleConfig = {
-  allowNull: true,
-  prefix: 'ngx_local_storage'
+  allowNull: true
 };
+
+export const constructKey = (key: string, prefix?: string): string => {
+  if (prefix) {
+    return `${prefix}_${key}`;
+  }
+  return key;
+}

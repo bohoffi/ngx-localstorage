@@ -3,7 +3,7 @@
  */
 export interface ModuleConfig {
   /**
-   * Determines the key prefix. (Default: 'ngx_local_storage')
+   * Determines the key prefix. (Default: null)
    */
   prefix?: string;
   /**

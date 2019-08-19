@@ -50,7 +50,7 @@ export class AppModule { }
 * __prefix__
   * Type: `string?`
   * Determines the key prefix.
-  * Default: __ngx_local_storage__
+  * Default: __null__
 * __allowNull__
   * Type: `boolean`
   * Determines if _null | 'null'_ values should be stored.

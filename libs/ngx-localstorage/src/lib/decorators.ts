@@ -11,7 +11,7 @@ export function ngxLocalStorage(options?: DecoratorOpts) {
   return function (target: Object, propertyDescription: string) {
 
     const service: LocalStorageService = new LocalStorageService({
-      prefix: !!options && !!options.prefix ? options.prefix : ''
+      prefix: !!options && !!options.prefix ? options.prefix : null
     });
 
     const key = !!options && !!options.key ? options.key : propertyDescription;
