@@ -1,12 +1,11 @@
 {
   "name": "ngx-localstorage-demo",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "An Angular wrapper for local storage access.",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:lib": "ng build ngx-localstorage",
     "test": "ng test",
     "lint": "./node_modules/.bin/nx lint && ng lint",
     "e2e": "ng e2e",
@@ -18,10 +17,11 @@
     "workspace-schematic": "./node_modules/.bin/nx workspace-schematic",
     "dep-graph": "./node_modules/.bin/nx dep-graph",
     "help": "./node_modules/.bin/nx help",
+    "build:prod": "ng build ngx-localstorage && npm run copy && npm run build:docs",
+    "copy": "npm run schematics:copy && copyfiles ./LICENSE ./README.md ./dist/libs/ngx-localstorage",
+    "schematics:copy": "copyfiles -u 2 ./schematics/src/**/*.js ./schematics/src/**/*.json ./dist/libs/ngx-localstorage/schematics",
     "build:docs": "ng build --prod --output-path docs --base-href ngx-localstorage",
-    "copy-license": "copy .\\LICENSE .\\dist\\libs\\ngx-localstorage",
-    "copy-readme": "copy .\\README.md .\\dist\\libs\\ngx-localstorage",
-    "copy-files": "npm run copy-license && npm run copy-readme"
+    "schematics:watch": "cd ./schematics/ && npm link && cd .. && npm link schematics && npm run build --prefix ./schematics -- --watch"
   },
   "dependencies": {
     "@angular/animations": "^8.2.2",
