@@ -1,12 +1,11 @@
 {
   "name": "ngx-localstorage-demo",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "An Angular wrapper for local storage access.",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:lib": "ng build ngx-localstorage",
     "test": "ng test",
     "lint": "./node_modules/.bin/nx lint && ng lint",
     "e2e": "ng e2e",
@@ -18,10 +17,12 @@
     "workspace-schematic": "./node_modules/.bin/nx workspace-schematic",
     "dep-graph": "./node_modules/.bin/nx dep-graph",
     "help": "./node_modules/.bin/nx help",
+    "build:prod": "npm run build:lib && npm run copy && npm run build:docs",
+    "build:lib": "ng build ngx-localstorage",
+    "copy": "npm run schematics:copy && copyfiles ./LICENSE ./README.md ./dist/libs/ngx-localstorage",
+    "schematics:copy": "copyfiles -u 2 ./schematics/src/**/*.js ./schematics/src/**/*.json ./dist/libs/ngx-localstorage/schematics",
     "build:docs": "ng build --prod --output-path docs --base-href ngx-localstorage",
-    "copy-license": "copy .\\LICENSE .\\dist\\libs\\ngx-localstorage",
-    "copy-readme": "copy .\\README.md .\\dist\\libs\\ngx-localstorage",
-    "copy-files": "npm run copy-license && npm run copy-readme"
+    "schematics:watch": "cd ./schematics/ && npm link && cd .. && npm link schematics && npm run build --prefix ./schematics -- --watch"
   },
   "dependencies": {
     "@angular/animations": "^8.2.2",
@@ -50,11 +51,15 @@
     "@angular/cli": "^8.2.2",
     "@angular/compiler-cli": "^8.2.2",
     "@angular/language-service": "^8.2.2",
+    "@ngrx/schematics": "7.2.0",
+    "@ngrx/store-devtools": "7.2.0",
+    "@nrwl/workspace": "8.0.0",
     "@types/jasmine": "~2.8.3",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "^9.6.6",
     "codelyzer": "^5.0.1",
-    "copy-webpack-plugin": "^4.5.2",
+    "copyfiles": "^2.1.1",
+    "dotenv": "6.2.0",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "^4.2.0",
@@ -70,12 +75,6 @@
     "tslib": "^1.9.0",
     "tslint": "~5.11.0",
     "typescript": "~3.4.5",
-    "webpack": "^4.16.5",
-    "webpack-cli": "^3.1.0",
-    "webpack-node-externals": "^1.7.2",
-    "@ngrx/schematics": "7.2.0",
-    "@ngrx/store-devtools": "7.2.0",
-    "dotenv": "6.2.0",
-    "@nrwl/workspace": "8.0.0"
+    "webpack": "^4.39.2"
   }
 }

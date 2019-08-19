@@ -1,12 +1,12 @@
 import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
 
-import {ModuleConfig} from './interfaces';
+import {NgxLocalstorageConfiguration} from './interfaces';
 import {LocalStorageService} from './services/ngx-localstorage.service';
 import {StorageEventService} from './services/storage-event.service';
 import {LocalStorageDirective} from './directives/ngx-localstorage.directive';
-import {ModuleConfigToken} from './token';
+import {NgxLocalstorageConfigurationToken} from './token';
 
-export function provideStorageService(moduleConfig: ModuleConfig): LocalStorageService {
+export function provideStorageService(moduleConfig: NgxLocalstorageConfiguration): LocalStorageService {
   return new LocalStorageService(moduleConfig);
 }
 
@@ -21,19 +21,19 @@ export function provideStorageService(moduleConfig: ModuleConfig): LocalStorageS
   ]
 })
 export class NgxLocalStorageModule {
-  static forRoot(config?: ModuleConfig): ModuleWithProviders {
+  static forRoot(config?: NgxLocalstorageConfiguration): ModuleWithProviders {
     return {
       ngModule: NgxLocalStorageModule,
       providers: [
         {
-          provide: ModuleConfigToken,
+          provide: NgxLocalstorageConfigurationToken,
           useValue: config
         },
         {
           provide: LocalStorageService,
           useFactory: provideStorageService,
           deps: [
-            ModuleConfigToken
+            NgxLocalstorageConfigurationToken
           ]
         },
         StorageEventService

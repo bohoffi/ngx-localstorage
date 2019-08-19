@@ -1,14 +1,15 @@
 /**
  * Created by bohoffi on 22.05.2017.
 */
-import {ModuleConfig} from '../interfaces';
+import {NgxLocalstorageConfiguration} from '../interfaces';
+import { constructKey } from '../utils';
 
 export class PromisableService {
 
   private readonly _prefix: string;
   private readonly _allowNull: boolean;
 
-  constructor(config?: ModuleConfig) {
+  constructor(config?: NgxLocalstorageConfiguration) {
     if (config) {
       this._prefix = config.prefix || this._prefix;
       this._allowNull = config.allowNull || this._allowNull;
@@ -57,7 +58,7 @@ export class PromisableService {
       try {
         if (this._allowNull
           || (!this._allowNull && value !== 'null' && value !== null && value !== undefined)) {
-          localStorage.setItem(`${prefix || this._prefix}_${key}`, value);
+          localStorage.setItem(constructKey(key, prefix), value);
         } else {
           return this.remove(key, prefix);
         }
@@ -76,7 +77,7 @@ export class PromisableService {
   get(key: string, prefix?: string): Promise<string | null> {
     return new Promise<string | null>((resolve, reject) => {
       try {
-        resolve(localStorage.getItem(`${prefix || this._prefix}_${key}`));
+        resolve(localStorage.getItem(constructKey(key, prefix)));
       } catch (error) {
         reject(error);
       }
@@ -91,7 +92,7 @@ export class PromisableService {
   remove(key: string, prefix?: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       try {
-        localStorage.removeItem(`${prefix || this._prefix}_${key}`);
+        localStorage.removeItem(constructKey(key, prefix));
         resolve(true);
       } catch (error) {
         reject(error);

@@ -1,17 +1,17 @@
-import {Injectable, Optional, Inject} from '@angular/core';
+import { Injectable, Optional, Inject } from '@angular/core';
 
-import {ModuleConfig} from '../interfaces';
-import {PromisableService} from './promisable.service';
-import {defaultConfig} from '../utils';
-import { ModuleConfigToken } from '../token';
+import { NgxLocalstorageConfiguration } from '../interfaces';
+import { PromisableService } from './promisable.service';
+import { defaultConfig, constructKey } from '../utils';
+import { NgxLocalstorageConfigurationToken } from '../token';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class LocalStorageService {
   private readonly _prefix: string;
   private readonly _allowNull: boolean;
   private readonly _promisable: PromisableService;
 
-  constructor(@Inject(ModuleConfigToken) config?: ModuleConfig) {
+  constructor(@Inject(NgxLocalstorageConfigurationToken) config?: NgxLocalstorageConfiguration) {
     if (config) {
       this._prefix = config.prefix || defaultConfig.prefix;
       this._allowNull = config.allowNull || defaultConfig.allowNull;
@@ -67,7 +67,7 @@ export class LocalStorageService {
         value !== null &&
         value !== undefined)
     ) {
-      localStorage.setItem(`${prefix || this._prefix}_${key}`, value);
+      localStorage.setItem(constructKey(key, prefix), value);
     } else {
       this.remove(key, prefix);
     }
@@ -80,7 +80,7 @@ export class LocalStorageService {
    */
   get(key: string, prefix?: string): string | null | undefined {
     try {
-      return localStorage.getItem(`${prefix || this._prefix}_${key}`);
+      return localStorage.getItem(constructKey(key, prefix));
     } catch (error) {
       console.error(error);
     }
@@ -93,7 +93,7 @@ export class LocalStorageService {
    */
   remove(key: string, prefix?: string): void {
     try {
-      localStorage.removeItem(`${prefix || this._prefix}_${key}`);
+      localStorage.removeItem(constructKey(key, prefix));
     } catch (error) {
       console.error(error);
     }

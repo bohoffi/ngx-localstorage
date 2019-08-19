@@ -1,7 +1,7 @@
 /**
  * Created by bohoffi on 04.04.2017.
  */
-import {ModuleConfig} from './interfaces';
+import {NgxLocalstorageConfiguration} from './interfaces';
 
 export const getProperty = (path: string[], object: any) =>
   path.reduce((obj: any, p: any) => (!!obj) ? obj[p] : null, object);
@@ -19,7 +19,13 @@ export const setProperty = (path: string[] | string, value: any, object: any, fa
   && !!falsyTransformer ? falsyTransformer() : value;
 };
 
-export const defaultConfig: ModuleConfig = {
-  allowNull: true,
-  prefix: 'ngx_local_storage'
+export const defaultConfig: NgxLocalstorageConfiguration = {
+  allowNull: true
 };
+
+export const constructKey = (key: string, prefix?: string): string => {
+  if (prefix) {
+    return `${prefix}_${key}`;
+  }
+  return key;
+}
