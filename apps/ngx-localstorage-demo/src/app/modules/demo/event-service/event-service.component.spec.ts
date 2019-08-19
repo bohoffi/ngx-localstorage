@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EventServiceComponent } from './event-service.component';
 import {NgxLocalStorageModule} from '../../ngx-localstorage/ngx-localstorage.module';
-import {MatCardModule} from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
 
 describe('EventServiceComponent', () => {
   let component: EventServiceComponent;

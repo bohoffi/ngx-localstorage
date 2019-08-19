@@ -93,9 +93,7 @@
               "apps/ngx-localstorage-demo/tsconfig.app.json",
               "apps/ngx-localstorage-demo/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -115,9 +113,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/ngx-localstorage-demo-e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -133,6 +129,11 @@
           "options": {
             "tsConfig": "libs/ngx-localstorage/tsconfig.lib.json",
             "project": "libs/ngx-localstorage/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "libs/ngx-localstorage/ng-package.prod.json"
+            }
           }
         },
         "test": {
@@ -150,9 +151,7 @@
               "libs/ngx-localstorage/tsconfig.lib.json",
               "libs/ngx-localstorage/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -163,12 +162,23 @@
       "typescriptMismatch": false,
       "versionMismatch": false
     },
-    "defaultCollection": "@nrwl/schematics"
+    "defaultCollection": "@nrwl/angular"
   },
   "defaultProject": "ngx-localstorage-demo",
   "schematics": {
     "@nrwl/schematics:component": {
       "styleext": "scss"
+    },
+    "@nrwl/schematics:library": {
+      "unitTestRunner": "karma",
+      "framework": "angular"
+    },
+    "@nrwl/schematics:application": {
+      "unitTestRunner": "karma",
+      "e2eTestRunner": "protractor"
+    },
+    "@nrwl/schematics:node-application": {
+      "framework": "express"
     }
   }
 }

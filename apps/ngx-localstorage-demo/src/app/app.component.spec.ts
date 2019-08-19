@@ -1,6 +1,6 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import {MatToolbarModule} from '@angular/material';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import {DemoModule} from './modules/demo/demo.module';
 describe('AppComponent', () => {
   beforeEach(async(() => {

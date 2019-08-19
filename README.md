@@ -16,6 +16,16 @@ Install via npm:
 npm install ngx-localstorage --save
 ```
 
+Install using schematics:
+```
+ng add ngx-localstorage
+```
+This command will:
+
+- Add `ngx-localstorage` into `package.json`.
+- Run `npm install`.
+- Import `NgxLocalStorageModule.forRoot()` into the root module of your default application (or defining a project by using the `--project <PROJECT_NAME>` and/or `--module <MODULE_PATH>` CLI parameters).
+
 ## Usage
 
 #### 1. Import `NgxLocalStorageModule`
@@ -38,9 +48,9 @@ export class AppModule { }
 ##### Configuration (`NgxLocalStorageModule.forRoot(moduleConfig)`)
 
 * __prefix__
-  * Type: `string`
+  * Type: `string?`
   * Determines the key prefix.
-  * Default: __ngx_local_storage__
+  * Default: __null__
 * __allowNull__
   * Type: `boolean`
   * Determines if _null | 'null'_ values should be stored.
