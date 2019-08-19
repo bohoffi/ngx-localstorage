@@ -58,6 +58,7 @@
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "^9.6.6",
     "codelyzer": "^5.0.1",
+    "copyfiles": "^2.1.1",
     "dotenv": "6.2.0",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
