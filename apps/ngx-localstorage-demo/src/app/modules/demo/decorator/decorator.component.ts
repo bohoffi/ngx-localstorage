@@ -8,7 +8,7 @@ import { ngxLocalStorage } from 'ngx-localstorage';
 })
 export class DecoratorComponent {
 
-  @ngxLocalStorage({key: 'cbox1', prefix: 'demo', nullTransformer: () => false})
+  @ngxLocalStorage({key: 'cbox1', nullTransformer: () => false})
   boundBoolean: boolean;
 
   @ngxLocalStorage({key: 'txt1', prefix: 'demo'})
