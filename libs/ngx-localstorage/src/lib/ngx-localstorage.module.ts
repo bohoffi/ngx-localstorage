@@ -21,7 +21,7 @@ export function provideStorageService(moduleConfig: NgxLocalstorageConfiguration
   ]
 })
 export class NgxLocalStorageModule {
-  static forRoot(config?: NgxLocalstorageConfiguration): ModuleWithProviders {
+  static forRoot(config?: NgxLocalstorageConfiguration): ModuleWithProviders<NgxLocalStorageModule> {
     return {
       ngModule: NgxLocalStorageModule,
       providers: [
