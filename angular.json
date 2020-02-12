@@ -100,7 +100,7 @@
               "apps/ngx-localstorage-demo/tsconfig.app.json",
               "apps/ngx-localstorage-demo/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!apps/ngx-localstorage-demo/**"]
           }
         }
       }
@@ -120,7 +120,10 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/ngx-localstorage-demo-e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/ngx-localstorage-demo-e2e/**"
+            ]
           }
         }
       }
@@ -132,16 +135,16 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/ngx-localstorage/tsconfig.lib.json",
             "project": "libs/ngx-localstorage/ng-package.json"
           },
           "configurations": {
             "production": {
-              "project": "libs/ngx-localstorage/ng-package.prod.json"
-            ,              "tsConfig": "libs/ngx-localstorage/tsconfig.lib.prod.json"
-}
+              "project": "libs/ngx-localstorage/ng-package.prod.json",
+              "tsConfig": "libs/ngx-localstorage/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -159,7 +162,7 @@
               "libs/ngx-localstorage/tsconfig.lib.json",
               "libs/ngx-localstorage/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!libs/ngx-localstorage/**"]
           }
         }
       }
