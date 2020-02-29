@@ -1,5 +1,13 @@
+<a name="2.4.1"></a>
+# [2.4.1](https://github.com/BalticCode/ngx-localstorage/compare/2.4.0...2.4.1) (2020-02-29)
+
+### Bug fixes
+
+* **Service**
+  * Service use configured prefix if set ([#21](https://github.com/bohoffi/ngx-localstorage/issues/21))
+
 <a name="2.4.0"></a>
-# [2.4.0](https://github.com/BalticCode/ngx-localstorage/compare/2.3.0...2.4.0) (2019-08-XX)
+# [2.4.0](https://github.com/BalticCode/ngx-localstorage/compare/2.3.0...2.4.0) (2019-08-19)
 
 ### Features
 

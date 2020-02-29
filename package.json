@@ -1,6 +1,6 @@
 {
   "name": "ngx-localstorage-demo",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "An Angular wrapper for local storage access.",
   "scripts": {
     "ng": "ng",

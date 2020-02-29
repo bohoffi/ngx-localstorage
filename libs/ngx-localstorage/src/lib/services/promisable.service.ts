@@ -2,19 +2,10 @@
  * Created by bohoffi on 22.05.2017.
 */
 import {NgxLocalstorageConfiguration} from '../interfaces';
-import { constructKey } from '../utils';
 
 export class PromisableService {
 
-  private readonly _prefix: string;
-  private readonly _allowNull: boolean;
-
-  constructor(config?: NgxLocalstorageConfiguration) {
-    if (config) {
-      this._prefix = config.prefix || this._prefix;
-      this._allowNull = config.allowNull || this._allowNull;
-    }
-  }
+  constructor(private configuration: NgxLocalstorageConfiguration) { }
 
   /**
    * Gets the number of entries in the applications local storage.
@@ -56,9 +47,9 @@ export class PromisableService {
   set(key: string, value: string, prefix?: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       try {
-        if (this._allowNull
-          || (!this._allowNull && value !== 'null' && value !== null && value !== undefined)) {
-          localStorage.setItem(constructKey(key, prefix), value);
+        if (this.configuration.allowNull
+          || (!this.configuration.allowNull && value !== 'null' && value !== null && value !== undefined)) {
+          localStorage.setItem(this.constructKey(key, prefix), value);
         } else {
           return this.remove(key, prefix);
         }
@@ -77,7 +68,7 @@ export class PromisableService {
   get(key: string, prefix?: string): Promise<string | null> {
     return new Promise<string | null>((resolve, reject) => {
       try {
-        resolve(localStorage.getItem(constructKey(key, prefix)));
+        resolve(localStorage.getItem(this.constructKey(key, prefix)));
       } catch (error) {
         reject(error);
       }
@@ -92,7 +83,7 @@ export class PromisableService {
   remove(key: string, prefix?: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       try {
-        localStorage.removeItem(constructKey(key, prefix));
+        localStorage.removeItem(this.constructKey(key, prefix));
         resolve(true);
       } catch (error) {
         reject(error);
@@ -112,5 +103,13 @@ export class PromisableService {
         reject(error);
       }
     });
+  }
+
+  private constructKey(key: string, prefix?: string): string {
+    const prefixToUse = prefix || this.configuration.prefix;
+    if (prefixToUse) {
+      return `${prefixToUse}_${key}`;
+    }
+    return key;
   }
 }

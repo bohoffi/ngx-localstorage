@@ -16,7 +16,9 @@ import {EventServiceComponent} from './event-service/event-service.component';
 
     MatCardModule,
 
-    NgxLocalStorageModule.forRoot()
+    NgxLocalStorageModule.forRoot({
+      prefix: 'ngx-localstorage'
+    })
   ],
   declarations: [DecoratorComponent, DirectiveComponent, StorageServiceComponent, EventServiceComponent],
   exports: [DecoratorComponent, DirectiveComponent, StorageServiceComponent, EventServiceComponent]

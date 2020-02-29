@@ -1,35 +1,35 @@
-import { Injectable, Optional, Inject } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 
 import { NgxLocalstorageConfiguration } from '../interfaces';
 import { PromisableService } from './promisable.service';
-import { defaultConfig, constructKey } from '../utils';
-import { NgxLocalstorageConfigurationToken } from '../token';
+import { defaultConfig } from '../utils';
+import { NGX_LOCAL_STORAGE_CONFIG } from '../token';
 
 @Injectable({ providedIn: 'root' })
 export class LocalStorageService {
-  private readonly _prefix: string;
-  private readonly _allowNull: boolean;
-  private readonly _promisable: PromisableService;
+  private readonly configuration: NgxLocalstorageConfiguration;
+  private readonly promisable: PromisableService;
 
-  constructor(@Inject(NgxLocalstorageConfigurationToken) config?: NgxLocalstorageConfiguration) {
-    if (config) {
-      this._prefix = config.prefix || defaultConfig.prefix;
-      this._allowNull = config.allowNull || defaultConfig.allowNull;
-    }
-    this._promisable = new PromisableService({
-      allowNull: this._allowNull,
-      prefix: this._prefix
-    });
+  constructor(
+    @Inject(NGX_LOCAL_STORAGE_CONFIG) config?: NgxLocalstorageConfiguration
+  ) {
+    this.configuration = { ...defaultConfig, ...config };
+
+    this.promisable = new PromisableService(this.configuration);
   }
 
-  asPromisable(): PromisableService {
-    return this._promisable;
+  public get config(): NgxLocalstorageConfiguration {
+    return this.configuration;
+  }
+
+  public asPromisable(): PromisableService {
+    return this.promisable;
   }
 
   /**
    * Gets the number of entries in the applications local storage.
    */
-  count(): number | undefined {
+  public count(): number | undefined {
     try {
       return localStorage.length;
     } catch (error) {
@@ -42,7 +42,7 @@ export class LocalStorageService {
    * The order of keys is user-agent defined, so you should not rely on it.
    * @param index   An integer representing the number of the key you want to get the name of. This is a zero-based index.
    */
-  getKey(index: number): string | null | undefined {
+  public getKey(index: number): string | null | undefined {
     if (index < 0) {
       console.error(new Error('index has to be 0 or greater'));
     }
@@ -59,15 +59,15 @@ export class LocalStorageService {
    * @param value   Value to store.
    * @param prefix  Optional prefix to overwrite the configured one.
    */
-  set(key: string, value: string, prefix?: string): void {
+  public set(key: string, value: string, prefix?: string): void {
     if (
-      this._allowNull ||
-      (!this._allowNull &&
+      this.configuration.allowNull ||
+      (!this.configuration.allowNull &&
         value !== 'null' &&
         value !== null &&
         value !== undefined)
     ) {
-      localStorage.setItem(constructKey(key, prefix), value);
+      localStorage.setItem(this.constructKey(key, prefix), value);
     } else {
       this.remove(key, prefix);
     }
@@ -78,9 +78,9 @@ export class LocalStorageService {
    * @param key     Key identifying the wanted entry.
    * @param prefix  Optional prefix to overwrite the configured one.
    */
-  get(key: string, prefix?: string): string | null | undefined {
+  public get(key: string, prefix?: string): string | null | undefined {
     try {
-      return localStorage.getItem(constructKey(key, prefix));
+      return localStorage.getItem(this.constructKey(key, prefix));
     } catch (error) {
       console.error(error);
     }
@@ -91,9 +91,9 @@ export class LocalStorageService {
    * @param key     Key identifying the entry to remove.
    * @param prefix  Optional prefix to overwrite the configured one.
    */
-  remove(key: string, prefix?: string): void {
+  public remove(key: string, prefix?: string): void {
     try {
-      localStorage.removeItem(constructKey(key, prefix));
+      localStorage.removeItem(this.constructKey(key, prefix));
     } catch (error) {
       console.error(error);
     }
@@ -102,11 +102,19 @@ export class LocalStorageService {
   /**
    * Clears all entries of the applications local storage.
    */
-  clear(): void {
+  public clear(): void {
     try {
       localStorage.clear();
     } catch (error) {
       console.error(error);
     }
+  }
+
+  private constructKey(key: string, prefix?: string): string {
+    const prefixToUse = prefix || this.configuration.prefix;
+    if (prefixToUse) {
+      return `${prefixToUse}_${key}`;
+    }
+    return key;
   }
 }

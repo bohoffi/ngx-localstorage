@@ -1,12 +1,11 @@
 /**
  * Created by bohoffi on 22.05.2017.
  */
-import {filter} from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 
-import {DecoratorOpts} from './interfaces';
-import {LocalStorageService} from './services/ngx-localstorage.service';
-import {StorageEventService} from './services/storage-event.service';
-import { constructKey } from './utils';
+import { DecoratorOpts } from './interfaces';
+import { LocalStorageService } from './services/ngx-localstorage.service';
+import { StorageEventService } from './services/storage-event.service';
 
 export function ngxLocalStorage(options?: DecoratorOpts) {
   return function (target: Object, propertyDescription: string) {
@@ -44,4 +43,11 @@ export function ngxLocalStorage(options?: DecoratorOpts) {
       }
     });
   };
+}
+
+function constructKey(key: string, prefix?: string): string {
+  if (prefix) {
+    return `${prefix}_${key}`;
+  }
+  return key;
 }
