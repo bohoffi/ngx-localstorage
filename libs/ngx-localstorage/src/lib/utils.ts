@@ -22,10 +22,3 @@ export const setProperty = (path: string[] | string, value: any, object: any, fa
 export const defaultConfig: NgxLocalstorageConfiguration = {
   allowNull: true
 };
-
-export const constructKey = (key: string, prefix?: string): string => {
-  if (prefix) {
-    return `${prefix}_${key}`;
-  }
-  return key;
-}
