@@ -1,8 +1,12 @@
 import {NgxLocalstorageConfiguration} from '../interfaces/storage-configuration';
+import { StorageSerializer } from '../interfaces/storage-serializer';
 
 export class PromisableService {
 
-  constructor(private configuration: NgxLocalstorageConfiguration) { }
+  constructor(
+    private configuration: NgxLocalstorageConfiguration,
+    private defaultSerializer: StorageSerializer
+    ) { }
 
   /**
    * Gets the number of entries in the applications local storage.

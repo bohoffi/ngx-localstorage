@@ -3,6 +3,8 @@ import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core
 import { NgxLocalstorageConfiguration } from './interfaces/storage-configuration';
 import { LocalStorageDirective } from './directives/ngx-localstorage.directive';
 import { NGX_LOCAL_STORAGE_CONFIG } from './tokens/storage-config';
+import { DefaultSerializer } from './classes/default-serializer';
+import { NGX_LOCAL_STORAGE_SERIALIZER } from './tokens/storage-serializer';
 
 @NgModule({
   imports: [
@@ -12,6 +14,12 @@ import { NGX_LOCAL_STORAGE_CONFIG } from './tokens/storage-config';
   ],
   exports: [
     LocalStorageDirective
+  ],
+  providers: [
+    {
+      provide: NGX_LOCAL_STORAGE_SERIALIZER,
+      useClass: DefaultSerializer
+    }
   ]
 })
 export class NgxLocalStorageModule {

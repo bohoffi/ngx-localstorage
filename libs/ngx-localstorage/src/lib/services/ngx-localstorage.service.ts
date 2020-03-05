@@ -4,6 +4,8 @@ import { NgxLocalstorageConfiguration } from '../interfaces/storage-configuratio
 import { PromisableService } from './promisable.service';
 import { defaultConfig } from '../utils';
 import { NGX_LOCAL_STORAGE_CONFIG } from '../tokens/storage-config';
+import { NGX_LOCAL_STORAGE_SERIALIZER } from '../tokens/storage-serializer';
+import { StorageSerializer } from '../interfaces/storage-serializer';
 
 @Injectable({ providedIn: 'root' })
 export class LocalStorageService {
@@ -11,11 +13,12 @@ export class LocalStorageService {
   private readonly promisable: PromisableService;
 
   constructor(
+    @Inject(NGX_LOCAL_STORAGE_SERIALIZER) private defaultSerializer: StorageSerializer,
     @Inject(NGX_LOCAL_STORAGE_CONFIG) config?: NgxLocalstorageConfiguration
   ) {
     this.configuration = { ...defaultConfig, ...config };
 
-    this.promisable = new PromisableService(this.configuration);
+    this.promisable = new PromisableService(this.configuration, this.defaultSerializer);
   }
 
   public get config(): NgxLocalstorageConfiguration {
