@@ -1,7 +1,4 @@
-/**
- * Created by bohoffi on 04.04.2017.
- */
-import {NgxLocalstorageConfiguration} from './interfaces';
+import { NgxLocalstorageConfiguration } from './interfaces/storage-configuration';
 
 export const getProperty = (path: string[], object: any) =>
   path.reduce((obj: any, p: any) => (!!obj) ? obj[p] : null, object);

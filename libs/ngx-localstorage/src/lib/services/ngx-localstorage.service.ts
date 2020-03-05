@@ -1,9 +1,9 @@
 import { Injectable, Inject } from '@angular/core';
 
-import { NgxLocalstorageConfiguration } from '../interfaces';
+import { NgxLocalstorageConfiguration } from '../interfaces/storage-configuration';
 import { PromisableService } from './promisable.service';
 import { defaultConfig } from '../utils';
-import { NGX_LOCAL_STORAGE_CONFIG } from '../token';
+import { NGX_LOCAL_STORAGE_CONFIG } from '../tokens/storage-config';
 
 @Injectable({ providedIn: 'root' })
 export class LocalStorageService {

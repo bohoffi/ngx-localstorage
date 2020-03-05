@@ -1,8 +1,8 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 
-import { NgxLocalstorageConfiguration } from './interfaces';
+import { NgxLocalstorageConfiguration } from './interfaces/storage-configuration';
 import { LocalStorageDirective } from './directives/ngx-localstorage.directive';
-import { NGX_LOCAL_STORAGE_CONFIG } from './token';
+import { NGX_LOCAL_STORAGE_CONFIG } from './tokens/storage-config';
 
 @NgModule({
   imports: [

@@ -1,6 +1,3 @@
-/**
- * Created by bohoffi on 31.01.2018.
- */
 import {Injectable} from '@angular/core';
 import {fromEvent as observableFromEvent, BehaviorSubject, Observable} from 'rxjs';
 import {share, filter} from 'rxjs/operators';

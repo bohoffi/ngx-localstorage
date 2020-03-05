@@ -1,7 +1,4 @@
-/**
- * Created by bohoffi on 22.05.2017.
-*/
-import {NgxLocalstorageConfiguration} from '../interfaces';
+import {NgxLocalstorageConfiguration} from '../interfaces/storage-configuration';
 
 export class PromisableService {
 

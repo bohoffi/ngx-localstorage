@@ -1,9 +1,6 @@
-/**
- * Created by bohoffi on 22.05.2017.
- */
 import { filter } from 'rxjs/operators';
 
-import { DecoratorOpts } from './interfaces';
+import { DecoratorOpts } from './interfaces/decorator-options';
 import { LocalStorageService } from './services/ngx-localstorage.service';
 import { StorageEventService } from './services/storage-event.service';
 

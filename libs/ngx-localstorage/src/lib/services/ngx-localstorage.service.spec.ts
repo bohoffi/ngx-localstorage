@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { LocalStorageService } from './ngx-localstorage.service';
-import { NGX_LOCAL_STORAGE_CONFIG } from '../token';
+import { NGX_LOCAL_STORAGE_CONFIG } from '../tokens/storage-config';
 
 describe('LocalStorageService', () => {
   beforeEach(() => {

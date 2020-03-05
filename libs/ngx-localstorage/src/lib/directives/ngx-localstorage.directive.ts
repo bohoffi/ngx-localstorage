@@ -1,6 +1,3 @@
-/**
- * Created by bohoffi on 03.04.2017.
- */
 import {AfterViewInit, Directive, ElementRef, EventEmitter, Input, OnDestroy, Output} from '@angular/core';
 import {fromEvent as observableFromEvent, Subscription} from 'rxjs';
 import {debounceTime, filter} from 'rxjs/operators';
