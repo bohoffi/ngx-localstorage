@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 
 import { NgxLocalstorageConfiguration } from '../interfaces/storage-configuration';
 import { PromisableService } from './promisable.service';
-import { defaultConfig } from '../utils';
+import { defaultConfig, constructKey } from '../utils';
 import { NGX_LOCAL_STORAGE_CONFIG } from '../tokens/storage-config';
 import { NGX_LOCAL_STORAGE_SERIALIZER } from '../tokens/storage-serializer';
 import { StorageSerializer } from '../interfaces/storage-serializer';
@@ -57,12 +57,24 @@ export class LocalStorageService {
   }
 
   /**
-   * Adds tha value with the given key or updates an existing entry.
+   * Adds the value with the given key or updates an existing entry.
    * @param key     Key to store.
    * @param value   Value to store.
-   * @param prefix  Optional prefix to overwrite the configured one.
+   * @param prefixOrSerializer  Optional prefix or serializer to overwrite the configured one.
+   * @param serializer  Optional serilizer.
    */
-  public set(key: string, value: string, prefix?: string): void {
+  public set(key: string, value: any, prefixOrSerializer?: string | StorageSerializer): void;
+  public set(key: string, value: any, prefixOrSerializer: string | StorageSerializer): void;
+  public set(key: string, value: any, prefixOrSerializer: string, serializer: StorageSerializer): void;
+  public set(key: string, value: any, prefixOrSerializer?: string | StorageSerializer, serializer?: StorageSerializer): void {
+
+    const prefix = typeof prefixOrSerializer === 'string' ? prefixOrSerializer : undefined;
+    serializer = (prefixOrSerializer as StorageSerializer)
+      ? (prefixOrSerializer as StorageSerializer)
+      : !!serializer
+        ? serializer
+        : this.defaultSerializer;
+
     if (
       this.configuration.allowNull ||
       (!this.configuration.allowNull &&
@@ -70,20 +82,32 @@ export class LocalStorageService {
         value !== null &&
         value !== undefined)
     ) {
-      localStorage.setItem(this.constructKey(key, prefix), value);
+      localStorage.setItem(constructKey(key, prefix, this.configuration.prefix), serializer.serialize(value));
     } else {
-      this.remove(key, prefix);
+      this.remove(key, constructKey(key, prefix, this.configuration.prefix));
     }
   }
 
   /**
    * Gets the entry specified by the given key or null.
    * @param key     Key identifying the wanted entry.
-   * @param prefix  Optional prefix to overwrite the configured one.
+   * @param prefixOrSerializer  Optional prefix or serializer to overwrite the configured one.
+   * @param serializer  Optional serilizer.
    */
-  public get(key: string, prefix?: string): string | null | undefined {
+  public get(key: string, prefixOrSerializer?: string | StorageSerializer): any | null | undefined;
+  public get(key: string, prefixOrSerializer: string | StorageSerializer): any | null | undefined;
+  public get(key: string, prefixOrSerializer: string, serializer: StorageSerializer): any | null | undefined;
+  public get(key: string, prefixOrSerializer?: string | StorageSerializer, serializer?: StorageSerializer): any | null | undefined {
+
+    const prefix = typeof prefixOrSerializer === 'string' ? prefixOrSerializer : undefined;
+    serializer = (prefixOrSerializer as StorageSerializer)
+      ? (prefixOrSerializer as StorageSerializer)
+      : !!serializer
+        ? serializer
+        : this.defaultSerializer;
+
     try {
-      return localStorage.getItem(this.constructKey(key, prefix));
+      return serializer.deserialize(localStorage.getItem(constructKey(key, prefix, this.configuration.prefix)));
     } catch (error) {
       console.error(error);
     }
@@ -96,7 +120,7 @@ export class LocalStorageService {
    */
   public remove(key: string, prefix?: string): void {
     try {
-      localStorage.removeItem(this.constructKey(key, prefix));
+      localStorage.removeItem(constructKey(key, prefix, this.configuration.prefix));
     } catch (error) {
       console.error(error);
     }
@@ -111,13 +135,5 @@ export class LocalStorageService {
     } catch (error) {
       console.error(error);
     }
-  }
-
-  private constructKey(key: string, prefix?: string): string {
-    const prefixToUse = prefix || this.configuration.prefix;
-    if (prefixToUse) {
-      return `${prefixToUse}_${key}`;
-    }
-    return key;
   }
 }

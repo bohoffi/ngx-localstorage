@@ -13,8 +13,16 @@ export const setProperty = (path: string[] | string, value: any, object: any, fa
     object = object[key];
   }
   object[path[lastKeyIndex]] = (!value || (typeof value === 'string' && value === 'false'))
-  && !!falsyTransformer ? falsyTransformer() : value;
+    && !!falsyTransformer ? falsyTransformer() : value;
 };
+
+export const constructKey = (key: string, prefix?: string, configuredPrefix?: string): string => {
+  const prefixToUse = prefix || configuredPrefix;
+  if (prefixToUse) {
+    return `${prefixToUse}_${key}`;
+  }
+  return key;
+}
 
 export const defaultConfig: NgxLocalstorageConfiguration = {
   allowNull: true

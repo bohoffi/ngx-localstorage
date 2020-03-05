@@ -3,6 +3,8 @@ import { filter } from 'rxjs/operators';
 import { DecoratorOpts } from './interfaces/decorator-options';
 import { LocalStorageService } from './services/ngx-localstorage.service';
 import { StorageEventService } from './services/storage-event.service';
+import { constructKey } from './utils';
+import { DefaultSerializer } from './classes/default-serializer';
 
 export function ngxLocalStorage(options?: DecoratorOpts) {
   return function (target: Object, propertyDescription: string) {
@@ -10,9 +12,10 @@ export function ngxLocalStorage(options?: DecoratorOpts) {
     const key = !!options && !!options.key ? options.key : propertyDescription;
     const prefix = !!options && !!options.prefix ? options.prefix : null;
 
-    const service: LocalStorageService = new LocalStorageService({
-      prefix: prefix
-    });
+    const service: LocalStorageService = new LocalStorageService(new DefaultSerializer(),
+      {
+        prefix: prefix
+      });
 
 
     const eventService: StorageEventService = new StorageEventService();
@@ -40,11 +43,4 @@ export function ngxLocalStorage(options?: DecoratorOpts) {
       }
     });
   };
-}
-
-function constructKey(key: string, prefix?: string): string {
-  if (prefix) {
-    return `${prefix}_${key}`;
-  }
-  return key;
 }

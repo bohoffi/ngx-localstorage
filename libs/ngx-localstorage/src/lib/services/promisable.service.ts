@@ -1,12 +1,13 @@
-import {NgxLocalstorageConfiguration} from '../interfaces/storage-configuration';
+import { NgxLocalstorageConfiguration } from '../interfaces/storage-configuration';
 import { StorageSerializer } from '../interfaces/storage-serializer';
+import { constructKey } from '../utils';
 
 export class PromisableService {
 
   constructor(
     private configuration: NgxLocalstorageConfiguration,
     private defaultSerializer: StorageSerializer
-    ) { }
+  ) { }
 
   /**
    * Gets the number of entries in the applications local storage.
@@ -40,17 +41,29 @@ export class PromisableService {
   }
 
   /**
-   * Adds tha value with the given key or updates an existing entry.
+   * Adds the value with the given key or updates an existing entry.
    * @param key     Key to store.
    * @param value   Value to store.
-   * @param prefix  Optional prefix to overwrite the configured one.
+   * @param prefixOrSerializer  Optional prefix or serializer to overwrite the configured one.
+   * @param serializer  Optional serilizer.
    */
-  set(key: string, value: string, prefix?: string): Promise<boolean> {
+  public set(key: string, value: any, prefixOrSerializer?: string | StorageSerializer): Promise<boolean>;
+  public set(key: string, value: any, prefixOrSerializer: string | StorageSerializer): Promise<boolean>;
+  public set(key: string, value: any, prefixOrSerializer: string, serializer: StorageSerializer): Promise<boolean>;
+  public set(key: string, value: any, prefixOrSerializer?: string | StorageSerializer, serializer?: StorageSerializer): Promise<boolean> {
     return new Promise((resolve, reject) => {
       try {
+
+        const prefix = typeof prefixOrSerializer === 'string' ? prefixOrSerializer : undefined;
+        serializer = (prefixOrSerializer as StorageSerializer)
+          ? (prefixOrSerializer as StorageSerializer)
+          : !!serializer
+            ? serializer
+            : this.defaultSerializer;
+
         if (this.configuration.allowNull
           || (!this.configuration.allowNull && value !== 'null' && value !== null && value !== undefined)) {
-          localStorage.setItem(this.constructKey(key, prefix), value);
+          localStorage.setItem(constructKey(key, prefix, this.configuration.prefix), serializer.serialize(value));
         } else {
           return this.remove(key, prefix);
         }
@@ -64,12 +77,24 @@ export class PromisableService {
   /**
    * Gets the entry specified by the given key or null.
    * @param key     Key identifying the wanted entry.
-   * @param prefix  Optional prefix to overwrite the configured one.
+   * @param prefixOrSerializer  Optional prefix or serializer to overwrite the configured one.
+   * @param serializer  Optional serilizer.
    */
-  get(key: string, prefix?: string): Promise<string | null> {
-    return new Promise<string | null>((resolve, reject) => {
+  public get(key: string, prefixOrSerializer?: string | StorageSerializer): Promise<any | null | undefined>;
+  public get(key: string, prefixOrSerializer: string | StorageSerializer): Promise<any | null | undefined>;
+  public get(key: string, prefixOrSerializer: string, serializer: StorageSerializer): Promise<any | null | undefined>;
+  public get(key: string, prefixOrSerializer?: string | StorageSerializer, serializer?: StorageSerializer): Promise<any | null | undefined> {
+    return new Promise<any | null | undefined>((resolve, reject) => {
       try {
-        resolve(localStorage.getItem(this.constructKey(key, prefix)));
+
+        const prefix = typeof prefixOrSerializer === 'string' ? prefixOrSerializer : undefined;
+        serializer = (prefixOrSerializer as StorageSerializer)
+          ? (prefixOrSerializer as StorageSerializer)
+          : !!serializer
+            ? serializer
+            : this.defaultSerializer;
+
+        resolve(serializer.deserialize(localStorage.getItem(constructKey(key, prefix, this.configuration.prefix))));
       } catch (error) {
         reject(error);
       }
@@ -84,7 +109,7 @@ export class PromisableService {
   remove(key: string, prefix?: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       try {
-        localStorage.removeItem(this.constructKey(key, prefix));
+        localStorage.removeItem(constructKey(key, prefix, this.configuration.prefix));
         resolve(true);
       } catch (error) {
         reject(error);
@@ -104,13 +129,5 @@ export class PromisableService {
         reject(error);
       }
     });
-  }
-
-  private constructKey(key: string, prefix?: string): string {
-    const prefixToUse = prefix || this.configuration.prefix;
-    if (prefixToUse) {
-      return `${prefixToUse}_${key}`;
-    }
-    return key;
   }
 }
