@@ -51,7 +51,6 @@
     "@angular/cli": "^8.2.2",
     "@angular/compiler-cli": "^8.2.2",
     "@angular/language-service": "^8.2.2",
-    "@compodoc/compodoc": "^1.1.11",
     "@ngrx/schematics": "7.2.0",
     "@ngrx/store-devtools": "7.2.0",
     "@nrwl/workspace": "8.0.0",
