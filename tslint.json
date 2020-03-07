@@ -16,7 +16,7 @@
       "rxjs/Rx"
     ],
     "interface-over-type-literal": true,
-    "member-access": false,
+    "member-access": [true, "check-accessor"],
     "member-ordering": [
       true,
       {
@@ -26,6 +26,25 @@
           "static-method",
           "instance-method"
         ]
+      }
+    ],
+    "completed-docs": [
+      true,
+      {
+        "methods": {
+          "locations": "instance",
+          "privacies": [
+            "public",
+            "protected"
+          ]
+        },
+        "properties": {
+          "locations": "instance",
+          "privacies": [
+            "public",
+            "protected"
+          ]
+        }
       }
     ],
     "no-arg": true,
@@ -60,6 +79,7 @@
     "no-var-keyword": true,
     "object-literal-sort-keys": false,
     "prefer-const": true,
+    "prefer-readonly": true,
     "radix": true,
     "triple-equals": [
       true,

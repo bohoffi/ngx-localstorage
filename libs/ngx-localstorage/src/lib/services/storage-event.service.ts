@@ -1,25 +1,41 @@
+import { Injectable, OnDestroy } from '@angular/core';
+import { fromEvent as observableFromEvent, BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { share, filter } from 'rxjs/operators';
+
 /**
- * Created by bohoffi on 31.01.2018.
+ * Provides a service
  */
-import {Injectable} from '@angular/core';
-import {fromEvent as observableFromEvent, BehaviorSubject, Observable} from 'rxjs';
-import {share, filter} from 'rxjs/operators';
+@Injectable({ providedIn: 'root' })
+export class StorageEventService implements OnDestroy {
 
-@Injectable({providedIn: 'root'})
-export class StorageEventService {
+  private readonly _eventStream: BehaviorSubject<StorageEvent> = new BehaviorSubject<StorageEvent>(null);
+  private readonly subscription: Subscription;
 
-  private _eventStream: BehaviorSubject<StorageEvent> = new BehaviorSubject<StorageEvent>(null);
-
+  /**
+   * Create e new instance.
+   */
   constructor() {
-    observableFromEvent(window, 'storage')
+    this.subscription = observableFromEvent(window, 'storage')
       .subscribe((ev: StorageEvent) => this._eventStream.next(ev));
   }
 
-  get stream(): Observable<StorageEvent> {
+  /**
+   * Gets a stream of storage events.
+   */
+  public get stream(): Observable<StorageEvent> {
     return this._eventStream
       .asObservable().pipe(
         filter(ev => !!ev),
         share()
       );
+  }
+
+  /**
+   * OnDestroy lifecycle hook. Clears the subscription.
+   */
+  public ngOnDestroy(): void {
+    if (!!this.subscription && !this.subscription.closed) {
+      this.subscription.unsubscribe();
+    }
   }
 }

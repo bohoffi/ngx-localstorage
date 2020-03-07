@@ -1,5 +1,20 @@
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/bohoffi/ngx-localstorage/compare/2.4.1...3.0.0) (2020-03-08)
+
+### Features
+
+* **Service**
+  * the service is now fed by a default (de)serializer using `JSON.stringify()/JSON.parse()`
+
+### Breaking changes
+
+* **Service**
+  * the service is now using a default (de)serialization mechanism (mentioned above) (#24) (fd5feca)
+  * depending on your prior usage it may break your code
+  * it's possible to either inject an app wide (de)serializer or use one per storage call (see README)
+
 <a name="2.4.1"></a>
-# [2.4.1](https://github.com/BalticCode/ngx-localstorage/compare/2.4.0...2.4.1) (2020-02-29)
+# [2.4.1](https://github.com/bohoffi/ngx-localstorage/compare/2.4.0...2.4.1) (2020-02-29)
 
 ### Bug fixes
 
@@ -7,7 +22,7 @@
   * Service use configured prefix if set ([#21](https://github.com/bohoffi/ngx-localstorage/issues/21))
 
 <a name="2.4.0"></a>
-# [2.4.0](https://github.com/BalticCode/ngx-localstorage/compare/2.3.0...2.4.0) (2019-08-19)
+# [2.4.0](https://github.com/bohoffi/ngx-localstorage/compare/2.3.0...2.4.0) (2019-08-19)
 
 ### Features
 
@@ -20,7 +35,7 @@
   * Added back schematics support
 
 <a name="2.3.0"></a>
-# [2.3.0](https://github.com/BalticCode/ngx-localstorage/compare/2.2.1...2.3.0) (2018-12-18)
+# [2.3.0](https://github.com/bohoffi/ngx-localstorage/compare/2.2.1...2.3.0) (2018-12-18)
 
 ### Changes
 
@@ -29,7 +44,7 @@
   * updated compatibility to Angular >=4.0.0
 
 <a name="2.2.1"></a>
-# [2.2.1](https://github.com/BalticCode/ngx-localstorage/compare/2.1.0...2.2.1) (2018-08-13)
+# [2.2.1](https://github.com/bohoffi/ngx-localstorage/compare/2.1.0...2.2.1) (2018-08-13)
 
 ### Features
 
@@ -37,7 +52,7 @@
   * Added schematics support ([#11](https://github.com/bohoffi/ngx-localstorage/issues/11))
 
 <a name="2.1.0"></a>
-# [2.1.0](https://github.com/BalticCode/ngx-localstorage/compare/2.0.1...2.1.0) (2018-08-12)
+# [2.1.0](https://github.com/bohoffi/ngx-localstorage/compare/2.0.1...2.1.0) (2018-08-12)
 
 ### Bug fixes
 
