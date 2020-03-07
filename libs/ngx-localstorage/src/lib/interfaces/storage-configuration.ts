@@ -1,3 +1,6 @@
+/**
+ * Provides the configuration used by {@link LocalStorageService}.
+ */
 export interface NgxLocalstorageConfiguration {
     /**
      * Determines the key prefix. (Default: null)

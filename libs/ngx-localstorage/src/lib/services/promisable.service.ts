@@ -2,8 +2,14 @@ import { NgxLocalstorageConfiguration } from '../interfaces/storage-configuratio
 import { StorageSerializer } from '../interfaces/storage-serializer';
 import { constructKey, isSerializer } from '../utils';
 
+/**
+ * Provides a Promise based service to access the localstorage.
+ */
 export class PromisableService {
 
+  /**
+   * Creates a new instance
+   */
   constructor(
     private readonly configuration: NgxLocalstorageConfiguration,
     private readonly defaultSerializer: StorageSerializer

@@ -7,24 +7,29 @@ import { NGX_LOCAL_STORAGE_CONFIG } from '../tokens/storage-config';
 import { NGX_LOCAL_STORAGE_SERIALIZER } from '../tokens/storage-serializer';
 import { StorageSerializer } from '../interfaces/storage-serializer';
 
+/**
+ * Provides a service to access the localstorage.
+ */
 @Injectable({ providedIn: 'root' })
 export class LocalStorageService {
-  private readonly configuration: NgxLocalstorageConfiguration;
+
   private readonly promisable: PromisableService;
 
+  /**
+   * Creates a new instance.
+   */
   constructor(
     @Inject(NGX_LOCAL_STORAGE_SERIALIZER) private readonly defaultSerializer: StorageSerializer,
-    @Inject(NGX_LOCAL_STORAGE_CONFIG) config?: NgxLocalstorageConfiguration
+    @Inject(NGX_LOCAL_STORAGE_CONFIG) public readonly config?: NgxLocalstorageConfiguration
   ) {
-    this.configuration = { ...defaultConfig, ...config };
+    this.config = { ...defaultConfig, ...config };
 
-    this.promisable = new PromisableService(this.configuration, this.defaultSerializer);
+    this.promisable = new PromisableService(this.config, this.defaultSerializer);
   }
 
-  public get config(): NgxLocalstorageConfiguration {
-    return this.configuration;
-  }
-
+  /**
+   * Returns a service variant based on Promises.
+   */
   public asPromisable(): PromisableService {
     return this.promisable;
   }
@@ -76,15 +81,15 @@ export class LocalStorageService {
         : this.defaultSerializer;
 
     if (
-      this.configuration.allowNull ||
-      (!this.configuration.allowNull &&
+      this.config.allowNull ||
+      (!this.config.allowNull &&
         value !== 'null' &&
         value !== null &&
         value !== undefined)
     ) {
-      localStorage.setItem(constructKey(key, prefix, this.configuration.prefix), serializer.serialize(value));
+      localStorage.setItem(constructKey(key, prefix, this.config.prefix), serializer.serialize(value));
     } else {
-      this.remove(key, constructKey(key, prefix, this.configuration.prefix));
+      this.remove(key, constructKey(key, prefix, this.config.prefix));
     }
   }
 
@@ -107,7 +112,7 @@ export class LocalStorageService {
         : this.defaultSerializer;
 
     try {
-      return serializer.deserialize(localStorage.getItem(constructKey(key, prefix, this.configuration.prefix)));
+      return serializer.deserialize(localStorage.getItem(constructKey(key, prefix, this.config.prefix)));
     } catch (error) {
       console.error(error);
     }
@@ -120,7 +125,7 @@ export class LocalStorageService {
    */
   public remove(key: string, prefix?: string): void {
     try {
-      localStorage.removeItem(constructKey(key, prefix, this.configuration.prefix));
+      localStorage.removeItem(constructKey(key, prefix, this.config.prefix));
     } catch (error) {
       console.error(error);
     }

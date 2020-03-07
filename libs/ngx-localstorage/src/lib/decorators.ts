@@ -6,6 +6,10 @@ import { StorageEventService } from './services/storage-event.service';
 import { constructKey } from './utils';
 import { DefaultSerializer } from './classes/default-serializer';
 
+/**
+ * Provides a decoarator to bind a property directly to a storage value.
+ * @param options configuration used for the decoarator
+ */
 export function ngxLocalStorage(options?: DecoratorOpts) {
   return function (target: Object, propertyDescription: string) {
 
