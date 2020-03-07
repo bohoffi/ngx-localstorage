@@ -1,6 +1,6 @@
 {
   "name": "ngx-localstorage-schematics",
-  "version": "2.4.1",
+  "version": "3.0.0",
   "description": "A blank schematics",
   "scripts": {
     "build": "tsc -p tsconfig.json",

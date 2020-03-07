@@ -6,6 +6,7 @@ An Angular wrapper for local storage access.
 
 * [Installation](#installation)
 * [Usage](#usage)
+  * [Serialization](#serialization)
 * [API](#api)
 
 Feel free to take a look at the [DEMO](https://bohoffi.github.io/ngx-localstorage/).
@@ -55,6 +56,40 @@ export class AppModule { }
   * Type: `boolean`
   * Determines if _null | 'null'_ values should be stored.
   * Default: __true__
+
+### Serialization
+
+#### Default serialization
+
+The library utilizes the `JSON.stringify()/JSON.parse()` mechanics to pass values (of any type) to and from localstorage per default.
+If you wish you can override that behaviour by injecting your own custom serializer (app wide) or pass one per stoage call.
+
+##### App wide serializer
+Inject your custom serializer implentation using the provided injection token:
+
+```ts
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {NgxLocalStorageModule, NGX_LOCAL_STORAGE_SERIALIZER} from 'ngx-localstorage';
+
+@NgModule({
+    imports: [
+        BrowserModule,
+        NgxLocalStorageModule.forRoot()
+    ],
+    bootstrap: [AppComponent],
+    providers: [
+      {
+        provide: NGX_LOCAL_STORAGE_SERIALIZER,
+        useClass: <custom serializer implementing StorageSerializer>
+      }
+    ]
+})
+export class AppModule { }
+```
+
+##### Per call serializer
+Every `set()/get` call on `LocalstorageService` and `PromisableService` now supports to pass an optional (de)seriaizer. If none is provided the app wide (or default) one is used.
   
 ## API
 
@@ -62,20 +97,20 @@ export class AppModule { }
 
 #### Methods
 
+- `asPromisable(): PromisableService`: provide the storage operations wrapped in a Promise
 - `count(): number`: Gets the number of entries in the applications local storage.
 - `getKey(index: number): string | null`: Returns the nth (defined by the index parameter) key in the storage. The order of keys is user-agent defined, so you should not rely on it.
-- `set(key: string, value: string, prefix?: string): void`: Adds tha value with the given key or updates an existing entry.
-- `get(key: string, prefix?: string): string | null`: Gets the entry specified by the given key or null.
+- `set(key: string, value: string, prefixOrSerilizer?: string | StorageSerializer): void`: Adds tha value with the given key or updates an existing entry using either the provided or default serializer (check method overloads).
+- `get(key: string, prefixOrSerilizer?: string | StorageSerializer): string | null`: Gets the entry specified by the given key or null using either the provided or default serializer (check method overloads).
 - `remove(key: string, prefix?: string): void`: Removes the entry specified by the given key.
 - `clear(): void`: Clears all entries of the applications local storage.
 
 _Promise-based_
 
-- `asPromisable(): PromisableService`: provide the storage operations wrapped in a Promise
 - `count(): Promise<number>`: Gets the number of entries in the applications local storage.
 - `getKey(index: number): Promise<string | null>`: Returns the nth (defined by the index parameter) key in the storage. The order of keys is user-agent defined, so you should not rely on it.
-- `set(key: string, value: string, prefix?: string): Promise<boolean>`: Adds tha value with the given key or updates an existing entry.
-- `get(key: string, prefix?: string): Promise<string | null>`: Gets the entry specified by the given key or null.
+- `set(key: string, value: string, prefixOrSerilizer?: string | StorageSerializer): Promise<boolean>`: Adds tha value with the given key or updates an existing entry using either the provided or default serializer (check method overloads).
+- `get(key: string, prefixOrSerilizer?: string | StorageSerializer): Promise<string | null>`: Gets the entry specified by the given key or null using either the provided or default serializer (check method overloads).
 - `remove(key: string, prefix?: string): Promise<boolean>`: Removes the entry specified by the given key.
 - `clear(): Promise<boolean>`: Clears all entries of the applications local storage.
 

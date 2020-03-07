@@ -1,7 +1,9 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { LocalStorageService } from './ngx-localstorage.service';
-import { NGX_LOCAL_STORAGE_CONFIG } from '../token';
+import { NGX_LOCAL_STORAGE_CONFIG } from '../tokens/storage-config';
+import { DefaultSerializer } from '../classes/default-serializer';
+import { NGX_LOCAL_STORAGE_SERIALIZER } from '../tokens/storage-serializer';
 
 describe('LocalStorageService', () => {
   beforeEach(() => {
@@ -13,7 +15,10 @@ describe('LocalStorageService', () => {
             prefix: 'ngx-localstorage'
           }
         },
-        LocalStorageService
+        {
+          provide: NGX_LOCAL_STORAGE_SERIALIZER,
+          useClass: DefaultSerializer
+        }
       ]
     });
   });

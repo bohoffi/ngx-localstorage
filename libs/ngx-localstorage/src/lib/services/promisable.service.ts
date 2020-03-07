@@ -1,16 +1,24 @@
-/**
- * Created by bohoffi on 22.05.2017.
-*/
-import {NgxLocalstorageConfiguration} from '../interfaces';
+import { NgxLocalstorageConfiguration } from '../interfaces/storage-configuration';
+import { StorageSerializer } from '../interfaces/storage-serializer';
+import { constructKey, isSerializer } from '../utils';
 
+/**
+ * Provides a Promise based service to access the localstorage.
+ */
 export class PromisableService {
 
-  constructor(private configuration: NgxLocalstorageConfiguration) { }
+  /**
+   * Creates a new instance
+   */
+  constructor(
+    private readonly configuration: NgxLocalstorageConfiguration,
+    private readonly defaultSerializer: StorageSerializer
+  ) { }
 
   /**
    * Gets the number of entries in the applications local storage.
    */
-  count(): Promise<number> {
+  public count(): Promise<number> {
     return new Promise((resolve, reject) => {
       try {
         resolve(localStorage.length);
@@ -25,7 +33,7 @@ export class PromisableService {
    * The order of keys is user-agent defined, so you should not rely on it.
    * @param index   An integer representing the number of the key you want to get the name of. This is a zero-based index.
    */
-  getKey(index: number): Promise<string | null> {
+  public getKey(index: number): Promise<string | null> {
     return new Promise<string | null>((resolve, reject) => {
       if (index < 0) {
         reject(new Error('index has to be 0 or greater'));
@@ -39,17 +47,29 @@ export class PromisableService {
   }
 
   /**
-   * Adds tha value with the given key or updates an existing entry.
+   * Adds the value with the given key or updates an existing entry.
    * @param key     Key to store.
    * @param value   Value to store.
-   * @param prefix  Optional prefix to overwrite the configured one.
+   * @param prefixOrSerializer  Optional prefix or serializer to overwrite the configured one.
+   * @param serializer  Optional serilizer.
    */
-  set(key: string, value: string, prefix?: string): Promise<boolean> {
+  public set(key: string, value: any, prefixOrSerializer?: string | StorageSerializer): Promise<boolean>;
+  public set(key: string, value: any, prefixOrSerializer: string | StorageSerializer): Promise<boolean>;
+  public set(key: string, value: any, prefixOrSerializer: string, serializer: StorageSerializer): Promise<boolean>;
+  public set(key: string, value: any, prefixOrSerializer?: string | StorageSerializer, serializer?: StorageSerializer): Promise<boolean> {
     return new Promise((resolve, reject) => {
       try {
+
+        const prefix = typeof prefixOrSerializer === 'string' ? prefixOrSerializer : undefined;
+        serializer = isSerializer(prefixOrSerializer)
+          ? (prefixOrSerializer as StorageSerializer)
+          : !!serializer
+            ? serializer
+            : this.defaultSerializer;
+
         if (this.configuration.allowNull
           || (!this.configuration.allowNull && value !== 'null' && value !== null && value !== undefined)) {
-          localStorage.setItem(this.constructKey(key, prefix), value);
+          localStorage.setItem(constructKey(key, prefix, this.configuration.prefix), serializer.serialize(value));
         } else {
           return this.remove(key, prefix);
         }
@@ -63,12 +83,24 @@ export class PromisableService {
   /**
    * Gets the entry specified by the given key or null.
    * @param key     Key identifying the wanted entry.
-   * @param prefix  Optional prefix to overwrite the configured one.
+   * @param prefixOrSerializer  Optional prefix or serializer to overwrite the configured one.
+   * @param serializer  Optional serilizer.
    */
-  get(key: string, prefix?: string): Promise<string | null> {
-    return new Promise<string | null>((resolve, reject) => {
+  public get(key: string, prefixOrSerializer?: string | StorageSerializer): Promise<any | null | undefined>;
+  public get(key: string, prefixOrSerializer: string | StorageSerializer): Promise<any | null | undefined>;
+  public get(key: string, prefixOrSerializer: string, serializer: StorageSerializer): Promise<any | null | undefined>;
+  public get(key: string, prefixOrSerializer?: string | StorageSerializer, serializer?: StorageSerializer): Promise<any | null | undefined> {
+    return new Promise<any | null | undefined>((resolve, reject) => {
       try {
-        resolve(localStorage.getItem(this.constructKey(key, prefix)));
+
+        const prefix = typeof prefixOrSerializer === 'string' ? prefixOrSerializer : undefined;
+        serializer = isSerializer(prefixOrSerializer)
+          ? (prefixOrSerializer as StorageSerializer)
+          : !!serializer
+            ? serializer
+            : this.defaultSerializer;
+
+        resolve(serializer.deserialize(localStorage.getItem(constructKey(key, prefix, this.configuration.prefix))));
       } catch (error) {
         reject(error);
       }
@@ -80,10 +112,10 @@ export class PromisableService {
    * @param key     Key identifying the entry to remove.
    * @param prefix  Optional prefix to overwrite the configured one.
    */
-  remove(key: string, prefix?: string): Promise<boolean> {
+  public remove(key: string, prefix?: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       try {
-        localStorage.removeItem(this.constructKey(key, prefix));
+        localStorage.removeItem(constructKey(key, prefix, this.configuration.prefix));
         resolve(true);
       } catch (error) {
         reject(error);
@@ -94,7 +126,7 @@ export class PromisableService {
   /**
    * Clears all entries of the applications local storage.
    */
-  clear(): Promise<boolean> {
+  public clear(): Promise<boolean> {
     return new Promise((resolve, reject) => {
       try {
         localStorage.clear();
@@ -103,13 +135,5 @@ export class PromisableService {
         reject(error);
       }
     });
-  }
-
-  private constructKey(key: string, prefix?: string): string {
-    const prefixToUse = prefix || this.configuration.prefix;
-    if (prefixToUse) {
-      return `${prefixToUse}_${key}`;
-    }
-    return key;
   }
 }
