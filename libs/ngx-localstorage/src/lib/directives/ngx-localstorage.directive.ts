@@ -12,27 +12,27 @@ import {StorageEventService} from '../services/storage-event.service';
 export class LocalStorageDirective implements AfterViewInit, OnDestroy {
 
   @Input('ngxLocalStorage')
-  lsKey: string;
+  public lsKey: string;
   @Input()
-  lsPrefix: string;
+  public lsPrefix: string;
   @Input()
-  lsEvent: string;
+  public lsEvent: string;
   @Input()
-  lsDebounce = 0;
+  public lsDebounce = 0;
   @Input()
-  lsInitFromStorage = false;
+  public lsInitFromStorage = false;
   @Input()
-  lsFalsyTransformer?: () => any;
+  public lsFalsyTransformer?: () => any;
 
   @Output()
-  lsStoredValue = new EventEmitter<any>();
+  public lsStoredValue = new EventEmitter<any>();
 
   private _eventSubscription: Subscription;
   private _valuePath: string[] = [];
 
-  constructor(private er: ElementRef,
-              private lss: LocalStorageService,
-              private es: StorageEventService) {
+  constructor(private readonly er: ElementRef,
+              private readonly lss: LocalStorageService,
+              private readonly es: StorageEventService) {
 
     this.es.stream.pipe(
     // TODO: filter should be more accurate
@@ -43,14 +43,14 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
       });
   }
 
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
     this._initKey();
     this._initFromStorage();
     this._hookEvent();
   }
 
   @Input()
-  set lsValuePath(path: any[] | string) {
+  public set lsValuePath(path: any[] | string) {
     if (path != null) {
       this._valuePath = Array.isArray(path) ? path : path.split(',');
     } else {
@@ -97,7 +97,7 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     if (this._eventSubscription && !this._eventSubscription.closed) {
       this._eventSubscription.unsubscribe();
     }

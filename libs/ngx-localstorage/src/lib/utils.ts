@@ -1,4 +1,5 @@
 import { NgxLocalstorageConfiguration } from './interfaces/storage-configuration';
+import { StorageSerializer } from './interfaces/storage-serializer';
 
 export const getProperty = (path: string[], object: any) =>
   path.reduce((obj: any, p: any) => (!!obj) ? obj[p] : null, object);
@@ -27,3 +28,7 @@ export const constructKey = (key: string, prefix?: string, configuredPrefix?: st
 export const defaultConfig: NgxLocalstorageConfiguration = {
   allowNull: true
 };
+
+export const isSerializer = (prefixOrSerializer: string | StorageSerializer): prefixOrSerializer is StorageSerializer => {
+  return !!prefixOrSerializer && (prefixOrSerializer as StorageSerializer).serialize !== undefined;
+}

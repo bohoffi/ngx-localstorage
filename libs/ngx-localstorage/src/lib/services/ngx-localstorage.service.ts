@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 
 import { NgxLocalstorageConfiguration } from '../interfaces/storage-configuration';
 import { PromisableService } from './promisable.service';
-import { defaultConfig, constructKey } from '../utils';
+import { defaultConfig, constructKey, isSerializer } from '../utils';
 import { NGX_LOCAL_STORAGE_CONFIG } from '../tokens/storage-config';
 import { NGX_LOCAL_STORAGE_SERIALIZER } from '../tokens/storage-serializer';
 import { StorageSerializer } from '../interfaces/storage-serializer';
@@ -13,7 +13,7 @@ export class LocalStorageService {
   private readonly promisable: PromisableService;
 
   constructor(
-    @Inject(NGX_LOCAL_STORAGE_SERIALIZER) private defaultSerializer: StorageSerializer,
+    @Inject(NGX_LOCAL_STORAGE_SERIALIZER) private readonly defaultSerializer: StorageSerializer,
     @Inject(NGX_LOCAL_STORAGE_CONFIG) config?: NgxLocalstorageConfiguration
   ) {
     this.configuration = { ...defaultConfig, ...config };
@@ -69,7 +69,7 @@ export class LocalStorageService {
   public set(key: string, value: any, prefixOrSerializer?: string | StorageSerializer, serializer?: StorageSerializer): void {
 
     const prefix = typeof prefixOrSerializer === 'string' ? prefixOrSerializer : undefined;
-    serializer = (prefixOrSerializer as StorageSerializer)
+    serializer = isSerializer(prefixOrSerializer)
       ? (prefixOrSerializer as StorageSerializer)
       : !!serializer
         ? serializer
@@ -100,7 +100,7 @@ export class LocalStorageService {
   public get(key: string, prefixOrSerializer?: string | StorageSerializer, serializer?: StorageSerializer): any | null | undefined {
 
     const prefix = typeof prefixOrSerializer === 'string' ? prefixOrSerializer : undefined;
-    serializer = (prefixOrSerializer as StorageSerializer)
+    serializer = isSerializer(prefixOrSerializer)
       ? (prefixOrSerializer as StorageSerializer)
       : !!serializer
         ? serializer

@@ -23,7 +23,7 @@ import { NGX_LOCAL_STORAGE_SERIALIZER } from './tokens/storage-serializer';
   ]
 })
 export class NgxLocalStorageModule {
-  static forRoot(config?: NgxLocalstorageConfiguration): ModuleWithProviders {
+  public static forRoot(config?: NgxLocalstorageConfiguration): ModuleWithProviders {
     return {
       ngModule: NgxLocalStorageModule,
       providers: [

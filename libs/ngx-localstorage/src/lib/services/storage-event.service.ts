@@ -1,18 +1,18 @@
-import {Injectable} from '@angular/core';
-import {fromEvent as observableFromEvent, BehaviorSubject, Observable} from 'rxjs';
-import {share, filter} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { fromEvent as observableFromEvent, BehaviorSubject, Observable } from 'rxjs';
+import { share, filter } from 'rxjs/operators';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class StorageEventService {
 
-  private _eventStream: BehaviorSubject<StorageEvent> = new BehaviorSubject<StorageEvent>(null);
+  private readonly _eventStream: BehaviorSubject<StorageEvent> = new BehaviorSubject<StorageEvent>(null);
 
   constructor() {
     observableFromEvent(window, 'storage')
       .subscribe((ev: StorageEvent) => this._eventStream.next(ev));
   }
 
-  get stream(): Observable<StorageEvent> {
+  public get stream(): Observable<StorageEvent> {
     return this._eventStream
       .asObservable().pipe(
         filter(ev => !!ev),

@@ -16,7 +16,7 @@
       "rxjs/Rx"
     ],
     "interface-over-type-literal": true,
-    "member-access": true,
+    "member-access": [true, "check-accessor"],
     "member-ordering": [
       true,
       {
@@ -47,7 +47,6 @@
         }
       }
     ],
-    "no-unused-variable": true,
     "no-arg": true,
     "no-bitwise": true,
     "no-console": [

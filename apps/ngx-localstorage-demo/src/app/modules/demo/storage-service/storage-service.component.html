@@ -15,8 +15,22 @@
     <code>
       entryCount: {{entryCount}}
     </code>
-    <p class="demo-card__content__description mat-subheading-2">
-      Using this property decorator will init the property value from the localstorage. The storage key is either resolved by the given key or using the propery name.
-    </p>
+    <p class="mat-body-2">Store values using the service:</p>
+    <code>
+      constructor(private lss: LocalStorageService) &#123;<br>
+        this.lss.set('demo-key', &#123;
+          id: 1,
+          name: 'John Doe'
+        })<br>
+      &#125;
+    </code>
+    <p class="mat-body-2">Read values using the service:</p>
+    <code>
+      this.lss.get('demo-key') as &#123; id: number; name: string; &#125;;
+    </code>
+    <pre>
+      {{storedObject | json}}
+    </pre>
+    <p class="mat-body-2">Result:</p>
   </mat-card-content>
 </mat-card>

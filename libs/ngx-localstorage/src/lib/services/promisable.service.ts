@@ -1,18 +1,18 @@
 import { NgxLocalstorageConfiguration } from '../interfaces/storage-configuration';
 import { StorageSerializer } from '../interfaces/storage-serializer';
-import { constructKey } from '../utils';
+import { constructKey, isSerializer } from '../utils';
 
 export class PromisableService {
 
   constructor(
-    private configuration: NgxLocalstorageConfiguration,
-    private defaultSerializer: StorageSerializer
+    private readonly configuration: NgxLocalstorageConfiguration,
+    private readonly defaultSerializer: StorageSerializer
   ) { }
 
   /**
    * Gets the number of entries in the applications local storage.
    */
-  count(): Promise<number> {
+  public count(): Promise<number> {
     return new Promise((resolve, reject) => {
       try {
         resolve(localStorage.length);
@@ -27,7 +27,7 @@ export class PromisableService {
    * The order of keys is user-agent defined, so you should not rely on it.
    * @param index   An integer representing the number of the key you want to get the name of. This is a zero-based index.
    */
-  getKey(index: number): Promise<string | null> {
+  public getKey(index: number): Promise<string | null> {
     return new Promise<string | null>((resolve, reject) => {
       if (index < 0) {
         reject(new Error('index has to be 0 or greater'));
@@ -55,7 +55,7 @@ export class PromisableService {
       try {
 
         const prefix = typeof prefixOrSerializer === 'string' ? prefixOrSerializer : undefined;
-        serializer = (prefixOrSerializer as StorageSerializer)
+        serializer = isSerializer(prefixOrSerializer)
           ? (prefixOrSerializer as StorageSerializer)
           : !!serializer
             ? serializer
@@ -88,7 +88,7 @@ export class PromisableService {
       try {
 
         const prefix = typeof prefixOrSerializer === 'string' ? prefixOrSerializer : undefined;
-        serializer = (prefixOrSerializer as StorageSerializer)
+        serializer = isSerializer(prefixOrSerializer)
           ? (prefixOrSerializer as StorageSerializer)
           : !!serializer
             ? serializer
@@ -106,7 +106,7 @@ export class PromisableService {
    * @param key     Key identifying the entry to remove.
    * @param prefix  Optional prefix to overwrite the configured one.
    */
-  remove(key: string, prefix?: string): Promise<boolean> {
+  public remove(key: string, prefix?: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       try {
         localStorage.removeItem(constructKey(key, prefix, this.configuration.prefix));
@@ -120,7 +120,7 @@ export class PromisableService {
   /**
    * Clears all entries of the applications local storage.
    */
-  clear(): Promise<boolean> {
+  public clear(): Promise<boolean> {
     return new Promise((resolve, reject) => {
       try {
         localStorage.clear();
