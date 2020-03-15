@@ -15,7 +15,8 @@
       "tags": []
     },
     "ngx-localstorage-demo-e2e": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["ngx-localstorage-demo"]
     }
   }
 }
