@@ -1,3 +1,11 @@
+<a name="3.1.0"></a>
+# [3.1.0](https://github.com/bohoffi/ngx-localstorage/compare/3.0.0...3.1.0) (2020-03-15)
+
+### Features
+
+* **Framework**
+  * Updates compatibility to Angular v9.x
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/bohoffi/ngx-localstorage/compare/2.4.1...3.0.0) (2020-03-08)
 

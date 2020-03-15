@@ -30,7 +30,7 @@ export class NgxLocalStorageModule {
   /**
    * Initializes the module for the root module with the given configuration.
    */
-  public static forRoot(config?: NgxLocalstorageConfiguration): ModuleWithProviders {
+  public static forRoot(config?: NgxLocalstorageConfiguration): ModuleWithProviders<NgxLocalStorageModule> {
     return {
       ngModule: NgxLocalStorageModule,
       providers: [

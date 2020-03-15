@@ -1,6 +1,6 @@
 {
   "name": "ngx-localstorage",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "An Angular wrapper for local storage access.",
   "repository": {
     "type": "git",
