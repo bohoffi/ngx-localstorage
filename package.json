@@ -6,7 +6,7 @@
     "ng": "ng",
     "update": "ng update @nrwl/workspace",
     "build:prod": "npm run build:lib && npm run copy && npm run build:docs",
-    "build:lib": "ng build ngx-localstorage",
+    "build:lib": "ng build ngx-localstorage --prod",
     "copy": "npm run schematics:copy && copyfiles ./LICENSE ./README.md ./dist/libs/ngx-localstorage",
     "schematics:copy": "copyfiles -u 2 ./schematics/src/**/*.js ./schematics/src/**/*.json ./dist/libs/ngx-localstorage/schematics",
     "build:docs": "ng build --prod --output-path docs --base-href ngx-localstorage",
