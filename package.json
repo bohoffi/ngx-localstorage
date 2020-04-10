@@ -29,7 +29,9 @@
     "core-js": "^2.5.4",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
-    "zone.js": "~0.10.2"
+    "zone.js": "~0.10.2",
+    "@balticcode/ngx-example-viewer": "^1.0.0-0",
+    "highlight.js": "^9.18.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.900.6",
