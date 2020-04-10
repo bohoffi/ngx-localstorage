@@ -9,7 +9,7 @@
     "build:lib": "ng build ngx-localstorage --prod",
     "copy": "npm run schematics:copy && copyfiles ./LICENSE ./README.md ./dist/libs/ngx-localstorage",
     "schematics:copy": "copyfiles -u 2 ./schematics/src/**/*.js ./schematics/src/**/*.json ./dist/libs/ngx-localstorage/schematics",
-    "build:docs": "ng build --prod --output-path docs --base-href ngx-localstorage",
+    "build:docs": "ng build --prod --output-path docs --base-href /ngx-localstorage/",
     "schematics:watch": "cd ./schematics/ && npm link && cd .. && npm link schematics && npm run build --prefix ./schematics -- --watch",
     "nx": "nx",
     "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
