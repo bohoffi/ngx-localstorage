@@ -100,7 +100,10 @@
               "apps/ngx-localstorage-demo/tsconfig.app.json",
               "apps/ngx-localstorage-demo/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/ngx-localstorage-demo/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/ngx-localstorage-demo/**"
+            ]
           }
         }
       }
@@ -162,7 +165,10 @@
               "libs/ngx-localstorage/tsconfig.lib.json",
               "libs/ngx-localstorage/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/ngx-localstorage/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/ngx-localstorage/**"
+            ]
           }
         }
       }
