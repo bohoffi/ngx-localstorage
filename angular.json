@@ -122,7 +122,7 @@
             "tsConfig": "apps/ngx-localstorage-demo-e2e/tsconfig.e2e.json",
             "exclude": [
               "**/node_modules/**",
-              "!apps/ngx-localstorage-demo-e2e/**"
+              "!apps/ngx-localstorage-demo-e2e/**/*"
             ]
           }
         }
@@ -162,7 +162,7 @@
               "libs/ngx-localstorage/tsconfig.lib.json",
               "libs/ngx-localstorage/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/ngx-localstorage/**"]
+            "exclude": ["**/node_modules/**", "!libs/ngx-localstorage/**/*"]
           }
         }
       }
