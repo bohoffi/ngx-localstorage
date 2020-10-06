@@ -4,7 +4,7 @@
 ### Features
 
 * **Framework**
-  * Updates compatibility to Angular v9.x
+  * Updates compatibility to Angular v10.x
 
 <a name="3.1.0"></a>
 # [3.1.0](https://github.com/bohoffi/ngx-localstorage/compare/3.0.0...3.1.0) (2020-03-15)
