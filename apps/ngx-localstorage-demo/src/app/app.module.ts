@@ -5,7 +5,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 import {AppComponent} from './app.component';
 import {DemoModule} from './modules/demo/demo.module';
-import { ExampleViewerModule } from '@balticcode/ngx-example-viewer';
 
 @NgModule({
   declarations: [
@@ -16,9 +15,7 @@ import { ExampleViewerModule } from '@balticcode/ngx-example-viewer';
 
     MatToolbarModule,
 
-    DemoModule,
-
-    ExampleViewerModule
+    DemoModule
   ],
   providers: [],
   bootstrap: [AppComponent]
