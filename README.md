@@ -1,5 +1,5 @@
 [![npm version](https://img.shields.io/npm/v/ngx-localstorage.svg)](https://www.npmjs.com/package/ngx-localstorage)
-[![Join the chat at https://gitter.im/bohoffi/ngx-localstorage](https://badges.gitter.im//bohoffi/ngx-localstorage.svg)](https://gitter.im//bohoffi/ngx-localstorage?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+![PR-builder](https://github.com/bohoffi/ngx-localstorage/workflows/PR-builder/badge.svg)
 # ngx-localstorage 
 
 An Angular wrapper for local storage access.
