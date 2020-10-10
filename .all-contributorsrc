@@ -51,6 +51,15 @@
       "contributions": [
         "example"
       ]
+    },
+    {
+      "login": "abdatta",
+      "name": "Abhishek Datta",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/20218826?v=4",
+      "profile": "https://github.com/abdatta",
+      "contributions": [
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7
