@@ -1,6 +1,6 @@
 [![npm version](https://img.shields.io/npm/v/ngx-localstorage.svg)](https://www.npmjs.com/package/ngx-localstorage)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 ![PR-builder](https://github.com/bohoffi/ngx-localstorage/workflows/PR-builder/badge.svg)
 # ngx-localstorage 
@@ -217,6 +217,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://bohoffi.github.io/"><img src="https://avatars0.githubusercontent.com/u/9944566?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Basti Hoffmann</b></sub></a><br /><a href="https://github.com/bohoffi/ngx-localstorage/commits?author=bohoffi" title="Code">💻</a> <a href="https://github.com/bohoffi/ngx-localstorage/commits?author=bohoffi" title="Documentation">📖</a> <a href="#ideas-bohoffi" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-bohoffi" title="Maintenance">🚧</a> <a href="#platform-bohoffi" title="Packaging/porting to new platform">📦</a> <a href="https://github.com/bohoffi/ngx-localstorage/pulls?q=is%3Apr+reviewed-by%3Abohoffi" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://mattlewis.me/"><img src="https://avatars1.githubusercontent.com/u/6425649?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Matt Lewis</b></sub></a><br /><a href="#maintenance-mattlewis92" title="Maintenance">🚧</a></td>
   </tr>
 </table>
 
