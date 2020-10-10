@@ -32,6 +32,16 @@
       "contributions": [
         "maintenance"
       ]
+    },
+    {
+      "login": "bhalash",
+      "name": "Mark",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/1775913?v=4",
+      "profile": "https://www.bhalash.com/",
+      "contributions": [
+        "bug",
+        "example"
+      ]
     }
   ],
   "contributorsPerLine": 7
