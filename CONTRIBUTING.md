@@ -1,4 +1,4 @@
-# Contributing to Hotkeys
+# Contributing to ngx-localstorage
 
 🙏 We would ❤️ for you to contribute to ngx-localstorage and help make it even better than it is today!
 
