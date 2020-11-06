@@ -1,3 +1,11 @@
+<a name="3.2.1"></a>
+# [3.2.1](https://github.com/bohoffi/ngx-localstorage/compare/3.2.0...3.2.1) (2020-11-06)
+
+### Bug fixes
+
+* **Module**
+  * add support for submodules and lazy-loaded submodules ([#32](https://github.com/bohoffi/ngx-localstorage/issues/32))
+
 <a name="3.2.0"></a>
 # [3.2.0](https://github.com/bohoffi/ngx-localstorage/compare/3.1.0...3.2.0) (2020-10-06)
 

@@ -1,6 +1,6 @@
 [![npm version](https://img.shields.io/npm/v/ngx-localstorage.svg)](https://www.npmjs.com/package/ngx-localstorage)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 ![PR-builder](https://github.com/bohoffi/ngx-localstorage/workflows/PR-builder/badge.svg)
 # ngx-localstorage 
@@ -59,6 +59,8 @@ export class AppModule { }
   * Type: `boolean`
   * Determines if _null | 'null'_ values should be stored.
   * Default: __true__
+
+##### Submodule support (`NgxLocalStorageModule.forChild()`)
 
 ### Serialization
 
@@ -221,6 +223,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://www.bhalash.com/"><img src="https://avatars1.githubusercontent.com/u/1775913?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mark</b></sub></a><br /><a href="https://github.com/bohoffi/ngx-localstorage/issues?q=author%3Abhalash" title="Bug reports">🐛</a> <a href="#example-bhalash" title="Examples">💡</a></td>
     <td align="center"><a href="https://github.com/NewteqDeveloper"><img src="https://avatars0.githubusercontent.com/u/20768842?v=4?s=100" width="100px;" alt=""/><br /><sub><b>NewteqDeveloper</b></sub></a><br /><a href="#example-NewteqDeveloper" title="Examples">💡</a></td>
     <td align="center"><a href="https://github.com/abdatta"><img src="https://avatars0.githubusercontent.com/u/20218826?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Abhishek Datta</b></sub></a><br /><a href="#maintenance-abdatta" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://ifyoudo.net/"><img src="https://avatars0.githubusercontent.com/u/317770?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mikael Syska</b></sub></a><br /><a href="https://github.com/bohoffi/ngx-localstorage/issues?q=author%3Asyska" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 

@@ -28,7 +28,20 @@ import { NGX_LOCAL_STORAGE_SERIALIZER } from './tokens/storage-serializer';
 export class NgxLocalStorageModule {
 
   /**
-   * Initializes the module for the root module with the given configuration.
+   * Creates and configures a module with all the providers and directives.
+   *
+   * When registering the NgModule at the root, import as follows:
+   *
+   * ```
+   * @NgModule({
+   *   imports: [NgxLocalStorageModule.forRoot(config)]
+   * })
+   * class MyNgModule {}
+   * ```
+   *
+   * @param config An `NgxLocalstorageConfiguration` configuration object that controls how accessing localstorage is performed.
+   * @return The new `NgModule`.
+   *
    */
   public static forRoot(config?: NgxLocalstorageConfiguration): ModuleWithProviders<NgxLocalStorageModule> {
     return {
@@ -43,11 +56,20 @@ export class NgxLocalStorageModule {
   }
 
   /**
-   * Creates a new instance.
+   * Creates and configures a module with all the providers and directives.
+   * When registering for submodules and lazy-loaded submodules, create the NgModule as follows:
+   *
+   * ```
+   * @NgModule({
+   *   imports: [NgxLocalStorageModule.forChild()]
+   * })
+   * class MyNgModule {}
+   * ```
+   *
+   * @return The new NgModule.
+   *
    */
-  constructor(@Optional() @SkipSelf() parentModule: NgxLocalStorageModule) {
-    if (parentModule) {
-      throw new Error('NgxLocalStorageModule is already loaded. Import it in the AppModule only');
-    }
+  public static forChild(): ModuleWithProviders<NgxLocalStorageModule> {
+    return { ngModule: NgxLocalStorageModule }
   }
 }
