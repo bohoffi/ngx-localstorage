@@ -60,6 +60,8 @@ export class AppModule { }
   * Determines if _null | 'null'_ values should be stored.
   * Default: __true__
 
+##### Submodule support (`NgxLocalStorageModule.forChild()`)
+
 ### Serialization
 
 #### Default serialization
