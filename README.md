@@ -179,7 +179,7 @@ Capture the value of an input element when the user is typing and loads the stor
 Defining the `valuePath` for a checkbox input:
 ```html
 <p>
-  <input type="checkbox" id="cbox1" ngxLocalStorage lsEvent="change" [valuePath]="['checked']">
+  <input type="checkbox" id="cbox1" ngxLocalStorage lsEvent="change" [lsValuePath]="['checked']">
   <label for="cbox1">Checkbox</label>
 </p>
 ```
