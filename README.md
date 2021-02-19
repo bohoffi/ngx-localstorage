@@ -59,6 +59,10 @@ export class AppModule { }
   * Type: `boolean`
   * Determines if _null | 'null'_ values should be stored.
   * Default: __true__
+* __storage__
+  * Type: `Storage`
+  * Determines the storage type.
+  * Default: __localStorage__
 
 ##### Submodule support (`NgxLocalStorageModule.forChild()`)
 
