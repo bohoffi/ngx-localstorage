@@ -10,4 +10,8 @@ export interface NgxLocalstorageConfiguration {
      * Determines if null | 'null' values should be stored. (Default: true)
      */
     allowNull?: boolean;
+    /**
+     * Determines the storage type. (Default: localStorage)
+     */
+    storage?: Storage
 }
