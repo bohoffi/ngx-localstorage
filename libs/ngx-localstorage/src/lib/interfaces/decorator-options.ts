@@ -11,6 +11,10 @@ export interface DecoratorOpts {
    */
   prefix?: string;
   /**
+     * Determines the storage type. (Default: localStorage)
+     */
+  storage?: Storage
+  /**
    * An optional transformer to handle 'null' values.
    */
   nullTransformer?: () => any;

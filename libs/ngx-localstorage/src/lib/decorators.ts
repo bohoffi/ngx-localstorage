@@ -15,16 +15,17 @@ export function ngxLocalStorage(options?: DecoratorOpts) {
 
     const key = !!options && !!options.key ? options.key : propertyDescription;
     const prefix = !!options && !!options.prefix ? options.prefix : null;
+    const storage = options?.storage ?? localStorage;
 
     const service: LocalStorageService = new LocalStorageService(new DefaultSerializer(),
       {
-        prefix: prefix
+        prefix: prefix,
+        storage: storage
       });
 
 
     const eventService: StorageEventService = new StorageEventService();
     eventService.stream.pipe(
-      // TODO: filter should be more accurate
       filter((ev: StorageEvent) => ev.key && ev.key.indexOf(constructKey(key, prefix)) >= 0)
     )
       .subscribe((ev: StorageEvent) => {
