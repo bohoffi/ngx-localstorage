@@ -9,14 +9,16 @@ import { share, filter } from 'rxjs/operators';
 export class StorageEventService implements OnDestroy {
 
   private readonly _eventStream: BehaviorSubject<StorageEvent> = new BehaviorSubject<StorageEvent>(null);
-  private readonly subscription: Subscription;
+  private readonly subscriptions = new Subscription();
 
   /**
    * Create e new instance.
    */
   constructor() {
-    this.subscription = observableFromEvent(window, 'storage')
-      .subscribe((ev: StorageEvent) => this._eventStream.next(ev));
+    this.subscriptions.add(
+      observableFromEvent<StorageEvent>(window, 'storage')
+        .subscribe((ev: StorageEvent) => this._eventStream.next(ev))
+    );
   }
 
   /**
@@ -34,8 +36,6 @@ export class StorageEventService implements OnDestroy {
    * OnDestroy lifecycle hook. Clears the subscription.
    */
   public ngOnDestroy(): void {
-    if (!!this.subscription && !this.subscription.closed) {
-      this.subscription.unsubscribe();
-    }
+    this.subscriptions.unsubscribe();
   }
 }
