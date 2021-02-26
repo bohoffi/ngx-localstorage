@@ -14,6 +14,8 @@ An Angular wrapper for local storage access.
 
 Feel free to take a look at the [DEMO](https://bohoffi.github.io/ngx-localstorage/).
 
+<a href="https://www.buymeacoffee.com/bohoffi" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+
 ## Installation
 Install via npm:
 ```
@@ -194,6 +196,7 @@ Defining the `valuePath` for a checkbox input:
 
 - `key?: string`: specify a key to store the value; if omitted the property name will be used
 - `prefix?: string`: specify a prefix to store the value; if omitted the modules default prefix will be used
+- `storage?: Storage`: specifies the storage type; falls back to localstorage if omitted
 - `nullTransformer?: () => any`: Used to transform null values received from storage.
 
 ##### Example
