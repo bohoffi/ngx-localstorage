@@ -1,3 +1,12 @@
+<a name="3.3.0"></a>
+# [3.3.0](https://github.com/bohoffi/ngx-localstorage/compare/3.2.1...3.3.0) (2021-02-26)
+### Features
+
+* **Service**
+  * Adds the possibility to use sessionstorage instead of localstorage (thanks to [@vladimirstempel](https://github.com/vladimirstempel))
+    * default storage will stay localstorage
+    * set via module configuration
+
 <a name="3.2.1"></a>
 # [3.2.1](https://github.com/bohoffi/ngx-localstorage/compare/3.2.0...3.2.1) (2020-11-06)
 
