@@ -1,6 +1,6 @@
 [![npm version](https://img.shields.io/npm/v/ngx-localstorage.svg)](https://www.npmjs.com/package/ngx-localstorage)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 ![PR-builder](https://github.com/bohoffi/ngx-localstorage/workflows/PR-builder/badge.svg)
 # ngx-localstorage 
@@ -228,6 +228,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/NewteqDeveloper"><img src="https://avatars0.githubusercontent.com/u/20768842?v=4?s=100" width="100px;" alt=""/><br /><sub><b>NewteqDeveloper</b></sub></a><br /><a href="#example-NewteqDeveloper" title="Examples">💡</a></td>
     <td align="center"><a href="https://github.com/abdatta"><img src="https://avatars0.githubusercontent.com/u/20218826?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Abhishek Datta</b></sub></a><br /><a href="#maintenance-abdatta" title="Maintenance">🚧</a></td>
     <td align="center"><a href="https://ifyoudo.net/"><img src="https://avatars0.githubusercontent.com/u/317770?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mikael Syska</b></sub></a><br /><a href="https://github.com/bohoffi/ngx-localstorage/issues?q=author%3Asyska" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/vladimirstempel"><img src="https://avatars.githubusercontent.com/u/16229503?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vladimir Stempel</b></sub></a><br /><a href="https://github.com/bohoffi/ngx-localstorage/commits?author=vladimirstempel" title="Code">💻</a></td>
   </tr>
 </table>
 

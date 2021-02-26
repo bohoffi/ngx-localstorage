@@ -69,6 +69,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "vladimirstempel",
+      "name": "Vladimir Stempel",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16229503?v=4",
+      "profile": "https://github.com/vladimirstempel",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
