@@ -14,6 +14,7 @@ import { StorageSerializer } from '../interfaces/storage-serializer';
 export class LocalStorageService {
 
   private readonly promisable: PromisableService;
+  private readonly storage: Storage;
 
   /**
    * Creates a new instance.
@@ -23,6 +24,7 @@ export class LocalStorageService {
     @Inject(NGX_LOCAL_STORAGE_CONFIG) public readonly config?: NgxLocalstorageConfiguration
   ) {
     this.config = { ...defaultConfig, ...config };
+    this.storage = this.config.storage;
 
     this.promisable = new PromisableService(this.config, this.defaultSerializer);
   }
@@ -39,7 +41,7 @@ export class LocalStorageService {
    */
   public count(): number | undefined {
     try {
-      return localStorage.length;
+      return this.storage.length;
     } catch (error) {
       console.error(error);
     }
@@ -55,7 +57,7 @@ export class LocalStorageService {
       console.error(new Error('index has to be 0 or greater'));
     }
     try {
-      return localStorage.key(index);
+      return this.storage.key(index);
     } catch (error) {
       console.error(error);
     }
@@ -106,7 +108,7 @@ export class LocalStorageService {
         value !== null &&
         value !== undefined)
     ) {
-      localStorage.setItem(constructKey(key, prefix, this.config.prefix), serializer.serialize(value));
+      this.storage.setItem(constructKey(key, prefix, this.config.prefix), serializer.serialize(value));
     } else {
       this.remove(key, constructKey(key, prefix, this.config.prefix));
     }
@@ -148,7 +150,7 @@ export class LocalStorageService {
         : this.defaultSerializer;
 
     try {
-      return serializer.deserialize(localStorage.getItem(constructKey(key, prefix, this.config.prefix)));
+      return serializer.deserialize(this.storage.getItem(constructKey(key, prefix, this.config.prefix)));
     } catch (error) {
       console.error(error);
     }
@@ -161,7 +163,7 @@ export class LocalStorageService {
    */
   public remove(key: string, prefix?: string): void {
     try {
-      localStorage.removeItem(constructKey(key, prefix, this.config.prefix));
+      this.storage.removeItem(constructKey(key, prefix, this.config.prefix));
     } catch (error) {
       console.error(error);
     }
@@ -172,7 +174,7 @@ export class LocalStorageService {
    */
   public clear(): void {
     try {
-      localStorage.clear();
+      this.storage.clear();
     } catch (error) {
       console.error(error);
     }

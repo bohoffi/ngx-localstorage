@@ -44,7 +44,8 @@ export const constructKey = (key: string, prefix?: string, configuredPrefix?: st
  * The librarys default config.
  */
 export const defaultConfig: NgxLocalstorageConfiguration = {
-  allowNull: true
+  allowNull: true,
+  storage: localStorage
 };
 
 /**
