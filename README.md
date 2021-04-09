@@ -1,3 +1,5 @@
+<img src="https://raw.githubusercontent.com/bohoffi/ngx-localstorage/develop/assets/logo.svg" width="150">
+
 [![npm version](https://img.shields.io/npm/v/ngx-localstorage.svg)](https://www.npmjs.com/package/ngx-localstorage)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
