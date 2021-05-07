@@ -110,7 +110,7 @@ export class LocalStorageService {
     ) {
       this.storage.setItem(constructKey(key, prefix, this.config.prefix), serializer.serialize(value));
     } else {
-      this.remove(key, constructKey(key, prefix, this.config.prefix));
+      this.remove(key, prefix);
     }
   }
 
