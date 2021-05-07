@@ -1,3 +1,11 @@
+<a name="3.3.1"></a>
+# [3.3.1](https://github.com/bohoffi/ngx-localstorage/compare/3.3.0...3.3.1) (2021-05-07)
+
+### Bug fixes
+
+* **StorageService**
+  * incorrect remove call in `set` with nullish value ([#40](https://github.com/bohoffi/ngx-localstorage/issues/40))
+
 <a name="3.3.0"></a>
 # [3.3.0](https://github.com/bohoffi/ngx-localstorage/compare/3.2.1...3.3.0) (2021-02-26)
 ### Features
