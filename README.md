@@ -66,7 +66,11 @@ export class AppModule { }
 * __storage__
   * Type: `Storage`
   * Determines the storage type.
-  * Default: __localStorage__
+  * Default: 
+* __delimiter__
+  * Type: `string?`
+  * Determines the delimiter in between prefix and key.
+  * Default: __underscore('_')__
 
 ##### Submodule support (`NgxLocalStorageModule.forChild()`)
 
@@ -199,6 +203,7 @@ Defining the `valuePath` for a checkbox input:
 - `key?: string`: specify a key to store the value; if omitted the property name will be used
 - `prefix?: string`: specify a prefix to store the value; if omitted the modules default prefix will be used
 - `storage?: Storage`: specifies the storage type; falls back to localstorage if omitted
+- `delimiter?: string`: specifies the delimiter; falls back to '_' if omitted
 - `nullTransformer?: () => any`: Used to transform null values received from storage.
 
 ##### Example
