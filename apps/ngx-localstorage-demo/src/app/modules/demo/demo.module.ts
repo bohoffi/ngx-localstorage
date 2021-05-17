@@ -19,7 +19,7 @@ import { RouterModule } from '@angular/router';
 
     MatCardModule,
 
-    NgxLocalStorageModule.forRoot({delimiter: '@', prefix: 'test'})
+    NgxLocalStorageModule.forRoot({})
   ],
   declarations: [SubUsageComponent, DecoratorComponent, DirectiveComponent, StorageServiceComponent, EventServiceComponent],
   exports: [SubUsageComponent, DecoratorComponent, DirectiveComponent, StorageServiceComponent, EventServiceComponent]
