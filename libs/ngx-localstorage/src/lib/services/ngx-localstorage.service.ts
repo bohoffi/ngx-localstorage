@@ -108,7 +108,7 @@ export class LocalStorageService {
         value !== null &&
         value !== undefined)
     ) {
-      this.storage.setItem(constructKey(key, prefix, this.config.prefix), serializer.serialize(value));
+      this.storage.setItem(constructKey(key, prefix, this.config.prefix, this.config.delimiter), serializer.serialize(value));
     } else {
       this.remove(key, prefix);
     }
@@ -150,7 +150,7 @@ export class LocalStorageService {
         : this.defaultSerializer;
 
     try {
-      return serializer.deserialize(this.storage.getItem(constructKey(key, prefix, this.config.prefix)));
+      return serializer.deserialize(this.storage.getItem(constructKey(key, prefix, this.config.prefix, this.config.delimiter)));
     } catch (error) {
       console.error(error);
     }
@@ -163,7 +163,7 @@ export class LocalStorageService {
    */
   public remove(key: string, prefix?: string): void {
     try {
-      this.storage.removeItem(constructKey(key, prefix, this.config.prefix));
+      this.storage.removeItem(constructKey(key, prefix, this.config.prefix, this.config.delimiter));
     } catch (error) {
       console.error(error);
     }

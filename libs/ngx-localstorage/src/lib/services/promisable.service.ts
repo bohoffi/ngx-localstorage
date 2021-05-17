@@ -16,6 +16,10 @@ export class PromisableService {
     private readonly configuration: NgxLocalstorageConfiguration,
     private readonly defaultSerializer: StorageSerializer
   ) {
+    if(this.configuration.delimiter == null || this.configuration.delimiter != null && this.configuration.delimiter == '')
+    {
+      this.configuration.delimiter = '_';
+    }
     this.storage = this.configuration.storage;
   }
 
@@ -73,7 +77,7 @@ export class PromisableService {
 
         if (this.configuration.allowNull
           || (!this.configuration.allowNull && value !== 'null' && value !== null && value !== undefined)) {
-          this.storage.setItem(constructKey(key, prefix, this.configuration.prefix), serializer.serialize(value));
+          this.storage.setItem(constructKey(key, prefix, this.configuration.prefix, this.configuration.delimiter), serializer.serialize(value));
         } else {
           return this.remove(key, prefix);
         }
@@ -104,7 +108,7 @@ export class PromisableService {
             ? serializer
             : this.defaultSerializer;
 
-        resolve(serializer.deserialize(this.storage.getItem(constructKey(key, prefix, this.configuration.prefix))));
+        resolve(serializer.deserialize(this.storage.getItem(constructKey(key, prefix, this.configuration.prefix, this.configuration.delimiter))));
       } catch (error) {
         reject(error);
       }
@@ -119,7 +123,7 @@ export class PromisableService {
   public remove(key: string, prefix?: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       try {
-        this.storage.removeItem(constructKey(key, prefix, this.configuration.prefix));
+        this.storage.removeItem(constructKey(key, prefix, this.configuration.prefix, this.configuration.delimiter));
         resolve(true);
       } catch (error) {
         reject(error);
