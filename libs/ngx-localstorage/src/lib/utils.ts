@@ -34,9 +34,8 @@ export const setProperty = (path: string[] | string, value: any, object: any, fa
  */
 export const constructKey = (key: string, prefix?: string, configuredPrefix?: string, delimiter?: string): string => {
   const prefixToUse = prefix || configuredPrefix;
-  const delimietrToUse = delimiter || '_';
   if (prefixToUse) {
-    return `${prefixToUse}${ delimietrToUse}${key}`;
+    return `${prefixToUse}${delimiter}${key}`;
   }
   return key;
 }
@@ -46,7 +45,8 @@ export const constructKey = (key: string, prefix?: string, configuredPrefix?: st
  */
 export const defaultConfig: NgxLocalstorageConfiguration = {
   allowNull: true,
-  storage: localStorage
+  storage: localStorage,
+  delimiter: '_'
 };
 
 /**

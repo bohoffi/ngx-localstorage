@@ -16,10 +16,6 @@ export class PromisableService {
     private readonly configuration: NgxLocalstorageConfiguration,
     private readonly defaultSerializer: StorageSerializer
   ) {
-    if(this.configuration.delimiter == null || this.configuration.delimiter != null && this.configuration.delimiter == '')
-    {
-      this.configuration.delimiter = '_';
-    }
     this.storage = this.configuration.storage;
   }
 
