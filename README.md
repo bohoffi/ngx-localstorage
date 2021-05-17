@@ -66,7 +66,7 @@ export class AppModule { }
 * __storage__
   * Type: `Storage`
   * Determines the storage type.
-  * Default: 
+  * Default:  __localStorage__
 * __delimiter__
   * Type: `string?`
   * Determines the delimiter in between prefix and key.
