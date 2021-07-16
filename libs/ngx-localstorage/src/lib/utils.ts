@@ -32,10 +32,10 @@ export const setProperty = (path: string[] | string, value: any, object: any, fa
 /**
  * Constructs the storage key based on a prefix - if given - and the key itself
  */
-export const constructKey = (key: string, prefix?: string, configuredPrefix?: string): string => {
+export const constructKey = (key: string, prefix?: string, configuredPrefix?: string, delimiter?: string): string => {
   const prefixToUse = prefix || configuredPrefix;
   if (prefixToUse) {
-    return `${prefixToUse}_${key}`;
+    return `${prefixToUse}${delimiter}${key}`;
   }
   return key;
 }
@@ -45,7 +45,8 @@ export const constructKey = (key: string, prefix?: string, configuredPrefix?: st
  */
 export const defaultConfig: NgxLocalstorageConfiguration = {
   allowNull: true,
-  storage: localStorage
+  storage: localStorage,
+  delimiter: '_'
 };
 
 /**

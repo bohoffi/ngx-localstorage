@@ -14,4 +14,8 @@ export interface NgxLocalstorageConfiguration {
      * Determines the storage type. (Default: localStorage)
      */
     storage?: Storage
+    /**
+     * Determines the delimiter, will used befoure key. (Default: _)
+     */
+     delimiter?: string
 }
