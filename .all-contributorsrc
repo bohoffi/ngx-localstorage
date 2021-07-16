@@ -78,6 +78,17 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "assureclaims",
+      "name": "assureclaims",
+      "avatar_url": "https://avatars.githubusercontent.com/u/84139537?v=4",
+      "profile": "https://github.com/assureclaims",
+      "contributions": [
+        "code",
+        "design",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7
