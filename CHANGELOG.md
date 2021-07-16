@@ -1,3 +1,12 @@
+<a name="3.4.0"></a>
+# [3.4.0](https://github.com/bohoffi/ngx-localstorage/compare/3.3.1...3.4.0) (2021-07-16)
+
+### Features
+
+* **Configuration**
+  * add optional custom delimiter ([#42](https://github.com/bohoffi/ngx-localstorage/pull/42))
+    * thanks to [@assureclaims](https://github.com/assureclaims)
+
 <a name="3.3.1"></a>
 # [3.3.1](https://github.com/bohoffi/ngx-localstorage/compare/3.3.0...3.3.1) (2021-05-07)
 
