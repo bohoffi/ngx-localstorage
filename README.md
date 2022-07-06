@@ -1,105 +1,253 @@
+<img src="https://raw.githubusercontent.com/bohoffi/ngx-localstorage/develop/assets/logo.svg" width="150">
 
+[![npm version](https://img.shields.io/npm/v/ngx-localstorage.svg)](https://www.npmjs.com/package/ngx-localstorage)
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+![PR-builder](https://github.com/bohoffi/ngx-localstorage/workflows/PR-builder/badge.svg)
+# ngx-localstorage 
 
-# NgxLocalstorage
+An Angular wrapper for local storage access.
 
-This project was generated using [Nx](https://nx.dev).
+* [Installation](#installation)
+* [Usage](#usage)
+  * [Serialization](#serialization)
+* [API](#api)
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+Feel free to take a look at the [DEMO](https://bohoffi.github.io/ngx-localstorage/).
 
-🔎 **Smart, Fast and Extensible Build System**
+<a href="https://www.buymeacoffee.com/bohoffi" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
-## Quick Start & Documentation
+## Installation
+Install via npm:
+```
+npm install ngx-localstorage --save
+```
 
-[Nx Documentation](https://nx.dev/angular)
+Install using schematics:
+```
+ng add ngx-localstorage
+```
+This command will:
 
-[10-minute video showing all Nx features](https://nx.dev/getting-started/intro)
+- Add `ngx-localstorage` into `package.json`.
+- Run `npm install`.
+- Import `NgxLocalStorageModule.forRoot()` into the root module of your default application (or defining a project by using the `--project <PROJECT_NAME>` and/or `--module <MODULE_PATH>` CLI parameters).
 
-[Interactive Tutorial](https://nx.dev/react-tutorial/01-create-application)
+## Usage
 
-## Adding capabilities to your workspace
+#### 1. Import `NgxLocalStorageModule`
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+```ts
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {NgxLocalStorageModule} from 'ngx-localstorage';
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+@NgModule({
+    imports: [
+        BrowserModule,
+        NgxLocalStorageModule.forRoot()
+    ],
+    bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
 
-Below are our core plugins:
+##### Configuration (`NgxLocalStorageModule.forRoot(moduleConfig)`)
 
-- [Angular](https://angular.io)
-  - `ng add @nrwl/angular`
-- [React](https://reactjs.org)
-  - `ng add @nrwl/react`
-- Web (no framework frontends)
-  - `ng add @nrwl/web`
-- [Nest](https://nestjs.com)
-  - `ng add @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `ng add @nrwl/express`
-- [Node](https://nodejs.org)
-  - `ng add @nrwl/node`
+* __prefix__
+  * Type: `string?`
+  * Determines the key prefix.
+  * Default: __null__
+* __allowNull__
+  * Type: `boolean`
+  * Determines if _null | 'null'_ values should be stored.
+  * Default: __true__
+* __storage__
+  * Type: `Storage`
+  * Determines the storage type.
+  * Default:  __localStorage__
+* __delimiter__
+  * Type: `string?`
+  * Determines the delimiter in between prefix and key.
+  * Default: __underscore('_')__
 
-There are also many [community plugins](https://nx.dev/community) you could add.
+##### Submodule support (`NgxLocalStorageModule.forChild()`)
 
-## Generate an application
+### Serialization
 
-Run `ng g @nrwl/angular:app my-app` to generate an application.
+#### Default serialization
 
-> You can use any of the plugins above to generate applications as well.
+The library utilizes the `JSON.stringify()/JSON.parse()` mechanics to pass values (of any type) to and from localstorage per default.
+If you wish you can override that behaviour by injecting your own custom serializer (app wide) or pass one per stoage call.
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+##### App wide serializer
+Inject your custom serializer implentation using the provided injection token:
 
-## Generate a library
+```ts
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {NgxLocalStorageModule, NGX_LOCAL_STORAGE_SERIALIZER} from 'ngx-localstorage';
 
-Run `ng g @nrwl/angular:lib my-lib` to generate a library.
+@NgModule({
+    imports: [
+        BrowserModule,
+        NgxLocalStorageModule.forRoot()
+    ],
+    bootstrap: [AppComponent],
+    providers: [
+      {
+        provide: NGX_LOCAL_STORAGE_SERIALIZER,
+        useClass: <custom serializer implementing StorageSerializer>
+      }
+    ]
+})
+export class AppModule { }
+```
 
-> You can also use any of the plugins above to generate libraries as well.
+##### Per call serializer
+Every `set()/get` call on `LocalstorageService` and `PromisableService` now supports to pass an optional (de)seriaizer. If none is provided the app wide (or default) one is used.
+  
+## API
 
-Libraries are shareable across libraries and applications. They can be imported from `@ngx-localstorage/mylib`.
+### LocalStorageService
 
-## Development server
+#### Methods
 
-Run `ng serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+- `asPromisable(): PromisableService`: provide the storage operations wrapped in a Promise
+- `count(): number`: Gets the number of entries in the applications local storage.
+- `getKey(index: number): string | null`: Returns the nth (defined by the index parameter) key in the storage. The order of keys is user-agent defined, so you should not rely on it.
+- `set(key: string, value: string, prefixOrSerilizer?: string | StorageSerializer): void`: Adds tha value with the given key or updates an existing entry using either the provided or default serializer (check method overloads).
+- `get(key: string, prefixOrSerilizer?: string | StorageSerializer): string | null`: Gets the entry specified by the given key or null using either the provided or default serializer (check method overloads).
+- `remove(key: string, prefix?: string): void`: Removes the entry specified by the given key.
+- `clear(): void`: Clears all entries of the applications local storage.
 
-## Code scaffolding
+_Promise-based_
 
-Run `ng g component my-component --project=my-app` to generate a new component.
+- `count(): Promise<number>`: Gets the number of entries in the applications local storage.
+- `getKey(index: number): Promise<string | null>`: Returns the nth (defined by the index parameter) key in the storage. The order of keys is user-agent defined, so you should not rely on it.
+- `set(key: string, value: string, prefixOrSerilizer?: string | StorageSerializer): Promise<boolean>`: Adds tha value with the given key or updates an existing entry using either the provided or default serializer (check method overloads).
+- `get(key: string, prefixOrSerilizer?: string | StorageSerializer): Promise<string | null>`: Gets the entry specified by the given key or null using either the provided or default serializer (check method overloads).
+- `remove(key: string, prefix?: string): Promise<boolean>`: Removes the entry specified by the given key.
+- `clear(): Promise<boolean>`: Clears all entries of the applications local storage.
 
-## Build
+##### Example
 
-Run `ng build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+```ts
+import {LocalStorageService} from 'ngx-localstorage';
 
-## Running unit tests
+@Component({
+  selector: 'app-storage-access',
+  template: './storage-access.component.html'
+})
+export class StorageAccessComponent implements OnInit {
 
-Run `ng test my-app` to execute the unit tests via [Jest](https://jestjs.io).
+  constructor(private _storageService: LocalStorageService) {
+  }
+  
+  ngOnInit(): void {
+    console.log('Entries count: ', this._storageService.count())
+  
+    // Pomise-based
+    this._storageService.asPromisable().count()
+      .then(count => console.log('Entries count: ', count))
+      .catch(error => console.error(error));
+  }
+}
+```
+### StorageEventService
 
-Run `nx affected:test` to execute the unit tests affected by a change.
+#### Properties
 
-## Running end-to-end tests
+- `stream(): Observable<StorageEvent>`: Gets a stream of StorageEvent.
 
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
+### ngxLocalStorage (Directive)
 
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
+#### Properties
 
-## Understand your workspace
+- `lsKey` (`string`): Determines the key (combined with the prefix) which is used to store the value. If omitted the `id` or the `name`attribute will be used.
+- `lsPrefix` (`string`): Determines the prefix (combined with the key) to store the value.
+- `lsEvent` (`string`): Determines the event to hook up to store the value.
+- `lsDebounce` (`number`): Determines the 'delay' when processing the event.
+- `lsInitFromStorage` (`boolean`): Determines if the stored value (if there is one) should be set automatically on application load. __Default__: `false`
+- `lsValuePath` (`string[] | string`): Determines the path to access the value to store.
+- `lsFalsyTransformer` (`() => any`): Used to transform falsy values received from storage.
 
-Run `nx graph` to see a diagram of the dependencies of your projects.
+#### Methods/Events
 
-## Further help
+- `lsStoredValue`: Used to register an event listener when a value gets stored.
 
-Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
+##### Example
 
+Capture the value of an input element when the user is typing and loads the stored value on startup:
+```html
+<p>
+  <label for="text">Text:</label>
+  <input id="text" type="text" ngxLocalStorage lsEvent="input" lsDebounce="500" lsInitFromStorage="true"
+    (storedValue)="logStoredValue($event)">
+</p>
+```
 
+Defining the `valuePath` for a checkbox input:
+```html
+<p>
+  <input type="checkbox" id="cbox1" ngxLocalStorage lsEvent="change" [lsValuePath]="['checked']">
+  <label for="cbox1">Checkbox</label>
+</p>
+```
 
+### ngxLocalStorage (Property-Decorator)
 
+#### Parameters
 
+- `key?: string`: specify a key to store the value; if omitted the property name will be used
+- `prefix?: string`: specify a prefix to store the value; if omitted the modules default prefix will be used
+- `storage?: Storage`: specifies the storage type; falls back to localstorage if omitted
+- `delimiter?: string`: specifies the delimiter; falls back to '_' if omitted
+- `nullTransformer?: () => any`: Used to transform null values received from storage.
 
-## ☁ Nx Cloud
+##### Example
 
-### Distributed Computation Caching & Distributed Task Execution
+```ts
+import {ngxLocalStorage} from 'ngx-localstorage';
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.less']
+})
+export class AppComponent implements AfterViewInit {
 
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
+  @ngxLocalStorage()
+  code: any;
+}
+```
 
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
+## Contributors ✨
 
-Visit [Nx Cloud](https://nx.app/) to learn more.
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://bohoffi.github.io/"><img src="https://avatars0.githubusercontent.com/u/9944566?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Basti Hoffmann</b></sub></a><br /><a href="https://github.com/bohoffi/ngx-localstorage/commits?author=bohoffi" title="Code">💻</a> <a href="https://github.com/bohoffi/ngx-localstorage/commits?author=bohoffi" title="Documentation">📖</a> <a href="#ideas-bohoffi" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-bohoffi" title="Maintenance">🚧</a> <a href="#platform-bohoffi" title="Packaging/porting to new platform">📦</a> <a href="https://github.com/bohoffi/ngx-localstorage/pulls?q=is%3Apr+reviewed-by%3Abohoffi" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://mattlewis.me/"><img src="https://avatars1.githubusercontent.com/u/6425649?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Matt Lewis</b></sub></a><br /><a href="#maintenance-mattlewis92" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://www.bhalash.com/"><img src="https://avatars1.githubusercontent.com/u/1775913?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mark</b></sub></a><br /><a href="https://github.com/bohoffi/ngx-localstorage/issues?q=author%3Abhalash" title="Bug reports">🐛</a> <a href="#example-bhalash" title="Examples">💡</a></td>
+    <td align="center"><a href="https://github.com/NewteqDeveloper"><img src="https://avatars0.githubusercontent.com/u/20768842?v=4?s=100" width="100px;" alt=""/><br /><sub><b>NewteqDeveloper</b></sub></a><br /><a href="#example-NewteqDeveloper" title="Examples">💡</a></td>
+    <td align="center"><a href="https://github.com/abdatta"><img src="https://avatars0.githubusercontent.com/u/20218826?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Abhishek Datta</b></sub></a><br /><a href="#maintenance-abdatta" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://ifyoudo.net/"><img src="https://avatars0.githubusercontent.com/u/317770?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mikael Syska</b></sub></a><br /><a href="https://github.com/bohoffi/ngx-localstorage/issues?q=author%3Asyska" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/vladimirstempel"><img src="https://avatars.githubusercontent.com/u/16229503?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vladimir Stempel</b></sub></a><br /><a href="https://github.com/bohoffi/ngx-localstorage/commits?author=vladimirstempel" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/assureclaims"><img src="https://avatars.githubusercontent.com/u/84139537?v=4?s=100" width="100px;" alt=""/><br /><sub><b>assureclaims</b></sub></a><br /><a href="https://github.com/bohoffi/ngx-localstorage/commits?author=assureclaims" title="Code">💻</a> <a href="#design-assureclaims" title="Design">🎨</a> <a href="https://github.com/bohoffi/ngx-localstorage/commits?author=assureclaims" title="Documentation">📖</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
