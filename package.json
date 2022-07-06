@@ -7,7 +7,11 @@
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2020 browser module main",
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "lint": "nx lint",
+    "test": "nx test",
+    "build:lib": "nx run ngx-localstorage:build:production",
+    "build:docs": "nx run ngx-localstorage-demo:build:production --output-path docs --base-href /ngx-localstorage/",
+    "copy-assets": "copyfiles ./LICENSE ./README.md ./dist/libs/ngx-localstorage"
   },
   "private": true,
   "dependencies": {
@@ -42,6 +46,7 @@
     "@types/node": "16.11.7",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",
+    "copyfiles": "^2.4.1",
     "cypress": "^9.1.0",
     "eslint": "~8.15.0",
     "eslint-config-prettier": "8.1.0",
