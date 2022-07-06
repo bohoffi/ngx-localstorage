@@ -2,6 +2,7 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "ngx-localstorage": "libs/ngx-localstorage",
     "ngx-localstorage-demo": "apps/ngx-localstorage-demo",
     "ngx-localstorage-demo-e2e": "apps/ngx-localstorage-demo-e2e"
   }
