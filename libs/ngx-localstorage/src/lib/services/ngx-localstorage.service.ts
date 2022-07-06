@@ -44,6 +44,7 @@ export class LocalStorageService {
       return this.storage.length;
     } catch (error) {
       console.error(error);
+      return undefined;
     }
   }
 
@@ -60,6 +61,7 @@ export class LocalStorageService {
       return this.storage.key(index);
     } catch (error) {
       console.error(error);
+      return undefined;
     }
   }
 
