@@ -1,0 +1,41 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/ngx-localstorage/src",
+  "prefix": "ngx-localstorage",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/ngx-localstorage"],
+      "options": {
+        "project": "libs/ngx-localstorage/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/ngx-localstorage/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/ngx-localstorage/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ngx-localstorage"],
+      "options": {
+        "jestConfig": "libs/ngx-localstorage/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ngx-localstorage/**/*.ts",
+          "libs/ngx-localstorage/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

@@ -6,7 +6,7 @@
 /out-tsc
 
 # dependencies
-/node_modules
+node_modules
 
 # IDEs and editors
 /.idea
@@ -16,7 +16,6 @@
 *.launch
 .settings/
 *.sublime-workspace
-.vscode
 
 # IDE - VSCode
 .vscode/*
@@ -38,4 +37,5 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-.angulardoc.json
+
+.angular

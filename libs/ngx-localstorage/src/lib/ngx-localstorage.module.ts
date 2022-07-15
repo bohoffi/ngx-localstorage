@@ -1,14 +1,10 @@
-import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
-
-import { NgxLocalstorageConfiguration } from './interfaces/storage-configuration';
-import { LocalStorageDirective } from './directives/ngx-localstorage.directive';
-import { NGX_LOCAL_STORAGE_CONFIG } from './tokens/storage-config';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { DefaultSerializer } from './classes/default-serializer';
+import { LocalStorageDirective } from './directives/ngx-localstorage.directive';
+import { NgxLocalstorageConfiguration } from './interfaces/storage-configuration';
+import { NGX_LOCAL_STORAGE_CONFIG } from './tokens/storage-config';
 import { NGX_LOCAL_STORAGE_SERIALIZER } from './tokens/storage-serializer';
 
-/**
- * Provides the librarys module.
- */
 @NgModule({
   imports: [
   ],

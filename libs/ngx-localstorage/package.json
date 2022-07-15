@@ -1,29 +1,11 @@
 {
   "name": "ngx-localstorage",
-  "version": "3.4.0",
-  "description": "An Angular wrapper for localstorage/sessionstorage access.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bohoffi/ngx-localstorage.git"
-  },
-  "keywords": [
-    "angular",
-    "localstorage",
-    "sessionstorage",
-    "wrapper",
-    "decorator",
-    "directive",
-    "reactive"
-  ],
-  "author": "bohoffi (bo.hoffi@gmail.com)",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/bohoffi/ngx-localstorage/issues"
-  },
-  "homepage": "https://github.com/bohoffi/ngx-localstorage#readme",
-  "schematics": "./schematics/collection.json",
+  "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": ">=4.0.0",
-    "@angular/core": ">=4.0.0"
+    "@angular/common": "^14.0.0",
+    "@angular/core": "^14.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
   }
 }

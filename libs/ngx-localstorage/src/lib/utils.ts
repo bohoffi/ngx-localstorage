@@ -7,6 +7,7 @@ import { StorageSerializer } from './interfaces/storage-serializer';
  * @param object Object to access
  */
 export const getProperty = (path: string[], object: any) =>
+  // eslint-disable-next-line no-extra-boolean-cast
   path.reduce((obj: any, p: any) => (!!obj) ? obj[p] : null, object);
 
 /**
