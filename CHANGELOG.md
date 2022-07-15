@@ -1,3 +1,24 @@
+<a name="4.0.0"></a>
+
+# [4.0.0](https://github.com/bohoffi/ngx-localstorage/compare/3.4.0...4.0.0) (2022-XX-XX)
+
+### Features
+
+* subscibe directly to `LocalStorageService` to obtain `StorageEvent` stream (9125a8b)
+* library errors will be emitted through service stream (c34359b)
+* abort initialization when storage is not available (13d68ee)
+
+### BREAKING CHANGES
+
+* update configuration and decorator options (0d36315)
+  * removed `storage: Storage`
+  * added `storageType: 'localStorage' | 'sessionStorage'`
+* removed `StorageEventService` (9125a8b)
+  * Storage events can now bo obtained by subscribing to `LocalStorageService` directily via `subscribe`
+* update properties in `LocalStorageDirective`(c3b7d48)
+  * remove `ls` prefix
+
+
 <a name="3.4.0"></a>
 # [3.4.0](https://github.com/bohoffi/ngx-localstorage/compare/3.3.1...3.4.0) (2021-07-16)
 
