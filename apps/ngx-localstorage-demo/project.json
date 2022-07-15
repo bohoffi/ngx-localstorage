@@ -21,9 +21,14 @@
         ],
         "styles": [
           "apps/ngx-localstorage-demo/src/styles.scss",
-          "apps/ngx-localstorage-demo/src/demo-theme.scss"
+          "apps/ngx-localstorage-demo/src/demo-theme.scss",
+          "node_modules/prismjs/themes/prism-tomorrow.min.css"
         ],
-        "scripts": []
+        "scripts": [
+          "node_modules/marked/marked.min.js",
+          "node_modules/prismjs/prism.js",
+          "node_modules/prismjs/components/prism-typescript.min.js"
+        ]
       },
       "configurations": {
         "production": {
