@@ -67,7 +67,7 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
     try {
       return this.storage.length;
     } catch (error) {
-      console.error(error);
+      this.error(error);
       return undefined;
     }
   }
@@ -79,12 +79,12 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
    */
   public getKey(index: number): string | null | undefined {
     if (index < 0) {
-      console.error(new Error('index has to be 0 or greater'));
+      this.error(new Error('index has to be 0 or greater'));
     }
     try {
       return this.storage.key(index);
     } catch (error) {
-      console.error(error);
+      this.error(error);
       return undefined;
     }
   }
@@ -180,7 +180,7 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
     try {
       return serializer.deserialize(this.storage.getItem(constructKey(key, prefix, this.config.prefix, this.config.delimiter)));
     } catch (error) {
-      console.error(error);
+      this.error(error);
     }
   }
 
@@ -193,7 +193,7 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
     try {
       this.storage.removeItem(constructKey(key, prefix, this.config.prefix, this.config.delimiter));
     } catch (error) {
-      console.error(error);
+      this.error(error);
     }
   }
 
@@ -204,7 +204,7 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
     try {
       this.storage.clear();
     } catch (error) {
-      console.error(error);
+      this.error(error);
     }
   }
 
