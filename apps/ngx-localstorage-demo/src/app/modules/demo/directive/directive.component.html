@@ -5,7 +5,7 @@
   <mat-card-content class="demo-card__content">
     <p class="mat-body-2">Code inside component template:</p>
     <code class="demo-card__content__code-sample">
-      &lt;input type=&quot;checkbox&quot; id=&quot;cbox1&quot; ngxLocalStorage 
+      &lt;input type=&quot;checkbox&quot; id=&quot;cbox1&quot; ngxLocalStorage
       lsInitFromStorage=&quot;true&quot; lsEvent=&quot;change&quot;
       [lsValuePath]=&quot;['checked']&quot; [lsFalsyTransformer]=&quot;defaultFalsyTransformer&quot;&gt;<br>
       &lt;label for=&quot;cbox1&quot;&gt;Checkbox&lt;/label&gt;<br><br>
@@ -18,12 +18,12 @@
       defaultFalsyTransformer: () => any = () => false;
     </code>
     <p class="mat-body-2">Result:</p>
-    <input type="checkbox" id="cbox1" ngxLocalStorage lsInitFromStorage="true" lsEvent="change"
-      [lsValuePath]="['checked']" [lsFalsyTransformer]="defaultFalsyTransformer">
+    <input type="checkbox" id="cbox1" ngxLocalStorage initFromStorage forEvent="change" [valuePath]="['checked']"
+      [falsyTransformer]="defaultFalsyTransformer">
     <label for="cbox1">Checkbox</label><br>
     <label for="txt1">Text</label>
-    <input type="text" id="txt1" ngxLocalStorage lsPrefix="demo" lsInitFromStorage="true" lsEvent="input"
-      [lsValuePath]="['value']" />
+    <input type="text" id="txt1" ngxLocalStorage prefix="demo" initFromStorage forEvent="input"
+      [valuePath]="['value']" />
     <p class="demo-card__content__description mat-subheading-2">
       Using the 'ngxLocalStorage' directive you can bind template controls to localstorage values.
     </p>
