@@ -7,8 +7,8 @@
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2020 browser module main",
     "start": "nx serve",
     "build": "nx build",
-    "lint": "nx lint",
-    "test": "nx test",
+    "lint": "nx run ngx-localstorage:lint",
+    "test": "nx run ngx-localstorage:test",
     "build:lib": "nx run ngx-localstorage:build:production",
     "build:docs": "nx run ngx-localstorage-demo:build:production --output-path docs --base-href /ngx-localstorage/",
     "copy-assets": "copyfiles ./LICENSE ./README.md ./dist/libs/ngx-localstorage"
