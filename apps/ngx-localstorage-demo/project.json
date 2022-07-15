@@ -5,7 +5,9 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/ngx-localstorage-demo",
         "index": "apps/ngx-localstorage-demo/src/index.html",
@@ -17,7 +19,9 @@
           "apps/ngx-localstorage-demo/src/favicon.ico",
           "apps/ngx-localstorage-demo/src/assets"
         ],
-        "styles": ["apps/ngx-localstorage-demo/src/styles.scss"],
+        "styles": [
+          "apps/ngx-localstorage-demo/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -65,12 +69,6 @@
       },
       "defaultConfiguration": "development"
     },
-    "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
-      "options": {
-        "browserTarget": "ngx-localstorage-demo:build"
-      }
-    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
@@ -82,7 +80,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/ngx-localstorage-demo"],
+      "outputs": [
+        "coverage/apps/ngx-localstorage-demo"
+      ],
       "options": {
         "jestConfig": "apps/ngx-localstorage-demo/jest.config.ts",
         "passWithNoTests": true
