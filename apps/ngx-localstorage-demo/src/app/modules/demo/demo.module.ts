@@ -9,8 +9,9 @@ import { SubUsageComponent } from './sub-usage/sub-usage.component';
 import { DecoratorComponent } from './decorator/decorator.component';
 import { DirectiveComponent } from './directive/directive.component';
 import { StorageServiceComponent } from './storage-service/storage-service.component';
-import { EventServiceComponent } from './event-service/event-service.component';
+import { EventStreamComponent } from './event-stream/event-stream.component';
 import { RouterModule } from '@angular/router';
+import { MarkdownModule } from 'ngx-markdown';
 
 @NgModule({
   imports: [
@@ -19,10 +20,11 @@ import { RouterModule } from '@angular/router';
 
     MatCardModule,
 
-    NgxLocalStorageModule.forRoot({ delimiter: '@', prefix: 'test' })
+    NgxLocalStorageModule.forRoot({ delimiter: '@', prefix: 'test' }),
+    MarkdownModule.forChild()
   ],
-  declarations: [SubUsageComponent, DecoratorComponent, DirectiveComponent, StorageServiceComponent, EventServiceComponent],
-  exports: [SubUsageComponent, DecoratorComponent, DirectiveComponent, StorageServiceComponent, EventServiceComponent]
+  declarations: [SubUsageComponent, DecoratorComponent, DirectiveComponent, StorageServiceComponent, EventStreamComponent],
+  exports: [SubUsageComponent, DecoratorComponent, DirectiveComponent, StorageServiceComponent, EventStreamComponent]
 })
 export class DemoModule {
 }
