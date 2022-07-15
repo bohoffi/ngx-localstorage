@@ -20,7 +20,8 @@
           "apps/ngx-localstorage-demo/src/assets"
         ],
         "styles": [
-          "apps/ngx-localstorage-demo/src/styles.scss"
+          "apps/ngx-localstorage-demo/src/styles.scss",
+          "apps/ngx-localstorage-demo/src/demo-theme.scss"
         ],
         "scripts": []
       },
