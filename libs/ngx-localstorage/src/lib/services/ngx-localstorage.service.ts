@@ -7,6 +7,8 @@ import { NGX_LOCAL_STORAGE_CONFIG, NGX_LOCAL_STORAGE_DEFAULT_CONFIG } from '../t
 import { NGX_LOCAL_STORAGE_SERIALIZER } from '../tokens/storage-serializer';
 import { StorageSerializer } from '../interfaces/storage-serializer';
 import { filter, fromEvent, Observable, Subscription } from 'rxjs';
+import { STORAGE, STORAGE_SUPPORT } from '../tokens/storage';
+import { WINDOW } from '../tokens/window';
 
 const defaultConfig = NGX_LOCAL_STORAGE_DEFAULT_CONFIG();
 
@@ -17,7 +19,6 @@ const defaultConfig = NGX_LOCAL_STORAGE_DEFAULT_CONFIG();
 export class LocalStorageService extends Observable<StorageEvent> implements OnDestroy {
 
   private readonly promisable: PromisableService;
-  private readonly storage: Storage;
 
   private readonly onError = new EventEmitter<string | Error>();
   private readonly subscriptions = new Subscription();
@@ -27,11 +28,18 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
    */
   constructor(
     @Inject(NGX_LOCAL_STORAGE_SERIALIZER) private readonly defaultSerializer: StorageSerializer,
-    @Inject(NGX_LOCAL_STORAGE_CONFIG) public readonly config?: NgxLocalstorageConfiguration
+    @Inject(STORAGE_SUPPORT) private readonly storageSupport: boolean,
+    @Inject(NGX_LOCAL_STORAGE_CONFIG) public readonly config?: NgxLocalstorageConfiguration,
+    @Inject(STORAGE) private readonly storage?: Storage,
+    @Inject(WINDOW) private readonly window?: Window
   ) {
     super(subscriber => {
+      if (!this.storageSupport) {
+        subscriber.error(new Error(`Choosen storage '${this.config?.storageType}' is not available`));
+      }
+
       this.subscriptions.add(
-        fromEvent<StorageEvent>(window, 'storage')
+        fromEvent<StorageEvent>(this.window, 'storage')
           .pipe(
             filter(event => !!event)
           )
@@ -44,9 +52,8 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
     });
 
     this.config = { ...defaultConfig, ...config };
-    this.storage = this.config.storage;
 
-    this.promisable = new PromisableService(this.config, this.defaultSerializer);
+    this.promisable = new PromisableService(this.config, this.defaultSerializer, this.storage);
   }
 
   public ngOnDestroy(): void {
@@ -65,7 +72,7 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
    */
   public count(): number | undefined {
     try {
-      return this.storage.length;
+      return this.storage?.length;
     } catch (error) {
       this.error(error);
       return undefined;
@@ -82,7 +89,7 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
       this.error(new Error('index has to be 0 or greater'));
     }
     try {
-      return this.storage.key(index);
+      return this.storage?.key(index);
     } catch (error) {
       this.error(error);
       return undefined;
@@ -135,7 +142,7 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
         value !== null &&
         value !== undefined)
     ) {
-      this.storage.setItem(constructKey(key, prefix, this.config.prefix, this.config.delimiter), serializer.serialize(value));
+      this.storage?.setItem(constructKey(key, prefix, this.config.prefix, this.config.delimiter), serializer.serialize(value));
     } else {
       this.remove(key, prefix);
     }
@@ -178,7 +185,7 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
         : this.defaultSerializer;
 
     try {
-      return serializer.deserialize(this.storage.getItem(constructKey(key, prefix, this.config.prefix, this.config.delimiter)));
+      return serializer.deserialize(this.storage?.getItem(constructKey(key, prefix, this.config.prefix, this.config.delimiter)));
     } catch (error) {
       this.error(error);
     }
@@ -191,7 +198,7 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
    */
   public remove(key: string, prefix?: string): void {
     try {
-      this.storage.removeItem(constructKey(key, prefix, this.config.prefix, this.config.delimiter));
+      this.storage?.removeItem(constructKey(key, prefix, this.config.prefix, this.config.delimiter));
     } catch (error) {
       this.error(error);
     }
@@ -202,7 +209,7 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
    */
   public clear(): void {
     try {
-      this.storage.clear();
+      this.storage?.clear();
     } catch (error) {
       this.error(error);
     }

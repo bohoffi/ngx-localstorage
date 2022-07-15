@@ -7,17 +7,14 @@ import { constructKey, isSerializer } from '../utils';
  */
 export class PromisableService {
 
-  private readonly storage: Storage;
-
   /**
    * Creates a new instance
    */
   constructor(
     private readonly configuration: NgxLocalstorageConfiguration,
-    private readonly defaultSerializer: StorageSerializer
-  ) {
-    this.storage = this.configuration.storage;
-  }
+    private readonly defaultSerializer: StorageSerializer,
+    private readonly storage?: Storage
+  ) { }
 
   /**
    * Gets the number of entries in the applications local storage.
@@ -25,7 +22,7 @@ export class PromisableService {
   public count(): Promise<number> {
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.storage.length);
+        resolve(this.storage?.length);
       } catch (error) {
         reject(error);
       }
@@ -43,7 +40,7 @@ export class PromisableService {
         reject(new Error('index has to be 0 or greater'));
       }
       try {
-        resolve(this.storage.key(index));
+        resolve(this.storage?.key(index));
       } catch (error) {
         reject(error);
       }
@@ -74,7 +71,7 @@ export class PromisableService {
 
         if (this.configuration.allowNull
           || (!this.configuration.allowNull && value !== 'null' && value !== null && value !== undefined)) {
-          this.storage.setItem(constructKey(key, prefix, this.configuration.prefix, this.configuration.delimiter), serializer.serialize(value));
+          this.storage?.setItem(constructKey(key, prefix, this.configuration.prefix, this.configuration.delimiter), serializer.serialize(value));
         } else {
           resolve(this.remove(key, prefix));
         }
@@ -106,7 +103,7 @@ export class PromisableService {
             ? serializer
             : this.defaultSerializer;
 
-        resolve(serializer.deserialize(this.storage.getItem(constructKey(key, prefix, this.configuration.prefix, this.configuration.delimiter))));
+        resolve(serializer.deserialize(this.storage?.getItem(constructKey(key, prefix, this.configuration.prefix, this.configuration.delimiter))));
       } catch (error) {
         reject(error);
       }
@@ -121,7 +118,7 @@ export class PromisableService {
   public remove(key: string, prefix?: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       try {
-        this.storage.removeItem(constructKey(key, prefix, this.configuration.prefix, this.configuration.delimiter));
+        this.storage?.removeItem(constructKey(key, prefix, this.configuration.prefix, this.configuration.delimiter));
         resolve(true);
       } catch (error) {
         reject(error);
@@ -135,7 +132,7 @@ export class PromisableService {
   public clear(): Promise<boolean> {
     return new Promise((resolve, reject) => {
       try {
-        this.storage.clear();
+        this.storage?.clear();
         resolve(true);
       } catch (error) {
         reject(error);
