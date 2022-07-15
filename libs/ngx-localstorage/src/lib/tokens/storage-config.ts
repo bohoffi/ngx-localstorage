@@ -4,7 +4,7 @@ import { NgxLocalstorageConfiguration } from '../interfaces/storage-configuratio
 export const NGX_LOCAL_STORAGE_DEFAULT_CONFIG = (): NgxLocalstorageConfiguration => {
   return {
     allowNull: true,
-    storage: localStorage,
+    storageType: 'localStorage',
     delimiter: '_'
   }
 };
