@@ -1,4 +1,4 @@
-import { Injectable, Inject, OnDestroy } from '@angular/core';
+import { Injectable, Inject, OnDestroy, EventEmitter } from '@angular/core';
 
 import { NgxLocalstorageConfiguration } from '../interfaces/storage-configuration';
 import { PromisableService } from './promisable.service';
@@ -19,6 +19,7 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
   private readonly promisable: PromisableService;
   private readonly storage: Storage;
 
+  private readonly onError = new EventEmitter<string | Error>();
   private readonly subscriptions = new Subscription();
 
   /**
@@ -35,6 +36,10 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
             filter(event => !!event)
           )
           .subscribe(event => subscriber.next(event))
+      );
+
+      this.subscriptions.add(
+        this.onError.subscribe(error => subscriber.error(error))
       );
     });
 
@@ -201,5 +206,9 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
     } catch (error) {
       console.error(error);
     }
+  }
+
+  public error(error: string | Error): void {
+    this.onError.emit(error);
   }
 }
