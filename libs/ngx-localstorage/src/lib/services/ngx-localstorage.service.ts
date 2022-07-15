@@ -1,20 +1,25 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject, OnDestroy } from '@angular/core';
 
 import { NgxLocalstorageConfiguration } from '../interfaces/storage-configuration';
 import { PromisableService } from './promisable.service';
-import { defaultConfig, constructKey, isSerializer } from '../utils';
-import { NGX_LOCAL_STORAGE_CONFIG } from '../tokens/storage-config';
+import { constructKey, isSerializer } from '../utils';
+import { NGX_LOCAL_STORAGE_CONFIG, NGX_LOCAL_STORAGE_DEFAULT_CONFIG } from '../tokens/storage-config';
 import { NGX_LOCAL_STORAGE_SERIALIZER } from '../tokens/storage-serializer';
 import { StorageSerializer } from '../interfaces/storage-serializer';
+import { filter, fromEvent, Observable, Subscription } from 'rxjs';
+
+const defaultConfig = NGX_LOCAL_STORAGE_DEFAULT_CONFIG();
 
 /**
  * Provides a service to access the localstorage.
  */
 @Injectable({ providedIn: 'root' })
-export class LocalStorageService {
+export class LocalStorageService extends Observable<StorageEvent> implements OnDestroy {
 
   private readonly promisable: PromisableService;
   private readonly storage: Storage;
+
+  private readonly subscriptions = new Subscription();
 
   /**
    * Creates a new instance.
@@ -23,10 +28,24 @@ export class LocalStorageService {
     @Inject(NGX_LOCAL_STORAGE_SERIALIZER) private readonly defaultSerializer: StorageSerializer,
     @Inject(NGX_LOCAL_STORAGE_CONFIG) public readonly config?: NgxLocalstorageConfiguration
   ) {
+    super(subscriber => {
+      this.subscriptions.add(
+        fromEvent<StorageEvent>(window, 'storage')
+          .pipe(
+            filter(event => !!event)
+          )
+          .subscribe(event => subscriber.next(event))
+      );
+    });
+
     this.config = { ...defaultConfig, ...config };
     this.storage = this.config.storage;
 
     this.promisable = new PromisableService(this.config, this.defaultSerializer);
+  }
+
+  public ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   /**

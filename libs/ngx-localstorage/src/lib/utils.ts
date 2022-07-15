@@ -1,4 +1,3 @@
-import { NgxLocalstorageConfiguration } from './interfaces/storage-configuration';
 import { StorageSerializer } from './interfaces/storage-serializer';
 
 /**
@@ -40,15 +39,6 @@ export const constructKey = (key: string, prefix?: string, configuredPrefix?: st
   }
   return key;
 }
-
-/**
- * The librarys default config.
- */
-export const defaultConfig: NgxLocalstorageConfiguration = {
-  allowNull: true,
-  storage: localStorage,
-  delimiter: '_'
-};
 
 /**
  * StorageSerializer Guard

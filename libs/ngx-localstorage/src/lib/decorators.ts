@@ -2,7 +2,6 @@ import { filter } from 'rxjs/operators';
 
 import { DecoratorOpts } from './interfaces/decorator-options';
 import { LocalStorageService } from './services/ngx-localstorage.service';
-import { StorageEventService } from './services/storage-event.service';
 import { constructKey } from './utils';
 import { DefaultSerializer } from './classes/default-serializer';
 
@@ -25,8 +24,7 @@ export function ngxLocalStorage(options?: DecoratorOpts) {
       });
 
 
-    const eventService: StorageEventService = new StorageEventService();
-    eventService.stream.pipe(
+    service.pipe(
       filter((ev: StorageEvent) => ev.key && ev.key.indexOf(constructKey(key, prefix)) >= 0)
     )
       .subscribe((ev: StorageEvent) => {

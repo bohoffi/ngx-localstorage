@@ -4,7 +4,6 @@ import { debounceTime, filter } from 'rxjs/operators';
 
 import { getProperty, setProperty } from '../utils';
 import { LocalStorageService } from '../services/ngx-localstorage.service';
-import { StorageEventService } from '../services/storage-event.service';
 
 /**
  * Provide a directive to directly interact with stored values.
@@ -70,10 +69,9 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
    * Creates a new instance.
    */
   constructor(private readonly er: ElementRef,
-    private readonly lss: LocalStorageService,
-    private readonly es: StorageEventService) {
+    private readonly lss: LocalStorageService) {
 
-    this.es.stream.pipe(
+    this.lss.pipe(
       // TODO: filter should be more accurate
       filter((ev: StorageEvent) => ev.key && ev.key.indexOf(this.lsKey) >= 0)
     )
