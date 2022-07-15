@@ -76,7 +76,7 @@ export class PromisableService {
           || (!this.configuration.allowNull && value !== 'null' && value !== null && value !== undefined)) {
           this.storage.setItem(constructKey(key, prefix, this.configuration.prefix, this.configuration.delimiter), serializer.serialize(value));
         } else {
-          return this.remove(key, prefix);
+          resolve(this.remove(key, prefix));
         }
         resolve(true);
       } catch (error) {
