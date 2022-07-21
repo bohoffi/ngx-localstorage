@@ -108,14 +108,14 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
    * @param value   Value to store.
    * @param prefixOrSerializer  Optional prefix or serializer to overwrite the configured one.
    */
-  public set(key: string, value: any, prefixOrSerializer?: string | StorageSerializer): void;
+  public set<T = unknown>(key: string, value: T, prefixOrSerializer?: string | StorageSerializer): void;
   /**
    * Adds the value with the given key or updates an existing entry.
    * @param key     Key to store.
    * @param value   Value to store.
    * @param prefixOrSerializer  prefix or serializer to overwrite the configured one.
    */
-  public set(key: string, value: any, prefixOrSerializer: string | StorageSerializer): void;
+  public set<T = unknown>(key: string, value: T, prefixOrSerializer: string | StorageSerializer): void;
   /**
    * Adds the value with the given key or updates an existing entry.
    * @param key     Key to store.
@@ -123,7 +123,7 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
    * @param prefix  Optional prefix to overwrite the configured one.
    * @param serializer  Optional serilizer.
    */
-  public set(key: string, value: any, prefix: string, serializer: StorageSerializer): void;
+  public set<T = unknown>(key: string, value: T, prefix: string, serializer: StorageSerializer): void;
   /**
    * Adds the value with the given key or updates an existing entry.
    * @param key     Key to store.
@@ -131,7 +131,7 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
    * @param prefixOrSerializer  Optional prefix or serializer to overwrite the configured one.
    * @param serializer  Optional serilizer.
    */
-  public set(key: string, value: any, prefixOrSerializer?: string | StorageSerializer, serializer?: StorageSerializer): void {
+  public set<T = unknown>(key: string, value: T, prefixOrSerializer?: string | StorageSerializer, serializer?: StorageSerializer): void {
 
     const prefix = typeof prefixOrSerializer === 'string' ? prefixOrSerializer : undefined;
     serializer = isSerializer(prefixOrSerializer)
@@ -144,7 +144,7 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
     if (
       this.config.allowNull ||
       (!this.config.allowNull &&
-        value !== 'null' &&
+        `${value}` !== 'null' &&
         value !== null &&
         value !== undefined)
     ) {
@@ -160,27 +160,27 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
    * @param prefixOrSerializer  Optional prefix or serializer to overwrite the configured one.
    * @param serializer  Optional serilizer.
    */
-  public get(key: string, prefixOrSerializer?: string | StorageSerializer): any | null | undefined;
+  public get<T = unknown>(key: string, prefixOrSerializer?: string | StorageSerializer): T | null | undefined;
   /**
    * Gets the entry specified by the given key or null.
    * @param key     Key identifying the wanted entry.
    * @param prefixOrSerializer  prefix or serializer to overwrite the configured one.
    */
-  public get(key: string, prefixOrSerializer: string | StorageSerializer): any | null | undefined;
+  public get<T = unknown>(key: string, prefixOrSerializer: string | StorageSerializer): T | null | undefined;
   /**
    * Gets the entry specified by the given key or null.
    * @param key     Key identifying the wanted entry.
    * @param prefix  prefix or serializer to overwrite the configured one.
    * @param serializer serilizer.
    */
-  public get(key: string, prefix: string, serializer: StorageSerializer): any | null | undefined;
+  public get<T = unknown>(key: string, prefix: string, serializer: StorageSerializer): T | null | undefined;
   /**
    * Gets the entry specified by the given key or null.
    * @param key     Key identifying the wanted entry.
    * @param prefixOrSerializer  Optional prefix or serializer to overwrite the configured one.
    * @param serializer  Optional serilizer.
    */
-  public get(key: string, prefixOrSerializer?: string | StorageSerializer, serializer?: StorageSerializer): any | null | undefined {
+  public get<T = unknown>(key: string, prefixOrSerializer?: string | StorageSerializer, serializer?: StorageSerializer): T | null | undefined {
 
     const prefix = typeof prefixOrSerializer === 'string' ? prefixOrSerializer : undefined;
     serializer = isSerializer(prefixOrSerializer)
@@ -193,9 +193,10 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
     try {
       const constructedKey = constructKey(key, prefix, this.config.prefix, this.config.delimiter);
       const storageItem = this.storage?.getItem(constructedKey);
-      return storageItem ? serializer.deserialize(storageItem) : storageItem;
+      return storageItem ? serializer.deserialize<T>(storageItem) : null;
     } catch (error) {
       this.error(error);
+      return null;
     }
   }
 

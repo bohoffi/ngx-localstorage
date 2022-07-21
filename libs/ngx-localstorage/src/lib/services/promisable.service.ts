@@ -56,10 +56,10 @@ export class PromisableService {
    * @param prefixOrSerializer  Optional prefix or serializer to overwrite the configured one.
    * @param serializer  Optional serilizer.
    */
-  public set(key: string, value: any, prefixOrSerializer?: string | StorageSerializer): Promise<boolean>;
-  public set(key: string, value: any, prefixOrSerializer: string | StorageSerializer): Promise<boolean>;
-  public set(key: string, value: any, prefixOrSerializer: string, serializer: StorageSerializer): Promise<boolean>;
-  public set(key: string, value: any, prefixOrSerializer?: string | StorageSerializer, serializer?: StorageSerializer): Promise<boolean> {
+  public set<T = unknown>(key: string, value: T, prefixOrSerializer?: string | StorageSerializer): Promise<boolean>;
+  public set<T = unknown>(key: string, value: T, prefixOrSerializer: string | StorageSerializer): Promise<boolean>;
+  public set<T = unknown>(key: string, value: T, prefixOrSerializer: string, serializer: StorageSerializer): Promise<boolean>;
+  public set<T = unknown>(key: string, value: T, prefixOrSerializer?: string | StorageSerializer, serializer?: StorageSerializer): Promise<boolean> {
     return new Promise((resolve, reject) => {
       try {
 
@@ -72,7 +72,7 @@ export class PromisableService {
             : this.defaultSerializer;
 
         if (this.configuration.allowNull
-          || (!this.configuration.allowNull && value !== 'null' && value !== null && value !== undefined)) {
+          || (!this.configuration.allowNull && `${value}` !== 'null' && value !== null && value !== undefined)) {
           this.storage?.setItem(constructKey(key, prefix, this.configuration.prefix, this.configuration.delimiter), serializer.serialize(value));
         } else {
           resolve(this.remove(key, prefix));
@@ -90,11 +90,11 @@ export class PromisableService {
    * @param prefixOrSerializer  Optional prefix or serializer to overwrite the configured one.
    * @param serializer  Optional serilizer.
    */
-  public get(key: string, prefixOrSerializer?: string | StorageSerializer): Promise<any | null | undefined>;
-  public get(key: string, prefixOrSerializer: string | StorageSerializer): Promise<any | null | undefined>;
-  public get(key: string, prefixOrSerializer: string, serializer: StorageSerializer): Promise<any | null | undefined>;
-  public get(key: string, prefixOrSerializer?: string | StorageSerializer, serializer?: StorageSerializer): Promise<any | null | undefined> {
-    return new Promise<any | null | undefined>((resolve, reject) => {
+  public get<T = unknown>(key: string, prefixOrSerializer?: string | StorageSerializer): Promise<T | null | undefined>;
+  public get<T = unknown>(key: string, prefixOrSerializer: string | StorageSerializer): Promise<T | null | undefined>;
+  public get<T = unknown>(key: string, prefixOrSerializer: string, serializer: StorageSerializer): Promise<T | null | undefined>;
+  public get<T = unknown>(key: string, prefixOrSerializer?: string | StorageSerializer, serializer?: StorageSerializer): Promise<T | null | undefined> {
+    return new Promise((resolve, reject) => {
       try {
 
         const prefix = typeof prefixOrSerializer === 'string' ? prefixOrSerializer : undefined;
@@ -107,7 +107,7 @@ export class PromisableService {
 
         const constructedKey = constructKey(key, prefix, this.configuration.prefix, this.configuration.delimiter);
         const storageItem = this.storage?.getItem(constructedKey);
-        resolve(storageItem ? serializer.deserialize(storageItem) : storageItem);
+        resolve(storageItem ? serializer.deserialize(storageItem) : null);
       } catch (error) {
         reject(error);
       }
