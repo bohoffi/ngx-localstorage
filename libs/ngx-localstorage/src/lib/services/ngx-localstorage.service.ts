@@ -59,6 +59,7 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
 
   /**
    * Returns a service variant based on Promises.
+   * @deprecated will be removed with 5.x
    */
   public asPromisable(): PromisableService {
     return this.promisable;

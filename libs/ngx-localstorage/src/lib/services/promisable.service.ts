@@ -5,6 +5,7 @@ import { constructKey } from '../utils/key-utils';
 
 /**
  * Provides a Promise based service to access the localstorage.
+ * @deprecated will be removed with 5.x
  */
 export class PromisableService {
 
