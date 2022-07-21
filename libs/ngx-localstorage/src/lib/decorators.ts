@@ -17,7 +17,8 @@ export function ngxLocalStorage(options?: DecoratorOpts) {
     const prefix = !!options && !!options.prefix ? options.prefix : null;
     const storage = options?.storageType === 'localStorage' ? window?.localStorage : window?.sessionStorage;
 
-    const service: LocalStorageService = new LocalStorageService(new DefaultSerializer(),
+    const service: LocalStorageService = new LocalStorageService(
+      options?.serializer || new DefaultSerializer(),
       !!storage,
       {
         prefix: prefix,
