@@ -7,6 +7,10 @@
 * subscibe directly to `LocalStorageService` to obtain `StorageEvent` stream (9125a8b)
 * library errors will be emitted through service stream (c34359b)
 * abort initialization when storage is not available (13d68ee)
+* expose `STORAGE_SUPPORT` token (4f2659d)
+  * check storage availability before actually using the library
+* add `serializer` to decorator options (defaults to `DefaultSerializer`) (57f00ca)
+* provide `DefaultSerializer` by default (3e77633)
 
 ### BREAKING CHANGES
 
@@ -17,6 +21,10 @@
   * Storage events can now bo obtained by subscribing to `LocalStorageService` directily via `subscribe`
 * update properties in `LocalStorageDirective`(c3b7d48)
   * remove `ls` prefix
+
+  ### Deprecations
+
+  * mark `PromisableService` as deprecated (2133daf)
 
 
 <a name="3.4.0"></a>
