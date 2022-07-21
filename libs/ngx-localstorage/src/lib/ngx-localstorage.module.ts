@@ -1,7 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { LocalStorageDirective } from './directives/ngx-localstorage.directive';
 import { NgxLocalstorageConfiguration } from './interfaces/storage-configuration';
-import { NGX_LOCAL_STORAGE_CONFIG } from './tokens/storage-config';
+import { NGX_LOCAL_STORAGE_CONFIG, NGX_LOCAL_STORAGE_DEFAULT_CONFIG } from './tokens/storage-config';
 
 @NgModule({
   imports: [
@@ -32,12 +32,16 @@ export class NgxLocalStorageModule {
    *
    */
   public static forRoot(config?: NgxLocalstorageConfiguration): ModuleWithProviders<NgxLocalStorageModule> {
+    const defaultConfig = NGX_LOCAL_STORAGE_DEFAULT_CONFIG();
     return {
       ngModule: NgxLocalStorageModule,
       providers: [
         {
           provide: NGX_LOCAL_STORAGE_CONFIG,
-          useValue: config
+          useValue: {
+            ...defaultConfig,
+            ...config
+          }
         }
       ]
     };

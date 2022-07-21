@@ -3,14 +3,12 @@ import { Injectable, Inject, OnDestroy, EventEmitter } from '@angular/core';
 import { NgxLocalstorageConfiguration } from '../interfaces/storage-configuration';
 import { PromisableService } from './promisable.service';
 import { constructKey, isSerializer } from '../utils';
-import { NGX_LOCAL_STORAGE_CONFIG, NGX_LOCAL_STORAGE_DEFAULT_CONFIG } from '../tokens/storage-config';
+import { NGX_LOCAL_STORAGE_CONFIG } from '../tokens/storage-config';
 import { NGX_LOCAL_STORAGE_SERIALIZER } from '../tokens/storage-serializer';
 import { StorageSerializer } from '../interfaces/storage-serializer';
 import { filter, fromEvent, Observable, Subscription } from 'rxjs';
 import { STORAGE, STORAGE_SUPPORT } from '../tokens/storage';
 import { WINDOW } from '../tokens/window';
-
-const defaultConfig = NGX_LOCAL_STORAGE_DEFAULT_CONFIG();
 
 /**
  * Provides a service to access the localstorage.
@@ -50,8 +48,6 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
         this.onError.subscribe(error => subscriber.error(error))
       );
     });
-
-    this.config = { ...defaultConfig, ...config };
 
     this.promisable = new PromisableService(this.config, this.defaultSerializer, this.storage);
   }
