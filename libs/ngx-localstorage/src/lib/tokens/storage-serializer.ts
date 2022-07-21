@@ -1,4 +1,4 @@
-import { inject, InjectionToken } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 import { DefaultSerializer } from '../classes/default-serializer';
 import { StorageSerializer } from '../interfaces/storage-serializer';
 

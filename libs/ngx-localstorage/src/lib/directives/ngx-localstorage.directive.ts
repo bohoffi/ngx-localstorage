@@ -18,17 +18,17 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
    * The key to use with localstorage.
    */
   @Input('ngxLocalStorage')
-  public key: string;
+  public key = '';
   /**
    * The keys prefix to use.
    */
   @Input()
-  public prefix: string;
+  public prefix?: string;
   /**
    * The event to hook onto value changes.
    */
   @Input()
-  public forEvent: string;
+  public forEvent?: string;
   /**
    * An optional debounce for storage write access after value changes.
    */
@@ -64,9 +64,9 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
    * Event which gets fired when a bound value got stored.
    */
   @Output()
-  public lsStoredValue = new EventEmitter<any>();
+  public storedValue = new EventEmitter<any>();
 
-  private _eventSubscription: Subscription;
+  private readonly subscriptions = new Subscription();
   private _valuePath: string[] = [];
 
   private _initFromStorage = false;
@@ -74,23 +74,28 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
   /**
    * Creates a new instance.
    */
-  constructor(private readonly er: ElementRef,
-    private readonly lss: LocalStorageService) {
-
-    this.lss.pipe(
-      // TODO: filter should be more accurate
-      filter((ev: StorageEvent) => ev.key && ev.key.indexOf(this.key) >= 0)
-    )
-      .subscribe((ev: StorageEvent) => {
-        setProperty(this._valuePath.length ? this._valuePath : ['value'], ev.newValue, this.er.nativeElement, this.falsyTransformer);
-      });
-  }
+  constructor(
+    private readonly er: ElementRef,
+    private readonly lss: LocalStorageService
+  ) { }
 
   /**
    * AfterViewInit lifecycle hook.
    */
   public ngAfterViewInit(): void {
     this.initKey();
+
+    this.subscriptions.add(
+      this.lss
+        .pipe(
+          // TODO: filter should be more accurate
+          filter((ev: StorageEvent) => !!ev.key && ev.key.indexOf(this.key) >= 0)
+        )
+        .subscribe((ev: StorageEvent) => {
+          setProperty(this._valuePath.length ? this._valuePath : ['value'], ev.newValue, this.er.nativeElement, this.falsyTransformer);
+        })
+    );
+
     this.checkInitFromStorage();
     this.hookToEvent();
   }
@@ -112,21 +117,23 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
    */
   private hookToEvent(): void {
     if (this.forEvent) {
-      this._eventSubscription = fromEvent(this.er.nativeElement, this.forEvent).pipe(
-        debounceTime(this.storageDebounce))
-        .subscribe(() => {
-          this.lss.asPromisable().set(this.key,
-            getProperty(this._valuePath.length ? this._valuePath : ['value'], this.er.nativeElement),
-            this.prefix)
-            .then(() => {
-              this.lss.asPromisable().get(this.key, this.prefix)
-                .then((value: any) => {
-                  this.lsStoredValue.emit(value);
-                })
-                .catch((err: Error) => this.lss.error(err));
-            })
-            .catch((err: Error) => this.lss.error(err));
-        });
+      this.subscriptions.add(
+        fromEvent(this.er.nativeElement, this.forEvent).pipe(
+          debounceTime(this.storageDebounce))
+          .subscribe(() => {
+            this.lss.asPromisable().set(this.key,
+              getProperty(this._valuePath.length ? this._valuePath : ['value'], this.er.nativeElement),
+              this.prefix)
+              .then(() => {
+                this.lss.asPromisable().get(this.key, this.prefix)
+                  .then((value: any) => {
+                    this.storedValue.emit(value);
+                  })
+                  .catch((err: Error) => this.lss.error(err));
+              })
+              .catch((err: Error) => this.lss.error(err));
+          })
+      );
     }
   }
 
@@ -147,8 +154,6 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
    * Unsubscribe from event observable.
    */
   public ngOnDestroy(): void {
-    if (this._eventSubscription && !this._eventSubscription.closed) {
-      this._eventSubscription.unsubscribe();
-    }
+    this.subscriptions.unsubscribe();
   }
 }

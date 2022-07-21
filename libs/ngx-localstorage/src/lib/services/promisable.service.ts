@@ -21,7 +21,7 @@ export class PromisableService {
   /**
    * Gets the number of entries in the applications local storage.
    */
-  public count(): Promise<number> {
+  public count(): Promise<number | undefined> {
     return new Promise((resolve, reject) => {
       try {
         resolve(this.storage?.length);
@@ -36,8 +36,8 @@ export class PromisableService {
    * The order of keys is user-agent defined, so you should not rely on it.
    * @param index   An integer representing the number of the key you want to get the name of. This is a zero-based index.
    */
-  public getKey(index: number): Promise<string | null> {
-    return new Promise<string | null>((resolve, reject) => {
+  public getKey(index: number): Promise<string | null | undefined> {
+    return new Promise((resolve, reject) => {
       if (index < 0) {
         reject(new Error('index has to be 0 or greater'));
       }
@@ -105,7 +105,9 @@ export class PromisableService {
             ? serializer
             : this.defaultSerializer;
 
-        resolve(serializer.deserialize(this.storage?.getItem(constructKey(key, prefix, this.configuration.prefix, this.configuration.delimiter))));
+        const constructedKey = constructKey(key, prefix, this.configuration.prefix, this.configuration.delimiter);
+        const storageItem = this.storage?.getItem(constructedKey);
+        resolve(storageItem ? serializer.deserialize(storageItem) : storageItem);
       } catch (error) {
         reject(error);
       }

@@ -2,7 +2,7 @@ import { Injectable, Inject, OnDestroy, EventEmitter } from '@angular/core';
 
 import { NgxLocalstorageConfiguration } from '../interfaces/storage-configuration';
 import { PromisableService } from './promisable.service';
-import { NGX_LOCAL_STORAGE_CONFIG } from '../tokens/storage-config';
+import { NGX_LOCAL_STORAGE_CONFIG, NGX_LOCAL_STORAGE_DEFAULT_CONFIG } from '../tokens/storage-config';
 import { NGX_LOCAL_STORAGE_SERIALIZER } from '../tokens/storage-serializer';
 import { StorageSerializer } from '../interfaces/storage-serializer';
 import { filter, fromEvent, Observable, Subscription } from 'rxjs';
@@ -11,15 +11,19 @@ import { WINDOW } from '../tokens/window';
 import { isSerializer } from '../utils/guards';
 import { constructKey } from '../utils/key-utils';
 
+const defaultConfig = NGX_LOCAL_STORAGE_DEFAULT_CONFIG();
+
 /**
  * Provides a service to access the localstorage.
  */
 @Injectable({ providedIn: 'root' })
 export class LocalStorageService extends Observable<StorageEvent> implements OnDestroy {
 
+  public readonly config: NgxLocalstorageConfiguration;
+
   private readonly promisable: PromisableService;
 
-  private readonly onError = new EventEmitter<string | Error>();
+  private readonly onError = new EventEmitter<string | Error | unknown>();
   private readonly subscriptions = new Subscription();
 
   /**
@@ -28,7 +32,7 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
   constructor(
     @Inject(NGX_LOCAL_STORAGE_SERIALIZER) private readonly defaultSerializer: StorageSerializer,
     @Inject(STORAGE_SUPPORT) private readonly storageSupport: boolean,
-    @Inject(NGX_LOCAL_STORAGE_CONFIG) public readonly config?: NgxLocalstorageConfiguration,
+    @Inject(NGX_LOCAL_STORAGE_CONFIG) _config?: NgxLocalstorageConfiguration,
     @Inject(STORAGE) private readonly storage?: Storage,
     @Inject(WINDOW) private readonly window?: Window
   ) {
@@ -37,18 +41,22 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
         subscriber.error(new Error(`Choosen storage '${this.config?.storageType}' is not available`));
       }
 
-      this.subscriptions.add(
-        fromEvent<StorageEvent>(this.window, 'storage')
-          .pipe(
-            filter(event => !!event)
-          )
-          .subscribe(event => subscriber.next(event))
-      );
+      if (this.window) {
+        this.subscriptions.add(
+          fromEvent<StorageEvent>(this.window, 'storage')
+            .pipe(
+              filter(event => !!event)
+            )
+            .subscribe(event => subscriber.next(event))
+        );
+      }
 
       this.subscriptions.add(
         this.onError.subscribe(error => subscriber.error(error))
       );
     });
+
+    this.config = { ...defaultConfig, ..._config };
 
     this.promisable = new PromisableService(this.config, this.defaultSerializer, this.storage);
   }
@@ -71,7 +79,7 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
   public count(): number | undefined {
     try {
       return this.storage?.length;
-    } catch (error) {
+    } catch (error: unknown) {
       this.error(error);
       return undefined;
     }
@@ -183,7 +191,9 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
         : this.defaultSerializer;
 
     try {
-      return serializer.deserialize(this.storage?.getItem(constructKey(key, prefix, this.config.prefix, this.config.delimiter)));
+      const constructedKey = constructKey(key, prefix, this.config.prefix, this.config.delimiter);
+      const storageItem = this.storage?.getItem(constructedKey);
+      return storageItem ? serializer.deserialize(storageItem) : storageItem;
     } catch (error) {
       this.error(error);
     }
@@ -213,7 +223,7 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
     }
   }
 
-  public error(error: string | Error): void {
+  public error(error: string | Error | unknown): void {
     this.onError.emit(error);
   }
 }

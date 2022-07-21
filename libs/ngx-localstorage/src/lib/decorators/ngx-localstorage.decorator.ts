@@ -13,7 +13,7 @@ export function ngxLocalStorage(options?: DecoratorOpts) {
   return function (target: Object, propertyDescription: string) {
 
     const key = !!options && !!options.key ? options.key : propertyDescription;
-    const prefix = !!options && !!options.prefix ? options.prefix : null;
+    const prefix = !!options && !!options.prefix ? options.prefix : undefined;
     const storage = options?.storageType === 'localStorage' ? window?.localStorage : window?.sessionStorage;
 
     const service: LocalStorageService = new LocalStorageService(
@@ -28,15 +28,17 @@ export function ngxLocalStorage(options?: DecoratorOpts) {
 
 
     service.pipe(
-      filter((ev: StorageEvent) => ev.key && ev.key.indexOf(constructKey(key, prefix)) >= 0)
+      filter((ev: StorageEvent) => !!ev.key && ev.key.indexOf(constructKey(key, prefix)) >= 0)
     )
       .subscribe((ev: StorageEvent) => {
         if (!!ev.newValue && typeof ev.newValue === 'string') {
           if (ev.newValue !== 'null') {
-            target[propertyDescription] = ev.newValue;
+            (target as any)[propertyDescription] = ev.newValue;
+
+
+
           } else {
-            // eslint-disable-next-line no-extra-boolean-cast
-            target[propertyDescription] = !!options.nullTransformer ? options.nullTransformer() : null;
+            (target as any)[propertyDescription] = options?.nullTransformer ? options.nullTransformer() : null;
           }
         }
       });
@@ -44,7 +46,7 @@ export function ngxLocalStorage(options?: DecoratorOpts) {
     Object.defineProperty(target, propertyDescription, {
       get: function () {
         const storageValue = service.get(key, prefix);
-        return storageValue == null && !!options.nullTransformer ? options.nullTransformer() : storageValue;
+        return storageValue == null && !!options?.nullTransformer ? options.nullTransformer() : storageValue;
       },
       set: function (value: any) {
         service.set(key, value, prefix);
