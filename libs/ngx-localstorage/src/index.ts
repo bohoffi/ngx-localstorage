@@ -15,4 +15,5 @@ export * from './lib/interfaces/storage-configuration';
 export * from './lib/interfaces/storage-serializer';
 // tokens
 export { NGX_LOCAL_STORAGE_CONFIG } from './lib/tokens/storage-config';
+export { STORAGE_SUPPORT } from './lib/tokens/storage';
 export * from './lib/tokens/storage-serializer';
