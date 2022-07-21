@@ -3,8 +3,8 @@ import { fromEvent, Subscription } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 
-import { getProperty, setProperty } from '../utils';
 import { LocalStorageService } from '../services/ngx-localstorage.service';
+import { getProperty, setProperty } from '../utils/property-utils';
 
 /**
  * Provide a directive to directly interact with stored values.

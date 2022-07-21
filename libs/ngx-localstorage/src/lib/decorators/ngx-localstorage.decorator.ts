@@ -1,9 +1,8 @@
 import { filter } from 'rxjs/operators';
-
-import { DecoratorOpts } from './interfaces/decorator-options';
-import { LocalStorageService } from './services/ngx-localstorage.service';
-import { constructKey } from './utils';
-import { DefaultSerializer } from './classes/default-serializer';
+import { DefaultSerializer } from '../classes/default-serializer';
+import { DecoratorOpts } from '../interfaces/decorator-options';
+import { LocalStorageService } from '../services/ngx-localstorage.service';
+import { constructKey } from '../utils/key-utils';
 
 /**
  * Provides a decoarator to bind a property directly to a storage value.

@@ -1,6 +1,7 @@
 import { NgxLocalstorageConfiguration } from '../interfaces/storage-configuration';
 import { StorageSerializer } from '../interfaces/storage-serializer';
-import { constructKey, isSerializer } from '../utils';
+import { isSerializer } from '../utils/guards';
+import { constructKey } from '../utils/key-utils';
 
 /**
  * Provides a Promise based service to access the localstorage.
