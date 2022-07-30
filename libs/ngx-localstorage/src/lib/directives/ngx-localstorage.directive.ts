@@ -41,18 +41,21 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
   public set initFromStorage(value: BooleanInput) {
     this._initFromStorage = coerceBooleanProperty(value);
   }
+  public get initFromStorage(): boolean {
+    return this._initFromStorage;
+  }
 
   /**
    * An optional transformer to handle falsy values.
    */
   @Input()
-  public falsyTransformer?: () => any;
+  public falsyTransformer?: () => unknown;
 
   /**
    * Provides a path to access the bound elements value property.
    */
   @Input()
-  public set valuePath(path: any[] | string) {
+  public set valuePath(path: string | string[]) {
     if (path != null) {
       this._valuePath = Array.isArray(path) ? path : path.split(',');
     } else {
@@ -64,7 +67,7 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
    * Event which gets fired when a bound value got stored.
    */
   @Output()
-  public storedValue = new EventEmitter<any>();
+  public storedValue = new EventEmitter<unknown>();
 
   private readonly subscriptions = new Subscription();
   private _valuePath: string[] = [];
@@ -75,8 +78,8 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
    * Creates a new instance.
    */
   constructor(
-    private readonly er: ElementRef,
-    private readonly lss: LocalStorageService
+    private readonly elementRef: ElementRef,
+    private readonly storageService: LocalStorageService
   ) { }
 
   /**
@@ -86,13 +89,13 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
     this.initKey();
 
     this.subscriptions.add(
-      this.lss
+      this.storageService
         .pipe(
           // TODO: filter should be more accurate
           filter((ev: StorageEvent) => !!ev.key && ev.key.indexOf(this.key) >= 0)
         )
         .subscribe((ev: StorageEvent) => {
-          setProperty(this._valuePath.length ? this._valuePath : ['value'], ev.newValue, this.er.nativeElement, this.falsyTransformer);
+          setProperty(this._valuePath.length ? this._valuePath : ['value'], ev.newValue, this.elementRef.nativeElement, this.falsyTransformer);
         })
     );
 
@@ -101,14 +104,21 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
   }
 
   /**
+   * Unsubscribe from event observable.
+   */
+  public ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
+  /**
    * Initalizes the from either the given value or the elements id or name property.
    */
   private initKey(): void {
     if (!this.key) {
-      if (!this.er.nativeElement.id && !this.er.nativeElement.name) {
-        this.lss.error(new Error('No key or element id or name supplied!'));
+      if (!this.elementRef.nativeElement.id && !this.elementRef.nativeElement.name) {
+        this.storageService.error(new Error('No key or element id or name supplied!'));
       }
-      this.key = this.er.nativeElement.id || this.er.nativeElement.name;
+      this.key = this.elementRef.nativeElement.id || this.elementRef.nativeElement.name;
     }
   }
 
@@ -117,21 +127,25 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
    */
   private hookToEvent(): void {
     if (this.forEvent) {
+
       this.subscriptions.add(
-        fromEvent(this.er.nativeElement, this.forEvent).pipe(
-          debounceTime(this.storageDebounce))
+        fromEvent(this.elementRef.nativeElement, this.forEvent)
+          .pipe(
+            debounceTime(this.storageDebounce)
+          )
           .subscribe(() => {
-            this.lss.asPromisable().set(this.key,
-              getProperty(this._valuePath.length ? this._valuePath : ['value'], this.er.nativeElement),
-              this.prefix)
-              .then(() => {
-                this.lss.asPromisable().get(this.key, this.prefix)
-                  .then((value: any) => {
-                    this.storedValue.emit(value);
-                  })
-                  .catch((err: Error) => this.lss.error(err));
-              })
-              .catch((err: Error) => this.lss.error(err));
+            const propertyValue = getProperty(
+              this.getValuePath(),
+              this.elementRef.nativeElement
+            );
+
+            this.storageService.set(
+              this.key,
+              propertyValue,
+              this.prefix
+            );
+
+            this.storedValue.emit(propertyValue);
           })
       );
     }
@@ -141,19 +155,23 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
    * Initializes the elements value from storage.
    */
   private checkInitFromStorage(): void {
-    if (this._initFromStorage) {
-      this.lss.asPromisable().get(this.key, this.prefix)
-        .then((storedValue: any) => {
-          setProperty(this._valuePath.length ? this._valuePath : ['value'], storedValue, this.er.nativeElement, this.falsyTransformer);
-        })
-        .catch((err: Error) => this.lss.error(err));
+    if (this.initFromStorage) {
+      const storedValue = this.storageService.get(this.key, this.prefix)
+
+      try {
+        setProperty(
+          this.getValuePath(),
+          storedValue,
+          this.elementRef.nativeElement,
+          this.falsyTransformer
+        );
+      } catch (error) {
+        this.storageService.error(error);
+      }
     }
   }
 
-  /**
-   * Unsubscribe from event observable.
-   */
-  public ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+  private getValuePath(): string[] {
+    return this._valuePath.length ? this._valuePath : ['value'];
   }
 }
