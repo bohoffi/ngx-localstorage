@@ -21,6 +21,7 @@
   * Storage events can now bo obtained by subscribing to `LocalStorageService` directily via `subscribe`
 * update properties in `LocalStorageDirective`(c3b7d48bd73eed88e35e9dec359bdeeed895bfa3)
   * remove `ls` prefix
+* drop decorator support in favor of directive (2681110ad65e36ff9f83899b2817f5d0e4eea8d5)
 
   ### Deprecations
 
