@@ -4,7 +4,7 @@ import { debounceTime, filter } from 'rxjs/operators';
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 
 import { LocalStorageService } from '../services/ngx-localstorage.service';
-import { getProperty, setProperty } from '../utils/property-utils';
+import { getPropByPath, setPropByPath } from '../utils/property-utils';
 
 /**
  * Provide a directive to directly interact with stored values.
@@ -95,10 +95,10 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
           filter((ev: StorageEvent) => !!ev.key && ev.key.indexOf(this.key) >= 0)
         )
         .subscribe((ev: StorageEvent) => {
-          setProperty(
+          setPropByPath(
+            this.elementRef.nativeElement,
             this.getValuePath(),
             ev.newValue,
-            this.elementRef.nativeElement,
             this.falsyTransformer
           );
         })
@@ -139,9 +139,9 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
             debounceTime(this.storageDebounce)
           )
           .subscribe(() => {
-            const propertyValue = getProperty(
-              this.getValuePath(),
-              this.elementRef.nativeElement
+            const propertyValue = getPropByPath(
+              this.elementRef.nativeElement,
+              this.getValuePath()
             );
 
             this.storageService.set(
@@ -164,10 +164,10 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
       const storedValue = this.storageService.get(this.key, this.prefix)
 
       try {
-        setProperty(
+        setPropByPath(
+          this.elementRef.nativeElement,
           this.getValuePath(),
           storedValue,
-          this.elementRef.nativeElement,
           this.falsyTransformer
         );
       } catch (error) {
