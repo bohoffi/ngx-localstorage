@@ -4,29 +4,29 @@
 
 ### Features
 
-* subscibe directly to `LocalStorageService` to obtain `StorageEvent` stream (9125a8b2ebf6ecd9610e44be23cae6ce89a1723a)
-* library errors will be emitted through service stream (c34359baedefc6f6c0ac18e749b6a944dd430c7d)
-* abort initialization when storage is not available (13d68eed51c67c850c2574a3282084e540c69845)
-* expose `STORAGE_SUPPORT` token (4f2659df1fd9c29d85967534a6b4edaaa32ac23c)
+* subscibe directly to `LocalStorageService` to obtain `StorageEvent` stream ([9125a8b](https://github.com/bohoffi/ngx-localstorage/commit/9125a8b2ebf6ecd9610e44be23cae6ce89a1723a))
+* library errors will be emitted through service stream ([c34359b](https://github.com/bohoffi/ngx-localstorage/commit/c34359baedefc6f6c0ac18e749b6a944dd430c7d))
+* abort initialization when storage is not available ([13d68ee](https://github.com/bohoffi/ngx-localstorage/commit/13d68eed51c67c850c2574a3282084e540c69845))
+* expose `STORAGE_SUPPORT` token ([4f2659d](https://github.com/bohoffi/ngx-localstorage/commit/4f2659df1fd9c29d85967534a6b4edaaa32ac23c))
   * check storage availability before actually using the library
-* add `serializer` to decorator options (defaults to `DefaultSerializer`) (57f00ca79f206a9eebe4497052f7264ec927fc26)
-* provide `DefaultSerializer` by default (3e77633535e0e6c31ffe6249aa6e309064c423d5)
+* add `serializer` to decorator options (defaults to `DefaultSerializer`) ([57f00ca](https://github.com/bohoffi/ngx-localstorage/commit/57f00ca79f206a9eebe4497052f7264ec927fc26))
+* provide `DefaultSerializer` by default ([3e77633](https://github.com/bohoffi/ngx-localstorage/commit/3e77633535e0e6c31ffe6249aa6e309064c423d5))
 
 ### BREAKING CHANGES
 
-* update configuration and decorator options (0d363159bca1a5df17a36d7cec8a97faa9e7d19d)
+* update configuration and decorator options ([0d36315](https://github.com/bohoffi/ngx-localstorage/commit/0d363159bca1a5df17a36d7cec8a97faa9e7d19d))
   * removed `storage: Storage`
   * added `storageType: 'localStorage' | 'sessionStorage'`
-* removed `StorageEventService` (9125a8b2ebf6ecd9610e44be23cae6ce89a1723a)
+* removed `StorageEventService` ([9125a8b](https://github.com/bohoffi/ngx-localstorage/commit/9125a8b2ebf6ecd9610e44be23cae6ce89a1723a))
   * Storage events can now bo obtained by subscribing to `LocalStorageService` directily via `subscribe`
-* update properties in `LocalStorageDirective`(c3b7d48bd73eed88e35e9dec359bdeeed895bfa3)
+* update properties in `LocalStorageDirective`([c3b7d48](https://github.com/bohoffi/ngx-localstorage/commit/c3b7d48bd73eed88e35e9dec359bdeeed895bfa3))
   * remove `ls` prefix
-* drop decorator support in favor of directive (2681110ad65e36ff9f83899b2817f5d0e4eea8d5)
+* drop decorator support in favor of directive ([2681110](https://github.com/bohoffi/ngx-localstorage/commit/2681110ad65e36ff9f83899b2817f5d0e4eea8d5))
 
-  ### Deprecations
+### Deprecations
 
-  * mark `PromisableService` as deprecated (2133dafe669d8a7b126da85e770d340b051b1c9d)
-  * mark several overloads in `LocalStorageService` as deprecated (a12438239638522c4cb12ca29addb54aa0d52bb1)
+  * mark `PromisableService` as deprecated ([2133daf](https://github.com/bohoffi/ngx-localstorage/commit/2133dafe669d8a7b126da85e770d340b051b1c9d))
+  * mark several overloads in `LocalStorageService` as deprecated ([a124382](https://github.com/bohoffi/ngx-localstorage/commit/a12438239638522c4cb12ca29addb54aa0d52bb1))
 
 
 <a name="3.4.0"></a>
