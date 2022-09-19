@@ -5,15 +5,12 @@
 export * from './lib/ngx-localstorage.module';
 // services
 export * from './lib/services/ngx-localstorage.service';
-export * from './lib/services/storage-event.service';
 // directives
 export * from './lib/directives/ngx-localstorage.directive';
-// decorator
-export * from './lib/decorators';
 // interfaces
-export * from './lib/interfaces/decorator-options';
 export * from './lib/interfaces/storage-configuration';
 export * from './lib/interfaces/storage-serializer';
 // tokens
-export * from './lib/tokens/storage-config';
+export { NGX_LOCAL_STORAGE_CONFIG } from './lib/tokens/storage-config';
+export { STORAGE_SUPPORT } from './lib/tokens/storage';
 export * from './lib/tokens/storage-serializer';

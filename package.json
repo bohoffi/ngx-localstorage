@@ -5,12 +5,11 @@
   "scripts": {
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2020 browser module main",
-    "start": "nx serve",
-    "build": "nx build",
+    "start": "nx run ngx-localstorage-demo:serve:development",
     "lint": "nx run ngx-localstorage:lint",
     "test": "nx run ngx-localstorage:test",
     "build:lib": "nx run ngx-localstorage:build:production",
-    "build:docs": "nx run ngx-localstorage-demo:build:production --output-path docs --base-href /ngx-localstorage/",
+    "build:docs": "nx run ngx-localstorage-demo:build:production --output-path docs --base-href /ngx-localstorage/ --skip-nx-cache",
     "copy-assets": "copyfiles ./LICENSE ./README.md ./dist/libs/ngx-localstorage"
   },
   "private": true,
@@ -25,7 +24,9 @@
     "@angular/platform-browser": "~14.0.0",
     "@angular/platform-browser-dynamic": "~14.0.0",
     "@angular/router": "~14.0.0",
+    "@fortawesome/fontawesome-free": "^6.2.0",
     "@nrwl/angular": "14.4.2",
+    "ngx-markdown": "^14.0.1",
     "rxjs": "~7.4.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
@@ -49,6 +50,7 @@
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",
     "all-contributors-cli": "^6.20.0",
+    "autoprefixer": "^10.4.0",
     "copyfiles": "^2.4.1",
     "cypress": "^9.1.0",
     "eslint": "~8.15.0",
@@ -63,6 +65,7 @@
     "postcss-preset-env": "~7.5.0",
     "postcss-url": "~10.1.3",
     "prettier": "^2.6.2",
+    "tailwindcss": "^3.0.2",
     "ts-jest": "27.1.4",
     "ts-node": "~10.8.0",
     "typescript": "~4.7.2"

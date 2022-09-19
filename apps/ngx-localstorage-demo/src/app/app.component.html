@@ -1,1 +1,32 @@
-<ngx-localstorage-nx-welcome></ngx-localstorage-nx-welcome>
+<div class="h-full flex flex-col">
+
+  <mat-toolbar color="primary" class="flex flex-row">
+
+    <span>
+      ngx-localstorage
+    </span>
+
+    <button mat-raised-button [routerLink]="[{outlets: {lazy: ['lazy']}}]" color="accent" class="!ml-4">
+      Navigate to Sub-Module
+    </button>
+
+    <span class="flex-grow"></span>
+
+    <a href="https://github.com/bohoffi/ngx-localstorage" title="ngx-localstorage on Github" target="_blank"
+      class="text-white text-2xl">
+      <i class="fa-brands fa-github"></i>
+    </a>
+
+  </mat-toolbar>
+
+  <div class="flex-grow flex flex-col gap-4 p-4">
+
+    <router-outlet name="lazy"></router-outlet>
+
+    <ngx-localstorage-directive></ngx-localstorage-directive>
+    <ngx-localstorage-storage-service></ngx-localstorage-storage-service>
+    <ngx-localstorage-event-stream></ngx-localstorage-event-stream>
+
+  </div>
+
+</div>

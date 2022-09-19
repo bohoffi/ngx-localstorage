@@ -1,9 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { DefaultSerializer } from './classes/default-serializer';
 import { LocalStorageDirective } from './directives/ngx-localstorage.directive';
 import { NgxLocalstorageConfiguration } from './interfaces/storage-configuration';
-import { NGX_LOCAL_STORAGE_CONFIG } from './tokens/storage-config';
-import { NGX_LOCAL_STORAGE_SERIALIZER } from './tokens/storage-serializer';
+import { NGX_LOCAL_STORAGE_CONFIG, NGX_LOCAL_STORAGE_DEFAULT_CONFIG } from './tokens/storage-config';
 
 @NgModule({
   imports: [
@@ -13,12 +11,6 @@ import { NGX_LOCAL_STORAGE_SERIALIZER } from './tokens/storage-serializer';
   ],
   exports: [
     LocalStorageDirective
-  ],
-  providers: [
-    {
-      provide: NGX_LOCAL_STORAGE_SERIALIZER,
-      useClass: DefaultSerializer
-    }
   ]
 })
 export class NgxLocalStorageModule {
@@ -40,12 +32,16 @@ export class NgxLocalStorageModule {
    *
    */
   public static forRoot(config?: NgxLocalstorageConfiguration): ModuleWithProviders<NgxLocalStorageModule> {
+    const defaultConfig = NGX_LOCAL_STORAGE_DEFAULT_CONFIG();
     return {
       ngModule: NgxLocalStorageModule,
       providers: [
         {
           provide: NGX_LOCAL_STORAGE_CONFIG,
-          useValue: config
+          useValue: {
+            ...defaultConfig,
+            ...config
+          }
         }
       ]
     };

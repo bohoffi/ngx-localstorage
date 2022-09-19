@@ -6,17 +6,17 @@ import { Injectable } from "@angular/core";
  */
 @Injectable()
 export class DefaultSerializer implements StorageSerializer {
-    /**
-     * @inheritdoc
-     */
-    public serialize(value: any): string {
-        return JSON.stringify(value);
-    }
+  /**
+   * @inheritdoc
+   */
+  public serialize<T = unknown>(value: T): string {
+    return JSON.stringify(value);
+  }
 
-    /**
-     * @inheritdoc
-     */
-    public deserialize(storedValue: string): any {
-        return JSON.parse(storedValue);
-    }
+  /**
+   * @inheritdoc
+   */
+  public deserialize<T = unknown>(storedValue: string): T {
+    return JSON.parse(storedValue);
+  }
 }
