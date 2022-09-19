@@ -9,7 +9,7 @@
     "lint": "nx run ngx-localstorage:lint",
     "test": "nx run ngx-localstorage:test",
     "build:lib": "nx run ngx-localstorage:build:production",
-    "build:docs": "nx run ngx-localstorage-demo:build:production --output-path docs --base-href /ngx-localstorage/",
+    "build:docs": "nx run ngx-localstorage-demo:build:production --output-path docs --base-href /ngx-localstorage/ --skip-nx-cache",
     "copy-assets": "copyfiles ./LICENSE ./README.md ./dist/libs/ngx-localstorage"
   },
   "private": true,
