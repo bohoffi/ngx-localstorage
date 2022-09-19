@@ -5,8 +5,7 @@
   "scripts": {
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2020 browser module main",
-    "start": "nx serve",
-    "build": "nx build",
+    "start": "nx run ngx-localstorage-demo:serve:development",
     "lint": "nx run ngx-localstorage:lint",
     "test": "nx run ngx-localstorage:test",
     "build:lib": "nx run ngx-localstorage:build:production",
