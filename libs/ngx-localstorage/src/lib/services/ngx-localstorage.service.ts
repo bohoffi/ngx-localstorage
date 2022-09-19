@@ -1,4 +1,4 @@
-import { Injectable, Inject, OnDestroy, EventEmitter } from '@angular/core';
+import { Injectable, Inject, OnDestroy, EventEmitter, inject, InjectFlags } from '@angular/core';
 
 import { NgxLocalstorageConfiguration } from '../interfaces/storage-configuration';
 import { PromisableService } from './promisable.service';
@@ -26,15 +26,19 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
   private readonly onError = new EventEmitter<string | Error | unknown>();
   private readonly subscriptions = new Subscription();
 
+  private readonly serializer = inject(NGX_LOCAL_STORAGE_SERIALIZER);
+
+  private readonly storageSupport = inject(STORAGE_SUPPORT);
+
+  private readonly storage = inject(STORAGE, InjectFlags.Optional);
+
+  private readonly window = inject(WINDOW, InjectFlags.Optional);
+
   /**
    * Creates a new instance.
    */
   constructor(
-    @Inject(NGX_LOCAL_STORAGE_SERIALIZER) private readonly defaultSerializer: StorageSerializer,
-    @Inject(STORAGE_SUPPORT) private readonly storageSupport: boolean,
-    @Inject(NGX_LOCAL_STORAGE_CONFIG) _config?: NgxLocalstorageConfiguration,
-    @Inject(STORAGE) private readonly storage?: Storage,
-    @Inject(WINDOW) private readonly window?: Window
+    @Inject(NGX_LOCAL_STORAGE_CONFIG) _config?: NgxLocalstorageConfiguration
   ) {
     super(subscriber => {
       if (!this.storageSupport) {
@@ -58,7 +62,7 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
 
     this.config = { ...defaultConfig, ..._config };
 
-    this.promisable = new PromisableService(this.config, this.defaultSerializer, this.storage);
+    this.promisable = new PromisableService(this.config, this.serializer, this.storage);
   }
 
   public ngOnDestroy(): void {
@@ -139,7 +143,7 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
       // eslint-disable-next-line no-extra-boolean-cast
       : !!serializer
         ? serializer
-        : this.defaultSerializer;
+        : this.serializer;
 
     if (
       this.config.allowNull ||
@@ -188,7 +192,7 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
       // eslint-disable-next-line no-extra-boolean-cast
       : !!serializer
         ? serializer
-        : this.defaultSerializer;
+        : this.serializer;
 
     try {
       const constructedKey = constructKey(key, prefix, this.config.prefix, this.config.delimiter);

@@ -15,7 +15,7 @@ export class PromisableService {
   constructor(
     private readonly configuration: NgxLocalstorageConfiguration,
     private readonly defaultSerializer: StorageSerializer,
-    private readonly storage?: Storage
+    private readonly storage: Storage | null
   ) { }
 
   /**
