@@ -1,11 +1,11 @@
 import { NgxLocalstorageConfiguration } from '../interfaces/storage-configuration';
 import { StorageSerializer } from '../interfaces/storage-serializer';
-import { isSerializer } from '../utils/guards';
+import { isSerializer, isString } from '../utils/guards';
 import { constructKey } from '../utils/key-utils';
 
 /**
  * Provides a Promise based service to access the localstorage.
- * @deprecated will be removed with 5.x
+ * @deprecated will be removed with v5
  */
 export class PromisableService {
 
@@ -63,7 +63,7 @@ export class PromisableService {
     return new Promise((resolve, reject) => {
       try {
 
-        const prefix = typeof prefixOrSerializer === 'string' ? prefixOrSerializer : undefined;
+        const prefix = isString(prefixOrSerializer) ? prefixOrSerializer : undefined;
         serializer = isSerializer(prefixOrSerializer)
           ? (prefixOrSerializer as StorageSerializer)
           // eslint-disable-next-line no-extra-boolean-cast
@@ -97,7 +97,7 @@ export class PromisableService {
     return new Promise((resolve, reject) => {
       try {
 
-        const prefix = typeof prefixOrSerializer === 'string' ? prefixOrSerializer : undefined;
+        const prefix = isString(prefixOrSerializer) ? prefixOrSerializer : undefined;
         serializer = isSerializer(prefixOrSerializer)
           ? (prefixOrSerializer as StorageSerializer)
           // eslint-disable-next-line no-extra-boolean-cast

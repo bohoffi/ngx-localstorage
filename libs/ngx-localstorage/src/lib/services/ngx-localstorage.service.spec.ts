@@ -67,6 +67,22 @@ describe('LocalStorageService', () => {
     }
   ));
 
+  it('should add entries with passed options', inject(
+    [LocalStorageService],
+    (service: LocalStorageService) => {
+
+      const prefixlessKey = 'entry';
+      const perCallPrefix = 'per-call-prefix';
+
+      service.set(prefixlessKey, 'value', {
+        prefix: perCallPrefix
+      });
+
+      const key = service.getKey(0);
+      expect(key).toBe(`${perCallPrefix}_${prefixlessKey}`)
+    }
+  ));
+
   it('should remove entries', inject(
     [LocalStorageService],
     (service: LocalStorageService) => {

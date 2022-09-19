@@ -1,3 +1,5 @@
+import { isString } from './guards';
+
 /**
  * Gets an objects property based on its path.
  * @param object Object to access
@@ -38,7 +40,7 @@ export const setPropByPath = (object: unknown, path: string[], value: unknown, f
     // last path segment
     if (i === path.length - 1) {
 
-      (object as Record<string, unknown>)[curr] = (!value || (typeof value === 'string' && value === 'false'))
+      (object as Record<string, unknown>)[curr] = (!value || (isString(value) && value === 'false'))
         && !!falsyTransformer ? falsyTransformer() : value;
 
       arr.splice(1);
