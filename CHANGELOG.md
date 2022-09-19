@@ -26,6 +26,7 @@
   ### Deprecations
 
   * mark `PromisableService` as deprecated (2133dafe669d8a7b126da85e770d340b051b1c9d)
+  * mark several overloads in `LocalStorageService` as deprecated (a12438239638522c4cb12ca29addb54aa0d52bb1)
 
 
 <a name="3.4.0"></a>
