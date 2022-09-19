@@ -1,12 +1,22 @@
-<mat-card class="demo-card">
+<mat-card>
+
   <mat-card-header class="mat-title">
     LocalStorageService
   </mat-card-header>
-  <mat-card-content class="demo-card__content">
+
+  <mat-card-content class="mx-8">
+
+    <p>
+      The service can be utilized to communicate with the storage.
+    </p>
+
+    <mat-divider class="!my-4"></mat-divider>
 
     <div markdown src="./assets/markdown/STORAGE_SERVICE.md"></div>
 
-    <p class="mat-body-2">Result:</p>
+    <p class="mat-body-2">
+      Result
+    </p>
 
     <div [innerHTML]="storedObject | json | language:'typescript' | markdown"></div>
 

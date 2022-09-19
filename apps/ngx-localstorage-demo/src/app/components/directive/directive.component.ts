@@ -1,9 +1,9 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-directive',
+  selector: 'ngx-localstorage-directive',
   templateUrl: './directive.component.html',
-  styleUrls: ['../base/base.scss']
+  styles: []
 })
 export class DirectiveComponent {
 

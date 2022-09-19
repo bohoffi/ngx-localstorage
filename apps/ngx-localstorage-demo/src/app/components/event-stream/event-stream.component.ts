@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { LocalStorageService } from 'ngx-localstorage';
 
 @Component({
-  selector: 'app-event-stream',
+  selector: 'ngx-localstorage-event-stream',
   templateUrl: './event-stream.component.html',
-  styleUrls: ['../base/base.scss']
+  styles: []
 })
 export class EventStreamComponent {
   $events: StorageEvent[] = [];

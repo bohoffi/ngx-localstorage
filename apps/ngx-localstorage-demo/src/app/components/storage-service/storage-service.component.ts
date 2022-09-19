@@ -1,18 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from 'ngx-localstorage';
 
+interface StoredObject {
+  id: number;
+  name: string;
+}
+
 @Component({
-  selector: 'app-storage-service',
+  selector: 'ngx-localstorage-storage-service',
   templateUrl: './storage-service.component.html',
-  styleUrls: ['../base/base.scss']
+  styles: []
 })
 export class StorageServiceComponent implements OnInit {
 
   entryCount = 0;
-  storedObject: any;
+  storedObject: StoredObject;
 
   constructor(private lss: LocalStorageService) {
-    this.lss.set('demo-key', {
+    this.lss.set<StoredObject>('demo-key', {
       id: 1,
       name: 'John Doe'
     })
@@ -21,6 +26,6 @@ export class StorageServiceComponent implements OnInit {
   ngOnInit() {
     this.entryCount = this.lss.count();
 
-    this.storedObject = this.lss.get('demo-key') as { id: number; name: string; };
+    this.storedObject = this.lss.get<StoredObject>('demo-key');
   }
 }
