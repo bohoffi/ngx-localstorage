@@ -119,7 +119,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@nrwl/angular:package",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "libs/ngx-localstorage/tsconfig.lib.json",
             "project": "libs/ngx-localstorage/ng-package.json"
