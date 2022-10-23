@@ -1,6 +1,6 @@
 {
   "name": "ngx-localstorage",
-  "version": "3.4.0",
+  "version": "3.5.0",
   "description": "An Angular wrapper for localstorage/sessionstorage access.",
   "repository": {
     "type": "git",
@@ -23,7 +23,7 @@
   "homepage": "https://github.com/bohoffi/ngx-localstorage#readme",
   "schematics": "./schematics/collection.json",
   "peerDependencies": {
-    "@angular/common": ">=4.0.0",
-    "@angular/core": ">=4.0.0"
+    "@angular/common": ">=13.0.0",
+    "@angular/core": ">=13.0.0"
   }
 }
