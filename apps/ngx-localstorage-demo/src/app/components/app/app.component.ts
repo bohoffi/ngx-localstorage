@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'ngx-localstorage-root',
+  selector: 'ngx-localstorage-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })

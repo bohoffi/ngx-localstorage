@@ -1,0 +1,28 @@
+<div class="h-full flex flex-col">
+
+  <mat-toolbar color="primary" class="flex flex-row gap-4">
+
+    <a [routerLink]="['']" class="no-underline text-white" title="Back to main view">
+      ngx-localstorage
+    </a>
+
+    <a mat-button [routerLink]="['api']" title="Display the API docs for ngx-localstorage">
+      API
+    </a>
+
+    <span class="flex-grow"></span>
+
+    <a href="https://github.com/bohoffi/ngx-localstorage" title="ngx-localstorage on Github" target="_blank"
+      class="text-white text-2xl">
+      <i class="fa-brands fa-github"></i>
+    </a>
+
+  </mat-toolbar>
+
+  <div class="p-4">
+
+    <router-outlet></router-outlet>
+
+  </div>
+
+</div>

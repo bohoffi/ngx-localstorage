@@ -10,7 +10,8 @@
     "test": "nx run ngx-localstorage:test",
     "build:lib": "nx run ngx-localstorage:build:production",
     "build:docs": "nx run ngx-localstorage-demo:build:production --output-path docs --base-href /ngx-localstorage/ --skip-nx-cache",
-    "copy-assets": "copyfiles ./LICENSE ./README.md ./dist/libs/ngx-localstorage"
+    "copy-assets": "copyfiles ./LICENSE ./README.md ./dist/libs/ngx-localstorage",
+    "generate:api:docs": "nx run ngx-localstorage:doc-gen"
   },
   "private": true,
   "dependencies": {
@@ -59,6 +60,7 @@
     "jest": "27.5.1",
     "jest-preset-angular": "~11.1.2",
     "ng-packagr": "~14.0.0",
+    "ngx-doc-gen": "file:ngx-doc-gen-1.0.0-next.2.tgz",
     "nx": "14.4.2",
     "postcss": "^8.4.5",
     "postcss-import": "~14.1.0",

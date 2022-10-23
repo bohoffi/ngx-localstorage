@@ -5,7 +5,9 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/ngx-localstorage"],
+      "outputs": [
+        "dist/libs/ngx-localstorage"
+      ],
       "options": {
         "project": "libs/ngx-localstorage/ng-package.json"
       },
@@ -21,7 +23,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/ngx-localstorage"],
+      "outputs": [
+        "coverage/libs/ngx-localstorage"
+      ],
       "options": {
         "jestConfig": "libs/ngx-localstorage/jest.config.ts",
         "passWithNoTests": true
@@ -33,6 +37,14 @@
         "lintFilePatterns": [
           "libs/ngx-localstorage/**/*.ts",
           "libs/ngx-localstorage/**/*.html"
+        ]
+      }
+    },
+    "doc-gen": {
+      "executor": "ngx-doc-gen:generate",
+      "options": {
+        "excludeBase": [
+          "Observable"
         ]
       }
     }

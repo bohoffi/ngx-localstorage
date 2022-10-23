@@ -1,26 +1,49 @@
-import { NgModule, SecurityContext } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule, Routes } from '@angular/router';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDividerModule } from '@angular/material/divider';
+import { NgModule, SecurityContext } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { RouterModule, Routes } from "@angular/router";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatButtonModule } from "@angular/material/button";
+import { MatDividerModule } from "@angular/material/divider";
 
-import { AppComponent } from './app.component';
-import { MarkdownModule } from 'ngx-markdown';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { MatCardModule } from '@angular/material/card';
-import { NgxLocalStorageModule } from 'ngx-localstorage';
-import { DirectiveComponent } from './components/directive/directive.component';
-import { EventStreamComponent } from './components/event-stream/event-stream.component';
-import { StorageServiceComponent } from './components/storage-service/storage-service.component';
+import { MarkdownModule } from "ngx-markdown";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { MatCardModule } from "@angular/material/card";
+import { NgxLocalStorageModule } from "ngx-localstorage";
+import { DirectiveComponent } from "./components/directive/directive.component";
+import { EventStreamComponent } from "./components/event-stream/event-stream.component";
+import { StorageServiceComponent } from "./components/storage-service/storage-service.component";
+import { AppComponent } from "./components/app/app.component";
+import { RootComponent } from "./components/root/root.component";
+import { ApiComponent } from "./components/api/api.component";
+import { DemoContentComponent } from "./components/demo-content/demo-content.component";
 
 const ROUTES: Routes = [
   {
-    path: 'lazy',
-    loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule),
-    outlet: 'lazy'
-  }
+    path: "",
+    component: AppComponent,
+    title: 'ngx-localstorage',
+    children: [
+      {
+        path: '',
+        component: DemoContentComponent,
+        title: 'ngx-localstorage - DEMO',
+        children: [
+          {
+            path: "lazy",
+            loadChildren: () =>
+              import("./lazy/lazy.module").then((m) => m.LazyModule),
+            outlet: "lazy",
+          },
+        ]
+      },
+      {
+        path: "api",
+        component: ApiComponent,
+        title: 'ngx-localstorage - API'
+      },
+    ],
+  },
 ];
 
 @NgModule({
@@ -28,7 +51,10 @@ const ROUTES: Routes = [
     AppComponent,
     DirectiveComponent,
     StorageServiceComponent,
-    EventStreamComponent
+    EventStreamComponent,
+    RootComponent,
+    ApiComponent,
+    DemoContentComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -41,13 +67,13 @@ const ROUTES: Routes = [
     MatDividerModule,
     MatToolbarModule,
 
-    NgxLocalStorageModule.forRoot({ delimiter: '@', prefix: 'test' }),
+    NgxLocalStorageModule.forRoot({ delimiter: "@", prefix: "test" }),
 
     MarkdownModule.forRoot({
       loader: HttpClient,
-      sanitize: SecurityContext.NONE
-    })
+      sanitize: SecurityContext.NONE,
+    }),
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [RootComponent],
 })
 export class AppModule { }

@@ -1,0 +1,13 @@
+<div class="flex-grow flex flex-col gap-4">
+
+  <button mat-raised-button [routerLink]="[{outlets: {lazy: ['lazy']}}]" color="accent" class="!ml-4">
+    Navigate to Sub-Module
+  </button>
+
+  <router-outlet name="lazy"></router-outlet>
+
+  <ngx-localstorage-directive></ngx-localstorage-directive>
+  <ngx-localstorage-storage-service></ngx-localstorage-storage-service>
+  <ngx-localstorage-event-stream></ngx-localstorage-event-stream>
+
+</div>
