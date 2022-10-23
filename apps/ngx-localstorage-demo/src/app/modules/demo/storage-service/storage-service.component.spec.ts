@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { StorageServiceComponent } from './storage-service.component';
 import { MatCardModule } from '@angular/material/card';
@@ -8,7 +8,7 @@ describe('StorageServiceComponent', () => {
   let component: StorageServiceComponent;
   let fixture: ComponentFixture<StorageServiceComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ StorageServiceComponent ],
       imports: [MatCardModule, NgxLocalStorageModule.forRoot()]
