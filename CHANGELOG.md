@@ -1,3 +1,10 @@
+<a name="3.5.0"></a>
+# [3.5.0](https://github.com/bohoffi/ngx-localstorage/compare/3.4.0...3.5.0) (2022-10-23)
+
+### Features
+
+* Update to Ivy compatibility
+
 <a name="3.4.0"></a>
 # [3.4.0](https://github.com/bohoffi/ngx-localstorage/compare/3.3.1...3.4.0) (2021-07-16)
 
