@@ -2,7 +2,7 @@ import { StorageSerializer } from '../interfaces/storage-serializer';
 import { Injectable } from "@angular/core";
 
 /**
- * Provides a default serialization mechanism while
+ * Provides a default serialization mechanism using JSON.
  */
 @Injectable()
 export class DefaultSerializer implements StorageSerializer {
