@@ -1,7 +1,6 @@
 import { AfterViewInit, Directive, ElementRef, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { fromEvent, Subscription } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
-import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 
 import { LocalStorageService } from '../services/ngx-localstorage.service';
 import { getPropByPath, setPropByPath } from '../utils/property-utils';
@@ -38,8 +37,8 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
    * Flag if the bound elements value should be initialized from storage.
    */
   @Input()
-  public set initFromStorage(value: BooleanInput) {
-    this._initFromStorage = coerceBooleanProperty(value);
+  public set initFromStorage(value: string | boolean | null | undefined) {
+    this._initFromStorage = value != null && `${value}` !== 'false';
   }
   public get initFromStorage(): boolean {
     return this._initFromStorage;
