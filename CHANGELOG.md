@@ -14,6 +14,9 @@
 
 ### BREAKING CHANGES
 
+* library now utilizes SCAM ([6ee4690](https://github.com/bohoffi/ngx-localstorage/commit/6ee46904f482c66e1004e04b4c7d2959c4331c8c))
+  * removed `NgxLocalStorageModule`
+  * added `NgxLocalstorageDirectiveModule`
 * update configuration and decorator options ([0d36315](https://github.com/bohoffi/ngx-localstorage/commit/0d363159bca1a5df17a36d7cec8a97faa9e7d19d))
   * removed `storage: Storage`
   * added `storageType: 'localStorage' | 'sessionStorage'`
