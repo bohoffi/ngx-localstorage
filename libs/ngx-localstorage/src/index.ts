@@ -3,6 +3,8 @@
  */
 // modules
 export * from './lib/directives/ngx-localstorage-directive.module';
+// directives
+export * from './lib/directives/ngx-localstorage.directive';
 // services
 export * from './lib/services/ngx-localstorage.service';
 // interfaces
