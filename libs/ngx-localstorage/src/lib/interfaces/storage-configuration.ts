@@ -1,7 +1,7 @@
 import { StorageType } from '../types/storage-type';
 
 /**
- * Provides the configuration used by {@link LocalStorageService}.
+ * Provides the configuration used by the service and directive.
  */
 export interface NgxLocalstorageConfiguration {
   /**

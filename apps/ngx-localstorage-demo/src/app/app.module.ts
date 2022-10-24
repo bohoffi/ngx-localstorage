@@ -9,7 +9,7 @@ import { MatDividerModule } from "@angular/material/divider";
 import { MarkdownModule } from "ngx-markdown";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { MatCardModule } from "@angular/material/card";
-import { NgxLocalStorageModule } from "ngx-localstorage";
+import { NgxLocalstorageConfiguration, NgxLocalstorageDirectiveModule, NGX_LOCAL_STORAGE_CONFIG } from "ngx-localstorage";
 import { DirectiveComponent } from "./components/directive/directive.component";
 import { EventStreamComponent } from "./components/event-stream/event-stream.component";
 import { StorageServiceComponent } from "./components/storage-service/storage-service.component";
@@ -46,6 +46,11 @@ const ROUTES: Routes = [
   },
 ];
 
+const ngxLocalstorageConfiguration: NgxLocalstorageConfiguration = {
+  delimiter: '@',
+  prefix: 'test'
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,12 +72,18 @@ const ROUTES: Routes = [
     MatDividerModule,
     MatToolbarModule,
 
-    NgxLocalStorageModule.forRoot({ delimiter: "@", prefix: "test" }),
+    NgxLocalstorageDirectiveModule,
 
     MarkdownModule.forRoot({
       loader: HttpClient,
       sanitize: SecurityContext.NONE,
     }),
+  ],
+  providers: [
+    {
+      provide: NGX_LOCAL_STORAGE_CONFIG,
+      useValue: ngxLocalstorageConfiguration
+    }
   ],
   bootstrap: [RootComponent],
 })

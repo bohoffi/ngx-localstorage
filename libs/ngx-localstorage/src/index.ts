@@ -1,12 +1,10 @@
 /*
  * Public API Surface of ngx-localstorage
  */
-// module
-export * from './lib/ngx-localstorage.module';
+// modules
+export * from './lib/directives/ngx-localstorage-directive.module';
 // services
 export * from './lib/services/ngx-localstorage.service';
-// directives
-export * from './lib/directives/ngx-localstorage.directive';
 // interfaces
 export * from './lib/interfaces/storage-configuration';
 export * from './lib/interfaces/storage-serializer';
