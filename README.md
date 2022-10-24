@@ -28,7 +28,7 @@ npm install ngx-localstorage --save
 
 If you want to use the `ngxLocalStorage` directive you have to import the module.
 
-#### Import `NgxLocalStorageModule`
+#### Import `NgxLocalstorageDirectiveModule`
 
 ```ts
 import {BrowserModule} from '@angular/platform-browser';
