@@ -11,10 +11,10 @@ An Angular wrapper for localstorage/sessionstorage access.
 
 * [Installation](#installation)
 * [Usage](#usage)
+  * [Configuration](#configuration)
   * [Serialization](#serialization)
-* [API](#api)
 
-Feel free to take a look at the [DEMO](https://bohoffi.github.io/ngx-localstorage/).
+Feel free to take a look at the [DEMO / API](https://bohoffi.github.io/ngx-localstorage/).
 
 <a href="https://www.buymeacoffee.com/bohoffi" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
@@ -26,24 +26,28 @@ npm install ngx-localstorage --save
 
 ## Usage
 
-#### Import `NgxLocalStorageModule`
+If you want to use the `ngxLocalStorage` directive you have to import the module.
+
+#### Import `NgxLocalstorageDirectiveModule`
 
 ```ts
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {NgxLocalStorageModule} from 'ngx-localstorage';
+import {NgxLocalstorageDirectiveModule} from 'ngx-localstorage';
 
 @NgModule({
     imports: [
         BrowserModule,
-        NgxLocalStorageModule.forRoot()
+        NgxLocalstorageDirectiveModule
     ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
 ```
 
-#### Configuration (`NgxLocalStorageModule.forRoot(moduleConfig)`)
+### Configuration
+
+For configuration provide it using the `NGX_LOCAL_STORAGE_CONFIG` InjectionToken.
 
 * __prefix__
   * Type: `string?`
@@ -62,8 +66,6 @@ export class AppModule { }
   * Determines the delimiter in between prefix and key.
   * Default: __underscore('_')__
 
-### Submodule support (`NgxLocalStorageModule.forChild()`)
-
 ### Serialization
 
 #### Default serialization
@@ -77,12 +79,11 @@ Inject your custom serializer implentation using the provided injection token:
 ```ts
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {NgxLocalStorageModule, NGX_LOCAL_STORAGE_SERIALIZER} from 'ngx-localstorage';
+import {NGX_LOCAL_STORAGE_SERIALIZER} from 'ngx-localstorage';
 
 @NgModule({
     imports: [
-        BrowserModule,
-        NgxLocalStorageModule.forRoot()
+        BrowserModule
     ],
     bootstrap: [AppComponent],
     providers: [
@@ -97,73 +98,6 @@ export class AppModule { }
 
 ##### Per call serializer
 Every `set()/get()` call on `LocalstorageService` now supports to pass an optional (de)seriaizer. If none is provided the app wide (or default) one is used.
-  
-## API
-
-### LocalStorageService
-
-#### Methods
-
-- `subscribe(): Observable<StorageEvent>`: Gets a stream of StorageEvent
-- `count(): number`: Gets the number of entries in the applications local storage.
-- `getKey(index: number): string | null`: Returns the nth (defined by the index parameter) key in the storage. The order of keys is user-agent defined, so you should not rely on it.
-- `set(...): void`: Adds tha value with the given key or updates an existing entry using either the provided or default serializer (check method overloads).
-- `get(...): string | null`: Gets the entry specified by the given key or null using either the provided or default serializer (check method overloads).
-- `remove(...): void`: Removes the entry specified by the given key.
-- `clear(): void`: Clears all entries of the applications local storage.
-
-##### Example
-
-```ts
-import {LocalStorageService} from 'ngx-localstorage';
-
-@Component({
-  selector: 'app-storage-access',
-  template: './storage-access.component.html'
-})
-export class StorageAccessComponent implements OnInit {
-
-  constructor(private _storageService: LocalStorageService) {
-  }
-  
-  ngOnInit(): void {
-    console.log('Entries count: ', this._storageService.count())
-}
-```
-
-### ngxLocalStorage (Directive)
-
-#### Properties
-
-- `ngxLocalStorage (key)` (`string`): Determines the key (combined with the prefix) which is used to store the value. If omitted the `id` or the `name`attribute will be used.
-- `prefix?` (`string`): Determines the prefix (combined with the key) to store the value.
-- `forEvent?` (`string`): Determines the event to hook up to store the value.
-- `storageDebounce` (`number`): Determines the 'delay' when processing the event.
-- `initFromStorage` (`boolean`): Determines if the stored value (if there is one) should be set automatically on application load. __Default__: `false`
-- `valuePath` (`string[] | string`): Determines the path to access the value to store.
-- `falsyTransformer` (`() => any`): Used to transform falsy values received from storage.
-
-#### Methods/Events
-
-- `storedValue`: Event emitted when the bound value got stored.
-
-##### Example
-
-Capture the value of an input element when the user is typing and loads the stored value on startup:
-```html
-<p>
-  <label for="txt1">Text</label>
-  <input type="text" id="txt1" ngxLocalStorage prefix="demo" initFromStorage forEvent="input" [valuePath]="['value']" />
-</p>
-```
-
-Defining the `valuePath` for a checkbox input:
-```html
-<p>
-  <input type="checkbox" id="cbox1" ngxLocalStorage initFromStorage forEvent="change" [valuePath]="['checked']" [falsyTransformer]="defaultFalsyTransformer">
-  <label for="cbox1">Checkbox</label>
-</p>
-```
 
 ## Contributors ✨
 

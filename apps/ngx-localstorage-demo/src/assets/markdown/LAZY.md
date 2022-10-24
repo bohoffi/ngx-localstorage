@@ -2,7 +2,7 @@
 
 ```ts
 ...
-import { NgxLocalStorageModule } from 'ngx-localstorage';
+import { NgxLocalstorageDirectiveModule } from 'ngx-localstorage';
 
 @NgModule({
   declarations: [
@@ -11,7 +11,7 @@ import { NgxLocalStorageModule } from 'ngx-localstorage';
   imports: [
     ...
 
-    NgxLocalStorageModule.forChild(),
+    NgxLocalstorageDirectiveModule,
 
     ...
   ]

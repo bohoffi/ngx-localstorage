@@ -20,6 +20,9 @@ const defaultConfig = NGX_LOCAL_STORAGE_DEFAULT_CONFIG();
 @Injectable({ providedIn: 'root' })
 export class LocalStorageService extends Observable<StorageEvent> implements OnDestroy {
 
+  /**
+   * Configuration used by the service.
+   */
   public readonly config: NgxLocalstorageConfiguration;
 
   private readonly promisable: PromisableService;

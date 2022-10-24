@@ -5,9 +5,7 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/ngx-localstorage-demo",
         "index": "apps/ngx-localstorage-demo/src/index.html",
@@ -88,9 +86,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/apps/ngx-localstorage-demo"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/apps/ngx-localstorage-demo"],
       "options": {
         "jestConfig": "apps/ngx-localstorage-demo/jest.config.ts",
         "passWithNoTests": true
