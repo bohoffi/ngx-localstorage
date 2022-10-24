@@ -1,6 +1,6 @@
 <a name="4.0.0"></a>
 
-# [4.0.0](https://github.com/bohoffi/ngx-localstorage/compare/3.4.0...4.0.0) (2022-XX-XX)
+# [4.0.0](https://github.com/bohoffi/ngx-localstorage/compare/3.5.0...4.0.0) (2022-XX-XX)
 
 ### Features
 
@@ -31,6 +31,12 @@
   * mark `PromisableService` as deprecated ([2133daf](https://github.com/bohoffi/ngx-localstorage/commit/2133dafe669d8a7b126da85e770d340b051b1c9d))
   * mark several overloads in `LocalStorageService` as deprecated ([a124382](https://github.com/bohoffi/ngx-localstorage/commit/a12438239638522c4cb12ca29addb54aa0d52bb1))
 
+<a name="3.5.0"></a>
+# [3.5.0](https://github.com/bohoffi/ngx-localstorage/compare/3.4.0...3.5.0) (2022-10-23)
+
+### Features
+
+* Update to Ivy compatibility
 
 <a name="3.4.0"></a>
 # [3.4.0](https://github.com/bohoffi/ngx-localstorage/compare/3.3.1...3.4.0) (2021-07-16)
