@@ -1,6 +1,6 @@
 <a name="4.0.0"></a>
 
-# [4.0.0](https://github.com/bohoffi/ngx-localstorage/compare/3.4.0...4.0.0) (2022-XX-XX)
+# [4.0.0](https://github.com/bohoffi/ngx-localstorage/compare/3.5.0...4.0.0) (2022-XX-XX)
 
 ### Features
 
@@ -10,10 +10,14 @@
 * expose `STORAGE_SUPPORT` token ([4f2659d](https://github.com/bohoffi/ngx-localstorage/commit/4f2659df1fd9c29d85967534a6b4edaaa32ac23c))
   * check storage availability before actually using the library
 * add `serializer` to decorator options (defaults to `DefaultSerializer`) ([57f00ca](https://github.com/bohoffi/ngx-localstorage/commit/57f00ca79f206a9eebe4497052f7264ec927fc26))
-* provide `DefaultSerializer` by default ([3e77633](https://github.com/bohoffi/ngx-localstorage/commit/3e77633535e0e6c31ffe6249aa6e309064c423d5))
+* use `DefaultSerializer` by default ([3e77633](https://github.com/bohoffi/ngx-localstorage/commit/3e77633535e0e6c31ffe6249aa6e309064c423d5))
 
 ### BREAKING CHANGES
 
+* library now utilizes SCAM ([6ee4690](https://github.com/bohoffi/ngx-localstorage/commit/6ee46904f482c66e1004e04b4c7d2959c4331c8c))
+  * removed `NgxLocalStorageModule`
+  * added `NgxLocalstorageDirectiveModule`
+  * Configuration has to be provided by InjectionToken
 * update configuration and decorator options ([0d36315](https://github.com/bohoffi/ngx-localstorage/commit/0d363159bca1a5df17a36d7cec8a97faa9e7d19d))
   * removed `storage: Storage`
   * added `storageType: 'localStorage' | 'sessionStorage'`
@@ -28,6 +32,12 @@
   * mark `PromisableService` as deprecated ([2133daf](https://github.com/bohoffi/ngx-localstorage/commit/2133dafe669d8a7b126da85e770d340b051b1c9d))
   * mark several overloads in `LocalStorageService` as deprecated ([a124382](https://github.com/bohoffi/ngx-localstorage/commit/a12438239638522c4cb12ca29addb54aa0d52bb1))
 
+<a name="3.5.0"></a>
+# [3.5.0](https://github.com/bohoffi/ngx-localstorage/compare/3.4.0...3.5.0) (2022-10-23)
+
+### Features
+
+* Update to Ivy compatibility
 
 <a name="3.4.0"></a>
 # [3.4.0](https://github.com/bohoffi/ngx-localstorage/compare/3.3.1...3.4.0) (2021-07-16)
