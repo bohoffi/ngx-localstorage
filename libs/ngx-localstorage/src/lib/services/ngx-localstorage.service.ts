@@ -1,7 +1,6 @@
 import { Injectable, Inject, OnDestroy, EventEmitter, inject, InjectFlags } from '@angular/core';
 
 import { NgxLocalstorageConfiguration } from '../interfaces/storage-configuration';
-import { PromisableService } from './promisable.service';
 import { NGX_LOCAL_STORAGE_CONFIG, NGX_LOCAL_STORAGE_DEFAULT_CONFIG } from '../tokens/storage-config';
 import { NGX_LOCAL_STORAGE_SERIALIZER } from '../tokens/storage-serializer';
 import { StorageSerializer } from '../interfaces/storage-serializer';
@@ -24,8 +23,6 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
    * Configuration used by the service.
    */
   public readonly config: NgxLocalstorageConfiguration;
-
-  private readonly promisable: PromisableService;
 
   private readonly onError = new EventEmitter<string | Error | unknown>();
   private readonly subscriptions = new Subscription();
@@ -65,20 +62,10 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
     });
 
     this.config = { ...defaultConfig, ..._config };
-
-    this.promisable = new PromisableService(this.config, this.serializer, this.storage);
   }
 
   public ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-  }
-
-  /**
-   * Returns a service variant based on Promises.
-   * @deprecated will be removed with v5
-   */
-  public asPromisable(): PromisableService {
-    return this.promisable;
   }
 
   /**
