@@ -147,7 +147,9 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
             this.storageService.set(
               this.key,
               propertyValue,
-              this.prefix
+              {
+                prefix: this.prefix
+              }
             );
 
             this.storedValue.emit(propertyValue);
@@ -161,7 +163,12 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
    */
   private checkInitFromStorage(): void {
     if (this.initFromStorage) {
-      const storedValue = this.storageService.get(this.key, this.prefix)
+      const storedValue = this.storageService.get(
+        this.key,
+        {
+          prefix: this.prefix
+        }
+      )
 
       try {
         setPropByPath(

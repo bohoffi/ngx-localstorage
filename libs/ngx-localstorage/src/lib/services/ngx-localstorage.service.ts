@@ -7,7 +7,6 @@ import { StorageSerializer } from '../interfaces/storage-serializer';
 import { filter, fromEvent, Observable, Subscription } from 'rxjs';
 import { STORAGE, STORAGE_SUPPORT } from '../tokens/storage';
 import { WINDOW } from '../tokens/window';
-import { isSerializer, isServiceOptions, isString } from '../utils/guards';
 import { constructKey } from '../utils/key-utils';
 import { ServiceOptions } from '../interfaces/service-options';
 
@@ -99,40 +98,15 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
 
   /**
    * Adds the value with the given key or updates an existing entry.
-   * @param key Key to store.
-   * @param value Value to store.
-   * @param prefixOrSerializer Optional prefix or serializer to overwrite the configured one.
-   * @deprecated from v5 use the new signature `set<T>(key, value, options)`
-   */
-  public set<T = unknown>(key: string, value: T, prefixOrSerializer?: string | StorageSerializer): void;
-  /**
-   * Adds the value with the given key or updates an existing entry.
-   * @param key Key to store.
-   * @param value Value to store.
-   * @param prefix Optional prefix to overwrite the configured one.
-   * @param serializer Optional serializer.
-   * @deprecated from v5 use the new signature `set<T>(key, value, options)`
-   */
-  public set<T = unknown>(key: string, value: T, prefix?: string, serializer?: StorageSerializer): void;
-  /**
-   * Adds the value with the given key or updates an existing entry.
    * @param key Key identifying the wanted entry.
    * @param value Value to store.
    * @param options Options for overwriting configuration with the following properties:
    * * `prefix`: (Optional) Prefix to overwrite the configured one.
    * * `serializer`: (Optional) Serializer to overwrite the configured one.
    */
-  public set<T = unknown>(key: string, value: T, options?: ServiceOptions): void;
-  /**
-   * Adds the value with the given key or updates an existing entry.
-   * @param key Key to store.
-   * @param value Value to store.
-   * @param options Optional prefix, serializer or options to overwrite the configuration.
-   * @param serializer Optional serializer.
-   */
-  public set<T = unknown>(key: string, value: T, options?: string | StorageSerializer | ServiceOptions, serializer?: StorageSerializer): void {
+  public set<T = unknown>(key: string, value: T, options?: ServiceOptions): void {
 
-    const [prefix, storageSerializer] = this.processServiceOptions(options, serializer);
+    const [prefix, storageSerializer] = [options?.prefix, options?.serializer || this.serializer];
 
     if (
       this.config.allowNull ||
@@ -148,37 +122,15 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
   }
 
   /**
-   * Gets the entry specified by the given key or null.
-   * @param key Key identifying the wanted entry.
-   * @param prefixOrSerializer  Optional prefix or serializer to overwrite the configured one.
-   * @deprecated from v5 use the new signature `get<T>(key, options)`
-   */
-  public get<T = unknown>(key: string, prefixOrSerializer?: string | StorageSerializer): T | null | undefined;
-  /**
-   * Gets the entry specified by the given key or null.
-   * @param key Key identifying the wanted entry.
-   * @param prefix  Prefix to overwrite the configured one.
-   * @param serializer Serializer to overwrite the configured one.
-   * @deprecated from v5 use the new signature `get<T>(key, options)`
-   */
-  public get<T = unknown>(key: string, prefix: string, serializer: StorageSerializer): T | null | undefined;
-  /**
    * Gets the entry specified by the given key if existing - otherwise `null`.
    * @param key Key identifying the wanted entry.
    * @param options Options for overwriting configuration with the following properties:
    * * `prefix`: (Optional) Prefix to overwrite the configured one.
    * * `serializer`: (Optional) Serializer to overwrite the configured one.
    */
-  public get<T = unknown>(key: string, options?: ServiceOptions): T | null | undefined;
-  /**
-   * Gets the entry specified by the given key or null.
-   * @param key Key identifying the wanted entry.
-   * @param options Optional prefix, serializer or options to overwrite the configuration.
-   * @param serializer Optional serializer.
-   */
-  public get<T = unknown>(key: string, options?: string | StorageSerializer | ServiceOptions, serializer?: StorageSerializer): T | null | undefined {
+  public get<T = unknown>(key: string, options?: ServiceOptions): T | null | undefined {
 
-    const [prefix, storageSerializer] = this.processServiceOptions(options, serializer);
+    const [prefix, storageSerializer] = [options?.prefix, options?.serializer || this.serializer];
 
     try {
       const constructedKey = constructKey(key, prefix, this.config.prefix, this.config.delimiter);
@@ -222,22 +174,7 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
     this.onError.emit(error);
   }
 
-  private processServiceOptions(options?: string | StorageSerializer | ServiceOptions, serializer?: StorageSerializer): [string | undefined, StorageSerializer] {
-    let prefix: string | undefined;
-
-    if (isServiceOptions(options)) {
-      prefix = options.prefix;
-      serializer = options.serializer || this.serializer;
-    } else {
-      prefix = isString(options) ? options : undefined;
-
-      if (isSerializer(options)) {
-        serializer = options;
-      } else {
-        serializer = serializer || this.serializer;
-      }
-    }
-
-    return [prefix, serializer];
+  private processServiceOptions(options?: ServiceOptions): [string | undefined, StorageSerializer] {
+    return [options?.prefix, options?.serializer || this.serializer];
   }
 }
