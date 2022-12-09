@@ -1,4 +1,4 @@
-import { Injectable, Inject, OnDestroy, EventEmitter, inject, InjectFlags } from '@angular/core';
+import { Injectable, Inject, OnDestroy, EventEmitter, inject } from '@angular/core';
 
 import { NgxLocalstorageConfiguration } from '../interfaces/storage-configuration';
 import { NGX_LOCAL_STORAGE_CONFIG, NGX_LOCAL_STORAGE_DEFAULT_CONFIG } from '../tokens/storage-config';
@@ -30,9 +30,13 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
 
   private readonly storageSupport = inject(STORAGE_SUPPORT);
 
-  private readonly storage = inject(STORAGE, InjectFlags.Optional);
+  private readonly storage = inject(STORAGE, {
+    optional: true
+  });
 
-  private readonly window = inject(WINDOW, InjectFlags.Optional);
+  private readonly window = inject(WINDOW, {
+    optional: true
+  });
 
   /**
    * Creates a new instance.
