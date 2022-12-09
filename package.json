@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "ng": "nx",
+    "nx": "nx",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2020 browser module main",
     "start": "nx run ngx-localstorage-demo:serve:development",
     "lint": "nx run ngx-localstorage:lint",
@@ -74,4 +74,3 @@
     "typescript": "4.8.4"
   }
 }
-
