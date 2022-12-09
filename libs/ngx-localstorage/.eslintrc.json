@@ -7,12 +7,18 @@
   ],
   "overrides": [
     {
+      "parserOptions": {
+        "project": "./libs/ngx-localstorage/tsconfig.*?.json"
+      },
       "files": [
         "*.ts"
       ],
       "extends": [
         "plugin:@nrwl/nx/angular",
         "plugin:@angular-eslint/template/process-inline-templates"
+      ],
+      "plugins": [
+        "deprecation"
       ],
       "rules": {
         "@angular-eslint/directive-selector": [
@@ -30,7 +36,8 @@
             "prefix": "ngx-localstorage",
             "style": "kebab-case"
           }
-        ]
+        ],
+        "deprecation/deprecation": "error"
       }
     },
     {
