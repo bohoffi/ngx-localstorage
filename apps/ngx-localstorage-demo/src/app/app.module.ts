@@ -3,12 +3,12 @@ import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { RouterModule, Routes } from "@angular/router";
 import { MatToolbarModule } from "@angular/material/toolbar";
-import { MatButtonModule } from "@angular/material/button";
+import { MatLegacyButtonModule as MatButtonModule } from "@angular/material/legacy-button";
 import { MatDividerModule } from "@angular/material/divider";
 
 import { MarkdownModule } from "ngx-markdown";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
-import { MatCardModule } from "@angular/material/card";
+import { MatLegacyCardModule as MatCardModule } from "@angular/material/legacy-card";
 import { LocalStorageDirective, NgxLocalstorageConfiguration, NGX_LOCAL_STORAGE_CONFIG } from "ngx-localstorage";
 import { DirectiveComponent } from "./components/directive/directive.component";
 import { EventStreamComponent } from "./components/event-stream/event-stream.component";
