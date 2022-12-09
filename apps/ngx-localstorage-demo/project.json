@@ -93,5 +93,6 @@
       }
     }
   },
-  "tags": []
+  "tags": [],
+  "name": "ngx-localstorage-demo"
 }
