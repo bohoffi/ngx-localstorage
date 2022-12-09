@@ -1,18 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { LocalStorageService } from './ngx-localstorage.service';
-import { NGX_LOCAL_STORAGE_CONFIG } from '../tokens/storage-config';
+import { provideNgxLocalstorage } from '../provider/provide-ngx-localstorage';
 
 describe('LocalStorageService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        {
-          provide: NGX_LOCAL_STORAGE_CONFIG,
-          useValue: {
-            prefix: 'ngx-localstorage'
-          }
-        }
+        provideNgxLocalstorage({
+          prefix: 'ngx-localstorage'
+        })
       ]
     });
   });
