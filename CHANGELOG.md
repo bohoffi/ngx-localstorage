@@ -1,6 +1,6 @@
 <a name="4.0.0"></a>
 
-# [4.0.0](https://github.com/bohoffi/ngx-localstorage/compare/3.5.0...4.0.0) (2022-XX-XX)
+# [4.0.0](https://github.com/bohoffi/ngx-localstorage/compare/3.5.0...4.0.0) (2022-10-24)
 
 ### Features
 
