@@ -9,7 +9,8 @@ import { getPropByPath, setPropByPath } from '../utils/property-utils';
  * Provide a directive to directly interact with stored values.
  */
 @Directive({
-  selector: '[ngxLocalStorage]'
+  selector: '[ngxLocalStorage]',
+  standalone: true
 })
 export class LocalStorageDirective implements AfterViewInit, OnDestroy {
 
