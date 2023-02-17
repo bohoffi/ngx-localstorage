@@ -26,9 +26,15 @@ $demo-accent: mat.define-palette(mat.$indigo-palette, A200, A100, A400);
 $demo-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$demo-theme: mat.define-light-theme((color: (primary: $demo-primary,
-        accent: $demo-accent,
-        warn: $demo-warn )));
+$demo-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $demo-primary,
+      accent: $demo-accent,
+      warn: $demo-warn
+    )
+  )
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component

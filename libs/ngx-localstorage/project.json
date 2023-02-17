@@ -30,10 +30,7 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "libs/ngx-localstorage/**/*.ts",
-          "libs/ngx-localstorage/**/*.html"
-        ]
+        "lintFilePatterns": ["libs/ngx-localstorage/**/*.ts", "libs/ngx-localstorage/**/*.html"]
       }
     },
     "doc-gen": {

@@ -17,7 +17,6 @@ const defaultConfig = NGX_LOCAL_STORAGE_DEFAULT_CONFIG();
  */
 @Injectable({ providedIn: 'root' })
 export class LocalStorageService extends Observable<StorageEvent> implements OnDestroy {
-
   /**
    * Configuration used by the service.
    */
@@ -41,9 +40,7 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
   /**
    * Creates a new instance.
    */
-  constructor(
-    @Inject(NGX_LOCAL_STORAGE_CONFIG) _config?: NgxLocalstorageConfiguration
-  ) {
+  constructor(@Inject(NGX_LOCAL_STORAGE_CONFIG) _config?: NgxLocalstorageConfiguration) {
     super(subscriber => {
       if (!this.storageSupport) {
         subscriber.error(new Error(`Choosen storage '${this.config?.storageType}' is not available`));
@@ -52,16 +49,12 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
       if (this.window) {
         this.subscriptions.add(
           fromEvent<StorageEvent>(this.window, 'storage')
-            .pipe(
-              filter(event => !!event)
-            )
+            .pipe(filter(event => !!event))
             .subscribe(event => subscriber.next(event))
         );
       }
 
-      this.subscriptions.add(
-        this.onError.subscribe(error => subscriber.error(error))
-      );
+      this.subscriptions.add(this.onError.subscribe(error => subscriber.error(error)));
     });
 
     this.config = { ...defaultConfig, ..._config };
@@ -109,16 +102,9 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
    * * `serializer`: (Optional) Serializer to overwrite the configured one.
    */
   public set<T = unknown>(key: string, value: T, options?: ServiceOptions): void {
-
     const [prefix, storageSerializer] = [options?.prefix, options?.serializer || this.serializer];
 
-    if (
-      this.config.allowNull ||
-      (!this.config.allowNull &&
-        `${value}` !== 'null' &&
-        value !== null &&
-        value !== undefined)
-    ) {
+    if (this.config.allowNull || (!this.config.allowNull && `${value}` !== 'null' && value !== null && value !== undefined)) {
       this.storage?.setItem(constructKey(key, prefix, this.config.prefix, this.config.delimiter), storageSerializer.serialize(value));
     } else {
       this.remove(key, prefix);
@@ -133,7 +119,6 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
    * * `serializer`: (Optional) Serializer to overwrite the configured one.
    */
   public get<T = unknown>(key: string, options?: ServiceOptions): T | null | undefined {
-
     const [prefix, storageSerializer] = [options?.prefix, options?.serializer || this.serializer];
 
     try {
