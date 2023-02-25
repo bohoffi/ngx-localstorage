@@ -8,10 +8,11 @@
     "start": "nx run ngx-localstorage-demo:serve:development",
     "lint": "nx run ngx-localstorage:lint",
     "test": "nx run ngx-localstorage:test",
-    "build:lib": "nx run ngx-localstorage:build:production",
-    "build:docs": "nx run ngx-localstorage-demo:build:production --output-path docs --base-href /ngx-localstorage/ --skip-nx-cache",
+    "build:lib": "nx run ngx-localstorage:build:production && npm run copy-assets",
     "copy-assets": "copyfiles ./LICENSE ./README.md ./dist/libs/ngx-localstorage",
-    "generate:api:docs": "nx run ngx-localstorage:doc-gen"
+    "docs": "npm run docs:generate && npm run docs:build",
+    "docs:generate": "nx run ngx-localstorage:doc-gen && cp ./dist/docs/ngx-localstorage.html ./apps/ngx-localstorage-demo/src/app/components/api/api.component.html",
+    "docs:build": "nx run ngx-localstorage-demo:build:production --output-path docs --base-href /ngx-localstorage/ --skip-nx-cache"
   },
   "private": true,
   "dependencies": {
