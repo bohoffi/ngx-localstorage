@@ -1,70 +1,72 @@
 <img src="https://raw.githubusercontent.com/bohoffi/ngx-localstorage/develop/assets/logo.svg" width="150">
 
 [![npm version](https://img.shields.io/npm/v/ngx-localstorage.svg)](https://www.npmjs.com/package/ngx-localstorage)
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+
 ![PR-builder](https://github.com/bohoffi/ngx-localstorage/workflows/PR-builder/badge.svg)
-# ngx-localstorage 
+
+# ngx-localstorage
 
 An Angular wrapper for localstorage/sessionstorage access.
 
-* [Installation](#installation)
-* [Usage](#usage)
-  * [Configuration](#configuration)
-  * [Serialization](#serialization)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Configuration](#configuration)
+  - [Serialization](#serialization)
 
 Feel free to take a look at the [DEMO / API](https://bohoffi.github.io/ngx-localstorage/).
 
-<a href="https://www.buymeacoffee.com/bohoffi" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
-
 ## Installation
+
 Install via npm:
+
 ```
-npm install ngx-localstorage --save
+npm install ngx-localstorage
 ```
 
 ## Usage
 
-If you want to use the `ngxLocalStorage` directive you have to import the module.
+If you want to use the `ngxLocalStorage` directive you have to import it either in yopur module or component/directive.
 
-#### Import `NgxLocalstorageDirectiveModule`
+#### Import `LocalStorageDirective`
 
 ```ts
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {NgxLocalstorageDirectiveModule} from 'ngx-localstorage';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { LocalStorageDirective } from 'ngx-localstorage';
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        NgxLocalstorageDirectiveModule
-    ],
-    bootstrap: [AppComponent]
+  imports: [BrowserModule, LocalStorageDirective],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
 ```
 
 ### Configuration
 
-For configuration provide it using the `NGX_LOCAL_STORAGE_CONFIG` InjectionToken.
+For configuration provide it using the `NGX_LOCAL_STORAGE_CONFIG` InjectionToken or use the `provideNgxLocalstorage()` helper method (which optionally allows providing additional features as well).
 
-* __prefix__
-  * Type: `string?`
-  * Determines the key prefix.
-  * Default: __undefined__
-* __allowNull__
-  * Type: `boolean?`
-  * Determines if _null | 'null'_ values should be stored.
-  * Default: __true__
-* __storageType__
-  * Type: `StorageType?`
-  * Determines the storage type.
-  * Default:  __'localStorage'__
-* __delimiter__
-  * Type: `string?`
-  * Determines the delimiter in between prefix and key.
-  * Default: __underscore('_')__
+- **prefix**
+  - Type: `string?`
+  - Determines the key prefix.
+  - Default: **undefined**
+- **allowNull**
+  - Type: `boolean?`
+  - Determines if _null | 'null'_ values should be stored.
+  - Default: **true**
+- **storageType**
+  - Type: `StorageType?`
+  - Determines the storage type.
+  - Default: **'localStorage'**
+- **delimiter**
+  - Type: `string?`
+  - Determines the delimiter in between prefix and key.
+  - Default: **underscore('\_')**
 
 ### Serialization
 
@@ -74,7 +76,8 @@ The library utilizes the `JSON.stringify()/JSON.parse()` mechanics to pass value
 If you wish you can override that behaviour by injecting your own custom serializer (app wide) or pass one per stoage call.
 
 #### App wide serializer
-Inject your custom serializer implentation using the provided injection token:
+
+Inject your custom serializer implentation using the provided injection token or pass it to the `provideNgxLocalstorage()` helper method:
 
 ```ts
 import {BrowserModule} from '@angular/platform-browser';
@@ -97,6 +100,7 @@ export class AppModule { }
 ```
 
 ##### Per call serializer
+
 Every `set()/get()` call on `LocalstorageService` now supports to pass an optional (de)seriaizer. If none is provided the app wide (or default) one is used.
 
 ## Contributors ✨

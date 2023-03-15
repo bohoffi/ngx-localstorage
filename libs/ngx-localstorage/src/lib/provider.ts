@@ -8,13 +8,25 @@ enum FeatureKind {
   Serializer
 }
 
+/**
+ * @docs-private
+ */
 export interface NgxLocalstorageFeature<Kind extends FeatureKind> {
   kind: Kind;
   providers: Provider[];
 }
 
+/**
+ * @docs-private
+ */
 export type NgxLocalStorageFeatures = SerializerFeature;
 
+/**
+ * Provides the basic configuration and optional additional features.
+ * @param configuration configuration used by the service and directive
+ * @param features optional features; e.g. a custom serializer
+ * @returns providers used by `ngx-localstorage`
+ */
 export const provideNgxLocalstorage = (
   configuration?: NgxLocalstorageConfiguration,
   ...features: NgxLocalStorageFeatures[]
@@ -32,8 +44,14 @@ export const provideNgxLocalstorage = (
   ]);
 };
 
+/**
+ * @docs-private
+ */
 export type SerializerFeature = NgxLocalstorageFeature<FeatureKind.Serializer>;
 
+/**
+ * Provides a custom serializer.
+ */
 export const withSerializer = (serializer: Type<StorageSerializer>): SerializerFeature => ({
   kind: FeatureKind.Serializer,
   providers: [
