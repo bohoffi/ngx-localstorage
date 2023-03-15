@@ -9,10 +9,10 @@ import { getPropByPath, setPropByPath } from '../utils/property-utils';
  * Provide a directive to directly interact with stored values.
  */
 @Directive({
-  selector: '[ngxLocalStorage]'
+  selector: '[ngxLocalStorage]',
+  standalone: true
 })
 export class LocalStorageDirective implements AfterViewInit, OnDestroy {
-
   /**
    * The key to use with localstorage.
    */
@@ -76,10 +76,7 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
   /**
    * Creates a new instance.
    */
-  constructor(
-    private readonly elementRef: ElementRef,
-    private readonly storageService: LocalStorageService
-  ) { }
+  constructor(private readonly elementRef: ElementRef, private readonly storageService: LocalStorageService) {}
 
   /**
    * AfterViewInit lifecycle hook.
@@ -94,12 +91,7 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
           filter((ev: StorageEvent) => !!ev.key && ev.key.indexOf(this.key) >= 0)
         )
         .subscribe((ev: StorageEvent) => {
-          setPropByPath(
-            this.elementRef.nativeElement,
-            this.getValuePath(),
-            ev.newValue,
-            this.falsyTransformer
-          );
+          setPropByPath(this.elementRef.nativeElement, this.getValuePath(), ev.newValue, this.falsyTransformer);
         })
     );
 
@@ -131,23 +123,15 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
    */
   private hookToEvent(): void {
     if (this.forEvent) {
-
       this.subscriptions.add(
         fromEvent(this.elementRef.nativeElement, this.forEvent)
-          .pipe(
-            debounceTime(this.storageDebounce)
-          )
+          .pipe(debounceTime(this.storageDebounce))
           .subscribe(() => {
-            const propertyValue = getPropByPath(
-              this.elementRef.nativeElement,
-              this.getValuePath()
-            );
+            const propertyValue = getPropByPath(this.elementRef.nativeElement, this.getValuePath());
 
-            this.storageService.set(
-              this.key,
-              propertyValue,
-              this.prefix
-            );
+            this.storageService.set(this.key, propertyValue, {
+              prefix: this.prefix
+            });
 
             this.storedValue.emit(propertyValue);
           })
@@ -160,15 +144,12 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
    */
   private checkInitFromStorage(): void {
     if (this.initFromStorage) {
-      const storedValue = this.storageService.get(this.key, this.prefix)
+      const storedValue = this.storageService.get(this.key, {
+        prefix: this.prefix
+      });
 
       try {
-        setPropByPath(
-          this.elementRef.nativeElement,
-          this.getValuePath(),
-          storedValue,
-          this.falsyTransformer
-        );
+        setPropByPath(this.elementRef.nativeElement, this.getValuePath(), storedValue, this.falsyTransformer);
       } catch (error) {
         this.storageService.error(error);
       }

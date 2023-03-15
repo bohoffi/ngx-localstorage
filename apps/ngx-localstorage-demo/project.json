@@ -13,10 +13,7 @@
         "polyfills": "apps/ngx-localstorage-demo/src/polyfills.ts",
         "tsConfig": "apps/ngx-localstorage-demo/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": [
-          "apps/ngx-localstorage-demo/src/favicon.ico",
-          "apps/ngx-localstorage-demo/src/assets"
-        ],
+        "assets": ["apps/ngx-localstorage-demo/src/favicon.ico", "apps/ngx-localstorage-demo/src/assets"],
         "styles": [
           "apps/ngx-localstorage-demo/src/styles.scss",
           "apps/ngx-localstorage-demo/src/demo-theme.scss",
@@ -78,10 +75,7 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "apps/ngx-localstorage-demo/**/*.ts",
-          "apps/ngx-localstorage-demo/**/*.html"
-        ]
+        "lintFilePatterns": ["apps/ngx-localstorage-demo/**/*.ts", "apps/ngx-localstorage-demo/**/*.html"]
       }
     },
     "test": {
@@ -93,5 +87,6 @@
       }
     }
   },
-  "tags": []
+  "tags": [],
+  "name": "ngx-localstorage-demo"
 }

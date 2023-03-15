@@ -1,104 +1,74 @@
 import { TestBed, inject } from '@angular/core/testing';
-
 import { LocalStorageService } from './ngx-localstorage.service';
-import { NGX_LOCAL_STORAGE_CONFIG } from '../tokens/storage-config';
+import { provideNgxLocalstorage } from '../provider';
 
 describe('LocalStorageService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        {
-          provide: NGX_LOCAL_STORAGE_CONFIG,
-          useValue: {
-            prefix: 'ngx-localstorage'
-          }
-        }
+        provideNgxLocalstorage({
+          prefix: 'ngx-localstorage'
+        })
       ]
     });
   });
 
-  afterEach(inject(
-    [LocalStorageService],
-    (service: LocalStorageService) => {
+  afterEach(inject([LocalStorageService], (service: LocalStorageService) => {
+    service.clear();
+  }));
 
-      service.clear();
-    }
-  ));
+  it('should be created', inject([LocalStorageService], (service: LocalStorageService) => {
+    expect(service).toBeTruthy();
+  }));
 
-  it('should be created', inject(
-    [LocalStorageService],
-    (service: LocalStorageService) => {
-      expect(service).toBeTruthy();
-    }
-  ));
+  it('should be have injected config', inject([LocalStorageService], (service: LocalStorageService) => {
+    expect(service.config.allowNull).toBeTruthy();
+    expect(service.config.prefix).toBe('ngx-localstorage');
+  }));
 
-  it('should be have injected config', inject(
-    [LocalStorageService],
-    (service: LocalStorageService) => {
-      expect(service.config.allowNull).toBeTruthy();
-      expect(service.config.prefix).toBe('ngx-localstorage');
-    }
-  ));
+  it('should add entries', inject([LocalStorageService], (service: LocalStorageService) => {
+    let count = service.count();
+    expect(count).toBe(0);
 
-  it('should add entries', inject(
-    [LocalStorageService],
-    (service: LocalStorageService) => {
+    service.set('entry', 'value');
 
-      let count = service.count();
-      expect(count).toBe(0);
+    count = service.count();
+    expect(count).toBe(1);
+  }));
 
-      service.set('entry', 'value');
+  it('should add entries with configured prefix', inject([LocalStorageService], (service: LocalStorageService) => {
+    const prefixlessKey = 'entry';
 
-      count = service.count();
-      expect(count).toBe(1);
-    }
-  ));
+    service.set(prefixlessKey, 'value');
 
-  it('should add entries with configured prefix', inject(
-    [LocalStorageService],
-    (service: LocalStorageService) => {
+    const key = service.getKey(0);
+    expect(key).toBe(`${service.config.prefix}_${prefixlessKey}`);
+  }));
 
-      const prefixlessKey = 'entry';
+  it('should add entries with passed options', inject([LocalStorageService], (service: LocalStorageService) => {
+    const prefixlessKey = 'entry';
+    const perCallPrefix = 'per-call-prefix';
 
-      service.set(prefixlessKey, 'value');
+    service.set(prefixlessKey, 'value', {
+      prefix: perCallPrefix
+    });
 
-      const key = service.getKey(0);
-      expect(key).toBe(`${service.config.prefix}_${prefixlessKey}`)
-    }
-  ));
+    const key = service.getKey(0);
+    expect(key).toBe(`${perCallPrefix}_${prefixlessKey}`);
+  }));
 
-  it('should add entries with passed options', inject(
-    [LocalStorageService],
-    (service: LocalStorageService) => {
+  it('should remove entries', inject([LocalStorageService], (service: LocalStorageService) => {
+    let count = service.count();
+    expect(count).toBe(0);
 
-      const prefixlessKey = 'entry';
-      const perCallPrefix = 'per-call-prefix';
+    service.set('entry', 'value');
 
-      service.set(prefixlessKey, 'value', {
-        prefix: perCallPrefix
-      });
+    count = service.count();
+    expect(count).toBe(1);
 
-      const key = service.getKey(0);
-      expect(key).toBe(`${perCallPrefix}_${prefixlessKey}`)
-    }
-  ));
+    service.remove('entry');
 
-  it('should remove entries', inject(
-    [LocalStorageService],
-    (service: LocalStorageService) => {
-
-      let count = service.count();
-      expect(count).toBe(0);
-
-      service.set('entry', 'value');
-
-      count = service.count();
-      expect(count).toBe(1);
-
-      service.remove('entry');
-
-      count = service.count();
-      expect(count).toBe(0);
-    }
-  ));
+    count = service.count();
+    expect(count).toBe(0);
+  }));
 });
