@@ -1,3 +1,18 @@
+<a name="5.0.0"></a>
+
+# [5.0.0](https://github.com/bohoffi/ngx-localstorage/compare/4.0.0...5.0.0) (2023-03-15)
+
+### Features
+
+- add Angular Standalone API support ([5860a59](https://github.com/bohoffi/ngx-localstorage/commit/5860a59cd7e7a71b5e5f6c928429a172b981ccc2))
+  - add helper function for providers ([c06532c](https://github.com/bohoffi/ngx-localstorage/commit/c06532c36e90c6738a7fe0cb79b47316ecf08106))
+  - add features for provider function ([cb67459](https://github.com/bohoffi/ngx-localstorage/commit/cb674592317b331e0d78a93d5d229e9ad0997edf))
+
+### BREAKING CHANGES
+
+- remove `PromisableService` ([1217023](https://github.com/bohoffi/ngx-localstorage/commit/1217023e1d33825fefb1a5f9a18452394f10aab0))
+- remove deprecated overloads ([7b9b733](https://github.com/bohoffi/ngx-localstorage/tree/7b9b733eec3e671604b6e5857e8619222ef5fc49))
+
 <a name="4.0.0"></a>
 
 # [4.0.0](https://github.com/bohoffi/ngx-localstorage/compare/3.5.0...4.0.0) (2022-10-24)
