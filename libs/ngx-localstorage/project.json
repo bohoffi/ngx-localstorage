@@ -9,8 +9,7 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/ngx-localstorage"],
       "options": {
-        "project": "libs/ngx-localstorage/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/ngx-localstorage/ng-package.json"
       },
       "configurations": {
         "production": {
