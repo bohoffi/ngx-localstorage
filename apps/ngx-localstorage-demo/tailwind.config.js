@@ -1,17 +1,14 @@
-const { createGlobPatternsForDependencies } = require("@nrwl/angular/tailwind");
-const { join } = require("path");
+const { createGlobPatternsForDependencies } = require('@nx/angular/tailwind');
+const { join } = require('path');
 
 module.exports = {
   corePlugins: {
-    preflight: false,
+    preflight: false
   },
-  content: [
-    join(__dirname, "src/**/!(*.stories|*.spec).{ts,html}"),
-    ...createGlobPatternsForDependencies(__dirname),
-  ],
+  content: [join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html}'), ...createGlobPatternsForDependencies(__dirname)],
   darkMode: 'media',
   theme: {
-    extend: {},
+    extend: {}
   },
-  plugins: [],
+  plugins: []
 };
