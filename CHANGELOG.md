@@ -1,3 +1,11 @@
+<a name="5.1.0"></a>
+
+# [5.1.0](https://github.com/bohoffi/ngx-localstorage/compare/5.0.0...5.1.0) (2023-10-29)
+
+### Features
+
+- update Angular version compatibility - thanks [Boris-Bodin](https://github.com/Boris-Bodin) ([#59](https://github.com/bohoffi/ngx-localstorage/pull/59))
+
 <a name="5.0.0"></a>
 
 # [5.0.0](https://github.com/bohoffi/ngx-localstorage/compare/4.0.0...5.0.0) (2023-03-15)
