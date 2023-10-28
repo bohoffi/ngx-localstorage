@@ -31,7 +31,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "lintFilePatterns": ["libs/ngx-localstorage/**/*.ts", "libs/ngx-localstorage/**/*.html"]
       }
