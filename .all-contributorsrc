@@ -89,6 +89,15 @@
         "design",
         "doc"
       ]
+    },
+    {
+      "login": "Boris-Bodin",
+      "name": "Boris-Bodin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/126199492?v=4",
+      "profile": "https://github.com/Boris-Bodin",
+      "contributions": [
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7
