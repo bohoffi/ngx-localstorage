@@ -29,7 +29,7 @@ npm install ngx-localstorage
 
 ## Usage
 
-If you want to use the `ngxLocalStorage` directive you have to import it either in yopur module or component/directive.
+If you want to use the `ngxLocalStorage` directive you have to import it either in your module or component/directive.
 
 #### Import `LocalStorageDirective`
 
