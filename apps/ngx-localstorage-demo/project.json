@@ -84,8 +84,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/ngx-localstorage-demo"],
       "options": {
-        "jestConfig": "apps/ngx-localstorage-demo/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/ngx-localstorage-demo/jest.config.ts"
       }
     }
   },
