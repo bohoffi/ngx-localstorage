@@ -29,7 +29,7 @@
     "marked": "^9.0.0",
     "ngx-markdown": "^17.0.0",
     "rxjs": "7.8.1",
-    "tslib": "^2.4.0",
+    "tslib": "^2.3.0",
     "zone.js": "0.14.4"
   },
   "devDependencies": {
@@ -77,5 +77,9 @@
     "ts-node": "10.9.1",
     "typescript": "5.3.3",
     "@nx/eslint": "18.0.5"
+  },
+  "overrides": {
+    "tslib": "$tslib",
+    "typescript": "$typescript"
   }
 }
