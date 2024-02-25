@@ -25,15 +25,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/ngx-localstorage"],
       "options": {
-        "jestConfig": "libs/ngx-localstorage/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/ngx-localstorage/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": ["libs/ngx-localstorage/**/*.ts", "libs/ngx-localstorage/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "doc-gen": {
       "executor": "ngx-doc-gen:generate",
