@@ -29,7 +29,7 @@
     "marked": "^9.0.0",
     "ngx-markdown": "^17.0.0",
     "rxjs": "7.8.1",
-    "tslib": "^2.3.0",
+    "tslib": "^2.4.0",
     "zone.js": "0.14.4"
   },
   "devDependencies": {
@@ -65,7 +65,7 @@
     "jest-environment-jsdom": "29.5.0",
     "jest-preset-angular": "13.1.6",
     "ng-packagr": "17.1.2",
-    "ngx-doc-gen": "^2.1.1",
+    "ngx-doc-gen": "^2.0.0",
     "nx": "18.0.5",
     "postcss": "^8.4.5",
     "postcss-import": "~14.1.0",
