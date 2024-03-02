@@ -26,5 +26,11 @@
 
     <label for="txt1">Text</label>
     <input type="text" id="txt1" ngxLocalStorage prefix="demo" initFromStorage forEvent="input" [valuePath]="['value']" />
+
+    <br />
+    <br />
+
+    <label for="txt2">formControl</label>
+    <input type="text" id="txt2" ngxLocalStorage prefix="demo" initFromStorage [formControl]="control" />
   </mat-card-content>
 </mat-card>

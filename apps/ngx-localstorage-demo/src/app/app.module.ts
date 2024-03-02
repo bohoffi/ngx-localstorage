@@ -17,6 +17,7 @@ import { AppComponent } from './components/app/app.component';
 import { RootComponent } from './components/root/root.component';
 import { ApiComponent } from './components/api/api.component';
 import { DemoContentComponent } from './components/demo-content/demo-content.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const ROUTES: Routes = [
   {
@@ -64,6 +65,7 @@ const ngxLocalstorageConfiguration: NgxLocalstorageConfiguration = {
     BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(ROUTES),
 
     MatButtonModule,
