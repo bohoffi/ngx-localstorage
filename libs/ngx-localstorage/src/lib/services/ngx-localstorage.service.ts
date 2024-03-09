@@ -3,7 +3,6 @@ import { Injectable, Inject, OnDestroy, EventEmitter, inject } from '@angular/co
 import { NgxLocalstorageConfiguration } from '../interfaces/storage-configuration';
 import { NGX_LOCAL_STORAGE_CONFIG, NGX_LOCAL_STORAGE_DEFAULT_CONFIG } from '../tokens/storage-config';
 import { NGX_LOCAL_STORAGE_SERIALIZER } from '../tokens/storage-serializer';
-import { StorageSerializer } from '../interfaces/storage-serializer';
 import { filter, fromEvent, Observable, Subscription } from 'rxjs';
 import { STORAGE, STORAGE_SUPPORT } from '../tokens/storage';
 import { WINDOW } from '../tokens/window';
@@ -118,7 +117,7 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
    * * `prefix`: (Optional) Prefix to overwrite the configured one.
    * * `serializer`: (Optional) Serializer to overwrite the configured one.
    */
-  public get<T = unknown>(key: string, options?: ServiceOptions): T | null | undefined {
+  public get<T = unknown>(key: string, options?: ServiceOptions): T | null {
     const [prefix, storageSerializer] = [options?.prefix, options?.serializer || this.serializer];
 
     try {
@@ -145,7 +144,7 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
   }
 
   /**
-   * Clears all entries of the applications local storage.
+   * Clears all entries of the storage.
    */
   public clear(): void {
     try {
@@ -161,9 +160,5 @@ export class LocalStorageService extends Observable<StorageEvent> implements OnD
    */
   public error(error: string | Error | unknown): void {
     this.onError.emit(error);
-  }
-
-  private processServiceOptions(options?: ServiceOptions): [string | undefined, StorageSerializer] {
-    return [options?.prefix, options?.serializer || this.serializer];
   }
 }

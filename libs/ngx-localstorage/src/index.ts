@@ -1,7 +1,7 @@
 /*
  * Public API Surface of ngx-localstorage
  */
-export { LocalStorageDirective } from './lib/directives/ngx-localstorage.directive';
+export { LocalStorageDirective, ControlValueAccessorDirective, NativeValueAccessorDirective } from './lib/directives';
 // services
 export { LocalStorageService } from './lib/services/ngx-localstorage.service';
 // interfaces
