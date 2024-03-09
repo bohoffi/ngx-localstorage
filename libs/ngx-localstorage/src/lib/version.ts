@@ -10,3 +10,5 @@ export class Version {
     this.patch = patch;
   }
 }
+
+export const VERSION = new Version('5.1.0');

@@ -13,3 +13,4 @@ export { NgxLocalStorageFeatures, NgxLocalstorageFeature, provideNgxLocalstorage
 export { NGX_LOCAL_STORAGE_CONFIG } from './lib/tokens/storage-config';
 export { STORAGE_SUPPORT } from './lib/tokens/storage';
 export { NGX_LOCAL_STORAGE_SERIALIZER } from './lib/tokens/storage-serializer';
+export { VERSION } from './lib/version';
