@@ -1,0 +1,27 @@
+<div [formGroup]="formGroup">
+  <div>
+    <p>Binding a Checkbox</p>
+    <label for="demo-checkbox">Checkbox</label>
+    <input
+      type="checkbox"
+      id="demo-checkbox"
+      ngxLocalStorage="control-checkbox"
+      initFromStorage
+      prefix="demo"
+      [falsyTransformer]="defaultFalsyTransformer"
+      [formControl]="formGroup.controls.checkbox"
+    />
+  </div>
+  <div>
+    <p>Binding a text Input</p>
+    <label for="demo-text-input">Text</label>
+    <input
+      type="text"
+      id="demo-text-input"
+      ngxLocalStorage="control-text-input"
+      initFromStorage
+      prefix="demo"
+      [formControl]="formGroup.controls.text"
+    />
+  </div>
+</div>

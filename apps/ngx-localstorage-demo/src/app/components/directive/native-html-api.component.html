@@ -1,0 +1,27 @@
+<div>
+  <p>Binding a Checkbox</p>
+  <label for="demo-checkbox">Checkbox</label>
+  <input
+    type="checkbox"
+    id="demo-checkbox"
+    ngxLocalStorage="native-checkbox"
+    initFromStorage
+    prefix="demo"
+    forEvent="change"
+    valuePath="checked"
+    [falsyTransformer]="defaultFalsyTransformer"
+  />
+</div>
+<div>
+  <p>Binding a text Input</p>
+  <label for="demo-text-input">Text</label>
+  <input
+    type="text"
+    id="demo-text-input"
+    ngxLocalStorage="native-text-input"
+    initFromStorage
+    prefix="demo"
+    forEvent="input"
+    valuePath="value"
+  />
+</div>

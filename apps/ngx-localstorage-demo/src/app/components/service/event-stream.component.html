@@ -1,0 +1,12 @@
+<div class="event-list-container">
+  <p>Try modifying the controls from the Directive demo in another browser tab.</p>
+  @for (event of events | async; track $index) {
+  <pre>
+    <code>
+            Key: {{ event.key | json }}
+            NewValue {{ event.newValue | json }}
+            OldValue {{ event.oldValue | json }}
+        </code>
+    </pre>
+  }
+</div>

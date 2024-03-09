@@ -1,105 +1,25 @@
-<img src="https://raw.githubusercontent.com/bohoffi/ngx-localstorage/develop/assets/logo.svg" width="150">
+<div align=center>
+  <img src="https://raw.githubusercontent.com/bohoffi/ngx-localstorage/develop/assets/logo.svg" width="150">
+  <h1>ngx-localstorage</h1>
 
-[![npm version](https://img.shields.io/npm/v/ngx-localstorage.svg)](https://www.npmjs.com/package/ngx-localstorage)
+  <p align=center>
+    An Angular wrapper for localstorage/sessionstorage access
+    <br />
+    [![NPM][npm-shield]][npm-url]
+    [![License][license-shield]][license-url]
+    [![Release Workflow Status][build-shield]][build-url]
+  </p>
+</div>
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-![PR-builder](https://github.com/bohoffi/ngx-localstorage/workflows/PR-builder/badge.svg)
+## Installation / Usage
 
-# ngx-localstorage
-
-An Angular wrapper for localstorage/sessionstorage access.
-
-- [Installation](#installation)
-- [Usage](#usage)
-  - [Configuration](#configuration)
-  - [Serialization](#serialization)
-
-Feel free to take a look at the [DEMO / API](https://bohoffi.github.io/ngx-localstorage/).
-
-## Installation
-
-Install via npm:
-
-```
-npm install ngx-localstorage
-```
-
-## Usage
-
-If you want to use the `ngxLocalStorage` directive you have to import it either in your module or component/directive.
-
-#### Import `LocalStorageDirective`
-
-```ts
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { LocalStorageDirective } from 'ngx-localstorage';
-
-@NgModule({
-  imports: [BrowserModule, LocalStorageDirective],
-  bootstrap: [AppComponent]
-})
-export class AppModule {}
-```
-
-### Configuration
-
-For configuration provide it using the `NGX_LOCAL_STORAGE_CONFIG` InjectionToken or use the `provideNgxLocalstorage()` helper method (which optionally allows providing additional features as well).
-
-- **prefix**
-  - Type: `string?`
-  - Determines the key prefix.
-  - Default: **undefined**
-- **allowNull**
-  - Type: `boolean?`
-  - Determines if _null | 'null'_ values should be stored.
-  - Default: **true**
-- **storageType**
-  - Type: `StorageType?`
-  - Determines the storage type.
-  - Default: **'localStorage'**
-- **delimiter**
-  - Type: `string?`
-  - Determines the delimiter in between prefix and key.
-  - Default: **underscore('\_')**
-
-### Serialization
-
-#### Default serialization
-
-The library utilizes the `JSON.stringify()/JSON.parse()` mechanics to pass values (of any type) to and from localstorage per default.
-If you wish you can override that behaviour by injecting your own custom serializer (app wide) or pass one per stoage call.
-
-#### App wide serializer
-
-Inject your custom serializer implentation using the provided injection token or pass it to the `provideNgxLocalstorage()` helper method:
-
-```ts
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {NGX_LOCAL_STORAGE_SERIALIZER} from 'ngx-localstorage';
-
-@NgModule({
-    imports: [
-        BrowserModule
-    ],
-    bootstrap: [AppComponent],
-    providers: [
-      {
-        provide: NGX_LOCAL_STORAGE_SERIALIZER,
-        useClass: <custom serializer implementing StorageSerializer>
-      }
-    ]
-})
-export class AppModule { }
-```
-
-##### Per call serializer
-
-Every `set()/get()` call on `LocalstorageService` now supports to pass an optional (de)seriaizer. If none is provided the app wide (or default) one is used.
+All information about installation and usage can be found in our [documentation](https://bohoffi.github.io/ngx-localstorage/)
 
 ## Contributors ✨
 
@@ -132,3 +52,10 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+[npm-shield]: https://img.shields.io/npm/v/ngx-localstorage?style=for-the-badge
+[npm-url]: https://www.npmjs.com/package/ngx-localstorage
+[license-shield]: https://img.shields.io/github/license/bohoffi/ngx-localstorage?style=for-the-badge
+[license-url]: https://github.com/bohoffi/ngx-localstorage/blob/main/LICENSE
+[build-shield]: https://img.shields.io/github/actions/workflow/status/bohoffi/ngx-localstorage/RELEASE_github-pages.yml?style=for-the-badge
+[build-url]: https://github.com/bohoffi/ngx-localstorage/actions/workflows/RELEASE_github-pages.yml

@@ -1,28 +1,28 @@
-<div class="h-full flex flex-col">
+<ng-doc-root [footerContent]="footerContent">
+  <ng-doc-navbar [leftContent]="navLeftContent" [rightContent]="navRightContent" [glassEffect]="true" [search]="true" />
+  <ng-doc-sidebar />
+  <router-outlet></router-outlet>
+</ng-doc-root>
 
-  <mat-toolbar color="primary" class="flex flex-row gap-4">
-
-    <a [routerLink]="['']" class="no-underline text-white" title="Back to main view">
-      ngx-localstorage
+<ng-template #navLeftContent>
+  <div class="doc-navbar-left">
+    <a routerLink="/">
+      <h3>
+        <img src="https://raw.githubusercontent.com/bohoffi/ngx-localstorage/develop/assets/logo.svg" />
+        <span> ng-localstorage </span>
+      </h3>
     </a>
+  </div>
+</ng-template>
 
-    <a mat-button [routerLink]="['api']" title="Display the API docs for ngx-localstorage">
-      API
-    </a>
-
-    <span class="flex-grow"></span>
-
-    <a href="https://github.com/bohoffi/ngx-localstorage" title="ngx-localstorage on Github" target="_blank"
-      class="text-white text-2xl">
+<ng-template #navRightContent>
+  <div class="doc-navbar-right">
+    <a href="https://github.com/bohoffi/ngx-localstorage" title="ngx-localstorage on Github" target="_blank">
       <i class="fa-brands fa-github"></i>
     </a>
-
-  </mat-toolbar>
-
-  <div class="p-4">
-
-    <router-outlet></router-outlet>
-
   </div>
+</ng-template>
 
-</div>
+<ng-template #footerContent>
+  <div class="doc-footer">Library version: {{ libVersion.fullVersion }}</div>
+</ng-template>
