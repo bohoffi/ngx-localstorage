@@ -4,10 +4,10 @@
 
   <p align=center>
     An Angular wrapper for localstorage/sessionstorage access
-    <br />
-    [![NPM][npm-shield]][npm-url]
-    [![License][license-shield]][license-url]
-    [![Release Workflow Status][build-shield]][build-url]
+    
+[![NPM][npm-shield]][npm-url]
+[![License][license-shield]][license-url]
+[![Release Workflow Status][build-shield]][build-url]
   </p>
 </div>
 
