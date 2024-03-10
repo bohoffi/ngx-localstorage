@@ -30,13 +30,6 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint"
-    },
-    "doc-gen": {
-      "executor": "ngx-doc-gen:generate",
-      "options": {
-        "excludeBase": ["Observable"],
-        "outputPath": "./dist/docs"
-      }
     }
   },
   "tags": []
