@@ -5,8 +5,8 @@
   "scripts": {
     "nx": "nx",
     "start": "nx run ngx-localstorage-demo:serve:development",
-    "lint": "nx run ngx-localstorage:lint",
-    "test": "nx run ngx-localstorage:test",
+    "lint": "nx run-many --target=lint",
+    "test": "nx run-many --target=test",
     "build:lib": "nx run ngx-localstorage:build:production && npm run copy-assets",
     "copy-assets": "copyfiles ./LICENSE ./README.md ./dist/libs/ngx-localstorage",
     "docs": "nx run ngx-localstorage-demo:build:production --output-path docs --base-href /ngx-localstorage/ --skip-nx-cache",
