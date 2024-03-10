@@ -7,4 +7,4 @@ export const constructKey = (key: string, prefix?: string, configuredPrefix?: st
     return `${prefixToUse}${delimiter || ''}${key}`;
   }
   return key;
-}
+};

@@ -6,19 +6,37 @@
   "prefix": "ngx-localstorage",
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@ng-doc/builder:application",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/ngx-localstorage-demo",
         "index": "apps/ngx-localstorage-demo/src/index.html",
-        "main": "apps/ngx-localstorage-demo/src/main.ts",
-        "polyfills": "apps/ngx-localstorage-demo/src/polyfills.ts",
+        "browser": "apps/ngx-localstorage-demo/src/main.ts",
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/ngx-localstorage-demo/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/ngx-localstorage-demo/src/favicon.ico", "apps/ngx-localstorage-demo/src/assets"],
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "node_modules/@ng-doc/app/assets",
+            "output": "assets/ng-doc/app"
+          },
+          {
+            "glob": "**/*",
+            "input": "node_modules/@ng-doc/ui-kit/assets",
+            "output": "assets/ng-doc/ui-kit"
+          },
+          {
+            "glob": "**/*",
+            "input": "ng-doc/ngx-localstorage-demo/assets",
+            "output": "assets/ng-doc"
+          },
+          "apps/ngx-localstorage-demo/src/favicon.ico",
+          "apps/ngx-localstorage-demo/src/assets"
+        ],
         "styles": [
+          "node_modules/@ng-doc/app/styles/global.css",
           "apps/ngx-localstorage-demo/src/styles.scss",
-          "apps/ngx-localstorage-demo/src/demo-theme.scss",
           "node_modules/prismjs/themes/prism-tomorrow.min.css",
           "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
           "node_modules/@fortawesome/fontawesome-free/scss/brands.scss"
@@ -27,15 +45,16 @@
           "node_modules/marked/marked.min.js",
           "node_modules/prismjs/prism.js",
           "node_modules/prismjs/components/prism-typescript.min.js"
-        ]
+        ],
+        "allowedCommonJsDependencies": ["@ng-doc/core"]
       },
       "configurations": {
         "production": {
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumWarning": "1.2mb",
+              "maximumError": "1.5mb"
             },
             {
               "type": "anyComponentStyle",
@@ -52,9 +71,7 @@
           "outputHashing": "all"
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
@@ -63,7 +80,7 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@ng-doc/builder:dev-server",
       "configurations": {
         "production": {
           "buildTarget": "ngx-localstorage-demo:build:production"
@@ -73,16 +90,6 @@
         }
       },
       "defaultConfiguration": "development"
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/apps/ngx-localstorage-demo"],
-      "options": {
-        "jestConfig": "apps/ngx-localstorage-demo/jest.config.ts"
-      }
     }
   },
   "tags": []

@@ -1,0 +1,36 @@
+.doc-navbar-left {
+  a {
+    color: whitesmoke;
+    text-decoration: none;
+
+    h3 {
+      margin: 0;
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 2rem;
+        aspect-ratio: 1/1;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}
+
+.doc-navbar-right {
+  a {
+    color: whitesmoke;
+    text-decoration: none;
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}
+
+.doc-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--ng-doc-base-gutter) * 3);
+  color: var(--ng-doc-text-muted);
+  font-size: 12px;
+}

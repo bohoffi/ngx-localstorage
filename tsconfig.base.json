@@ -15,6 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@ng-doc/generated": ["./ng-doc/ngx-localstorage-demo/index.ts"],
+      "@ng-doc/generated/*": ["./ng-doc/ngx-localstorage-demo/*"],
       "ngx-localstorage": ["libs/ngx-localstorage/src/index.ts"]
     }
   },

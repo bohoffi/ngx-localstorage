@@ -29,13 +29,10 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint"
-    },
-    "doc-gen": {
-      "executor": "ngx-doc-gen:generate",
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "excludeBase": ["Observable"],
-        "outputPath": "./dist/docs"
+        "lintFilePatterns": ["libs/ngx-localstorage/**/*.{ts,tsx,js,jsx}", "libs/ngx-localstorage/package.json"]
       }
     }
   },

@@ -1,48 +1,45 @@
-import { AfterViewInit, Directive, ElementRef, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
-import { fromEvent, Subscription } from 'rxjs';
-import { debounceTime, filter } from 'rxjs/operators';
-
+import { AfterViewInit, DestroyRef, Directive, ElementRef, EventEmitter, Input, Output, booleanAttribute, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { filter } from 'rxjs/operators';
 import { LocalStorageService } from '../services/ngx-localstorage.service';
-import { getPropByPath, setPropByPath } from '../utils/property-utils';
+import { ControlValueAccessorDirective } from './control-value-accessor.directive';
+import { NativeValueAccessorDirective } from './native-value-accessor.directive';
+import { injectAccessor } from '../interfaces/value-accessor';
 
 /**
  * Provide a directive to directly interact with stored values.
  */
 @Directive({
   selector: '[ngxLocalStorage]',
-  standalone: true
+  standalone: true,
+  hostDirectives: [
+    ControlValueAccessorDirective,
+    {
+      directive: NativeValueAccessorDirective,
+      inputs: ['forEvent', 'valuePath', 'storageDebounce']
+    }
+  ]
 })
-export class LocalStorageDirective implements AfterViewInit, OnDestroy {
+export class LocalStorageDirective implements AfterViewInit {
   /**
    * The key to use with localstorage.
    */
   @Input('ngxLocalStorage')
   public key = '';
+
   /**
    * The keys prefix to use.
    */
   @Input()
   public prefix?: string;
-  /**
-   * The event to hook onto value changes.
-   */
-  @Input()
-  public forEvent?: string;
-  /**
-   * An optional debounce for storage write access after value changes.
-   */
-  @Input()
-  public storageDebounce = 0;
+
   /**
    * Flag if the bound elements value should be initialized from storage.
    */
-  @Input()
-  public set initFromStorage(value: string | boolean | null | undefined) {
-    this._initFromStorage = value != null && `${value}` !== 'false';
-  }
-  public get initFromStorage(): boolean {
-    return this._initFromStorage;
-  }
+  @Input({
+    transform: booleanAttribute
+  })
+  public initFromStorage = false;
 
   /**
    * An optional transformer to handle falsy values.
@@ -51,63 +48,49 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
   public falsyTransformer?: () => unknown;
 
   /**
-   * Provides a path to access the bound elements value property.
-   */
-  @Input()
-  public set valuePath(path: string | string[]) {
-    if (path != null) {
-      this._valuePath = Array.isArray(path) ? path : path.split(',');
-    } else {
-      this._valuePath = [];
-    }
-  }
-
-  /**
    * Event which gets fired when a bound value got stored.
    */
   @Output()
   public storedValue = new EventEmitter<unknown>();
 
-  private readonly subscriptions = new Subscription();
-  private _valuePath: string[] = [];
+  private readonly destroyRef = inject(DestroyRef);
 
-  private _initFromStorage = false;
-
-  /**
-   * Creates a new instance.
-   */
-  constructor(private readonly elementRef: ElementRef, private readonly storageService: LocalStorageService) {}
+  private readonly accessor = injectAccessor();
+  private readonly elementRef = inject(ElementRef);
+  private readonly storageService = inject(LocalStorageService);
 
   /**
-   * AfterViewInit lifecycle hook.
+   * Sets up:
+   * * the key to use
+   * * storage observer
+   * * initalization from storage
+   * * value change observer
    */
   public ngAfterViewInit(): void {
     this.initKey();
 
-    this.subscriptions.add(
-      this.storageService
-        .pipe(
-          // TODO: filter should be more accurate
-          filter((ev: StorageEvent) => !!ev.key && ev.key.indexOf(this.key) >= 0)
-        )
-        .subscribe((ev: StorageEvent) => {
-          setPropByPath(this.elementRef.nativeElement, this.getValuePath(), ev.newValue, this.falsyTransformer);
-        })
-    );
+    this.storageService
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        // TODO: filter should be more accurate
+        filter((ev: StorageEvent) => !!ev.key && ev.key.indexOf(this.key) >= 0)
+      )
+      .subscribe((ev: StorageEvent) => {
+        this.accessor.writeValue(ev.newValue, this.falsyTransformer);
+      });
 
     this.checkInitFromStorage();
-    this.hookToEvent();
+    this.accessor.valueChange.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(value => {
+      this.storageService.set(this.key, value, {
+        prefix: this.prefix
+      });
+
+      this.storedValue.emit(value);
+    });
   }
 
   /**
-   * Unsubscribe from event observable.
-   */
-  public ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
-  /**
-   * Initalizes the from either the given value or the elements id or name property.
+   * Initalizes the key from either the given value or the elements id or name property.
    */
   private initKey(): void {
     if (!this.key) {
@@ -115,27 +98,6 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
         this.storageService.error(new Error('No key or element id or name supplied!'));
       }
       this.key = this.elementRef.nativeElement.id || this.elementRef.nativeElement.name;
-    }
-  }
-
-  /**
-   * Hooks onto the elements given event to perform storage write on value changes.
-   */
-  private hookToEvent(): void {
-    if (this.forEvent) {
-      this.subscriptions.add(
-        fromEvent(this.elementRef.nativeElement, this.forEvent)
-          .pipe(debounceTime(this.storageDebounce))
-          .subscribe(() => {
-            const propertyValue = getPropByPath(this.elementRef.nativeElement, this.getValuePath());
-
-            this.storageService.set(this.key, propertyValue, {
-              prefix: this.prefix
-            });
-
-            this.storedValue.emit(propertyValue);
-          })
-      );
     }
   }
 
@@ -149,14 +111,10 @@ export class LocalStorageDirective implements AfterViewInit, OnDestroy {
       });
 
       try {
-        setPropByPath(this.elementRef.nativeElement, this.getValuePath(), storedValue, this.falsyTransformer);
+        this.accessor.writeValue(storedValue, this.falsyTransformer);
       } catch (error) {
         this.storageService.error(error);
       }
     }
-  }
-
-  private getValuePath(): string[] {
-    return this._valuePath.length ? this._valuePath : ['value'];
   }
 }
