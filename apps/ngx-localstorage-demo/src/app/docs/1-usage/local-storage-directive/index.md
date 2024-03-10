@@ -28,8 +28,8 @@ The directive fully supports the native HTML API for binding values.
 
 {{ NgDocActions.demoPane("NativeHtmlApiComponent") }}
 
-## Access using `FormControl` API
+## Access using `ReactiveForms` API
 
-Besides the native binding it supports binding using the `FormControl` API as well which reduces boilerplate code.
+Besides the native binding it supports binding using the `ReactiveForms` API as well which reduces boilerplate code.
 
-{{ NgDocActions.demoPane("FormControlApiComponent") }}
+{{ NgDocActions.demoPane("ReactiveFormsApiComponent") }}

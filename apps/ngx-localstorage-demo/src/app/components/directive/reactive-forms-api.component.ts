@@ -5,9 +5,9 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 @Component({
   standalone: true,
   imports: [LocalStorageDirective, ReactiveFormsModule],
-  templateUrl: './form-control-api.component.html'
+  templateUrl: './reactive-forms-api.component.html'
 })
-export class FormControlApiComponent {
+export class ReactiveFormsApiComponent {
   protected readonly formGroup = new FormGroup({
     checkbox: new FormControl<boolean>(false),
     text: new FormControl<string>('')
