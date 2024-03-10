@@ -1,7 +1,7 @@
 {
   "name": "ngx-localstorage",
   "version": "0.0.0",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "scripts": {
     "nx": "nx",
     "start": "nx run ngx-localstorage-demo:serve:development",

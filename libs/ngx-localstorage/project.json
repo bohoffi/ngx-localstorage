@@ -29,7 +29,11 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint"
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/ngx-localstorage/**/*.{ts,tsx,js,jsx}", "libs/ngx-localstorage/package.json"]
+      }
     }
   },
   "tags": []
