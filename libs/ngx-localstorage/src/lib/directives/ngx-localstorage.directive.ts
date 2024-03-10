@@ -56,14 +56,15 @@ export class LocalStorageDirective implements AfterViewInit {
   private readonly destroyRef = inject(DestroyRef);
 
   private readonly accessor = injectAccessor();
+  private readonly elementRef = inject(ElementRef);
+  private readonly storageService = inject(LocalStorageService);
 
   /**
-   * Creates a new instance.
-   */
-  constructor(private readonly elementRef: ElementRef, private readonly storageService: LocalStorageService) {}
-
-  /**
-   * AfterViewInit lifecycle hook.
+   * Sets up:
+   * * the key to use
+   * * storage observer
+   * * initalization from storage
+   * * value change observer
    */
   public ngAfterViewInit(): void {
     this.initKey();
@@ -89,7 +90,7 @@ export class LocalStorageDirective implements AfterViewInit {
   }
 
   /**
-   * Initalizes the from either the given value or the elements id or name property.
+   * Initalizes the key from either the given value or the elements id or name property.
    */
   private initKey(): void {
     if (!this.key) {
