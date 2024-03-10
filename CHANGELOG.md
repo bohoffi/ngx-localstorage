@@ -1,3 +1,20 @@
+<a name="6.0.0"></a>
+
+# [6.0.0](https://github.com/bohoffi/ngx-localstorage/compare/5.1.0...6.0.0) (2024-03-10)
+
+### 🚀 Features
+
+- add support for `formControl` ([68406fc](https://github.com/bohoffi/ngx-localstorage/commit/68406fc))
+- expose library version token ([8040c85](https://github.com/bohoffi/ngx-localstorage/commit/8040c85))
+
+### BREAKING CHANGES
+
+- update to Angular 17 ([3942bee](https://github.com/bohoffi/ngx-localstorage/commit/3942bee))
+
+### ❤️ Thank You
+
+- bohoffi @bohoffi
+
 <a name="5.1.0"></a>
 
 # [5.1.0](https://github.com/bohoffi/ngx-localstorage/compare/5.0.0...5.1.0) (2023-10-29)
